@@ -19,8 +19,8 @@ COPY src/ src/
 COPY packages/ packages/
 COPY bin/ bin/
 
-# Build backend only
-RUN npm run build:backend
+# Build SDK + backend (skip web UI to save build time/memory)
+RUN npm run build:sdk && npm run build:backend
 
 # ---- Runtime stage ----
 FROM node:22-slim
