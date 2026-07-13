@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Loop - Teleton Agent Documentation</title>
+    <meta name="description" content="How Teleton Agent processes messages: from Telegram event to LLM tool loop to response dispatch.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="agentic-loop">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link active">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            
+
+            <h1>Agentic Loop</h1>
+            <p class="lead">A complete trace of how a Telegram message travels from the MTProto/Bot API event through the handler pipeline into the LLM tool loop and back out as a Telegram reply.</p>
+
+            <section class="section" id="pipeline-overview">
+                <h2>Pipeline Overview</h2>
+                <p>A message travels through the following stages in order:</p>
+                <ol>
+                    <li><strong>Telegram event received</strong> via MTProto or Bot API</li>
+                    <li><strong><code>ITelegramBridge.onNewMessage()</code></strong> delivers the event to the handler</li>
+                    <li><strong><code>MessageHandler.handleMessage()</code></strong> runs pre-processing:
+                        <ol type="a">
+                            <li>Dedup check (in-memory Set plus offset store)</li>
+                            <li>Store to SQLite feed (<code>tg_messages</code>, <code>tg_chats</code>, <code>tg_users</code>)</li>
+                            <li>Fire plugin <code>onMessage</code> hooks (fire-and-forget)</li>
+                            <li><code>analyzeMessage()</code> policy gate</li>
+                            <li>Rate limiter check</li>
+                            <li><code>ChatQueue.enqueue()</code> to serialize per chat</li>
+                        </ol>
+                    </li>
+                    <li><strong>Inside the queue</strong> (typing simulation starts):
+                        <ol type="a">
+                            <li>Collect pending group history</li>
+                            <li>Resolve reply context</li>
+                            <li>Auto-transcribe voice/audio</li>
+                        </ol>
+                    </li>
+                    <li><strong><code>AgentRuntime.processMessage()</code></strong> drives the LLM turn:
+                        <ol type="a">
+                            <li>User keyword hooks (block or inject context)</li>
+                            <li>Plugin <code>message:receive</code> hook (block, mutate text, or inject context)</li>
+                            <li>Session load or create</li>
+                            <li>Session reset check (daily policy)</li>
+                            <li>Compute query embedding (concurrent)</li>
+                            <li><code>ContextBuilder.buildContext()</code> - hybrid RAG (concurrent)</li>
+                            <li>Plugin <code>prompt:before</code> hook (concurrent)</li>
+                            <li><code>buildSystemPrompt()</code> - assemble full system prompt</li>
+                            <li>Tool selection (Tool RAG or full list)</li>
+                            <li>LLM call and tool loop</li>
+                            <li>Append to transcript, update session</li>
+                        </ol>
+                    </li>
+                    <li><strong>Response dispatch</strong> (<code>MessageHandler</code>):
+                        <ol type="a">
+                            <li>Silent reply (<code>__SILENT__</code>): suppress, nothing sent</li>
+                            <li>Streamed response: already sent token by token, no further action</li>
+                            <li>Telegram send tool called: store to feed only</li>
+                            <li>Plain text, no send tool: call <code>bridge.sendMessage()</code> and store to feed</li>
+                        </ol>
+                    </li>
+                </ol>
+            </section>
+
+            <section class="section" id="phase-handler">
+                <h2>Phase 1: Message Handler</h2>
+
+                <h3>Deduplication</h3>
+                <p>The handler maintains a bounded in-memory <code>Set&lt;string&gt;</code> of <code>"chatId:messageId"</code> keys (max 500 entries, oldest half evicted when full). GramJS can fire the same <code>NewMessage</code> event across multiple MTProto update channels; this set prevents double-processing.</p>
+                <p>In user mode, a secondary check reads the persistent offset store: if the incoming message ID is less than or equal to the stored offset for that chat, the message is skipped. The offset is written only after successful handling, so a crash before completion will reprocess the message on restart.</p>
+                <p>In bot mode, Grammy deduplicates via <code>update_id</code> internally; offset tracking is skipped.</p>
+
+                <h3>analyzeMessage()</h3>
+                <p>This method decides whether the agent should respond. It checks, in order:</p>
+                <ol>
+                    <li>Message ID versus the stored offset (user mode only).</li>
+                    <li>Whether the sender is a bot (<code>message.isBot</code>): bots are never processed.</li>
+                    <li>For DMs: <code>dm_policy</code> in config (<code>disabled</code>, <code>admin-only</code>, <code>allowlist</code>, or <code>open</code>).</li>
+                    <li>For groups: <code>group_policy</code> (<code>disabled</code>, <code>admin-only</code>, <code>allowlist</code>, or <code>open</code>), then the <code>require_mention</code> flag.</li>
+                </ol>
+                <p>If <code>shouldRespond</code> is false, the message is still stored to the feed. For groups where the reason is "not mentioned", the text is buffered in <code>PendingHistory</code> so it can be included as context when the next mention arrives.</p>
+
+                <h3>Rate Limiting</h3>
+                <p>A <code>RateLimiter</code> instance enforces two independent limits:</p>
+                <ul>
+                    <li><strong>Global:</strong> <code>rate_limit_messages_per_second</code>, a sliding 1-second window across all chats.</li>
+                    <li><strong>Per-group:</strong> <code>rate_limit_groups_per_minute</code>, a sliding 60-second window per group chat ID. Stale entries are evicted when the map exceeds 100 groups.</li>
+                </ul>
+
+                <h3>ChatQueue</h3>
+                <p><code>ChatQueue</code> ensures messages in the same chat are processed serially. Internally it maintains a <code>Map&lt;chatId, Promise&lt;void&gt;&gt;</code> chain: each new message for a chat is chained onto the previous promise. Up to 10 chats may process simultaneously; additional chats wait via a FIFO wait queue (backpressure).</p>
+                <p>On graceful shutdown, <code>chatQueue.drain()</code> waits for all active chains to settle before the process exits.</p>
+            </section>
+
+            <section class="section" id="phase-preprocessing">
+                <h2>Phase 2: Pre-processing (inside the queue)</h2>
+
+                <h3>Pending Group Context</h3>
+                <p>When the agent is mentioned in a group, <code>PendingHistory.getAndClearPending(chatId)</code> returns any messages that arrived since the last response and were buffered because the agent was not mentioned. These messages are prepended to the formatted user message so the LLM sees the full conversation context.</p>
+
+                <h3>Reply Context</h3>
+                <p>If the incoming message is a reply, <code>bridge.fetchReplyContext()</code> resolves the original message text and sender name from the raw MTProto object. This context is injected into the message envelope so the LLM knows what is being replied to.</p>
+
+                <h3>Voice Transcription</h3>
+                <p>Voice and audio message types trigger an automatic call to <code>telegramTranscribeAudioExecutor</code> before the message reaches the LLM. On success, the transcribed text is prepended to the effective message body with a <code>🎤 (voice):</code> prefix. Transcription failures are logged as warnings and do not block the response.</p>
+            </section>
+
+            <section class="section" id="phase-agent">
+                <h2>Phase 3: Agent Runtime (processMessage)</h2>
+
+                <h3>A: User Hook Evaluation</h3>
+                <p><code>UserHookEvaluator</code> reads a keyword blocklist and context-injection rules from the <code>user_hook_config</code> SQLite table. If the message text matches a blocked keyword, <code>processMessage</code> returns immediately with an empty response. Otherwise, any matching context rules append additional text to the system prompt.</p>
+
+                <h3>B: Plugin message:receive Hook</h3>
+                <p>If a hook runner is active, the <code>message:receive</code> event is dispatched to all plugins that registered for it. This is a modifying hook: plugins can set <code>event.block = true</code> to suppress the response entirely, mutate <code>event.text</code> to rewrite the message, or populate <code>event.additionalContext</code> to inject text into the system prompt.</p>
+
+                <h3>C/D: Session Management</h3>
+                <p>Sessions are keyed by <code>chatId</code> and stored in the <code>sessions</code> SQLite table. The runtime calls <code>getOrCreateSession(chatId)</code> to retrieve the session record, then checks the configured <code>session_reset_policy</code> (e.g., daily reset). On a reset, the current transcript is archived and an LLM-assisted summary is saved to memory before a new session starts.</p>
+
+                <h3>E/F: Concurrent Embedding and Context Retrieval</h3>
+                <p>Two operations run concurrently to minimise latency:</p>
+                <ul>
+                    <li><strong>Embedding:</strong> the user message (concatenated with the last 3 user messages for richer context) is embedded using the configured provider. The embedding is used for both Tool RAG and feed search.</li>
+                    <li><strong>ContextBuilder.buildContext():</strong> runs a hybrid search (FTS5 + vector if enabled) over the <code>knowledge</code> table (agent memory and knowledge files) and the <code>tg_messages</code> feed. Returns the top relevant chunks, capped by <code>CONTEXT_MAX_RECENT_MESSAGES</code> and <code>CONTEXT_MAX_RELEVANT_CHUNKS</code>. Trivial messages (greetings, single words) skip this step.</li>
+                </ul>
+
+                <h3>H: System Prompt Assembly</h3>
+                <p><code>buildSystemPrompt()</code> assembles the prompt from several layers, ordered for Anthropic prefix cache stability (most stable first, most dynamic last):</p>
+                <ol>
+                    <li><code>SOUL.md</code> - personality, rules, response format (most stable)</li>
+                    <li><code>SECURITY.md</code> - owner-defined security rules</li>
+                    <li><code>STRATEGY.md</code> - trading and business rules</li>
+                    <li>Owner identification block</li>
+                    <li><code>IDENTITY.md</code> - agent self-description</li>
+                    <li><code>USER.md</code> - user profile</li>
+                    <li>Bot mode capabilities block (if mode is bot)</li>
+                    <li>Memory context - frozen snapshot of core blocks, <code>MEMORY.md</code>, and daily logs</li>
+                    <li>RAG context - retrieved knowledge and feed history</li>
+                    <li>Current user identification</li>
+                    <li>Memory flush warning (if context is near limit)</li>
+                    <li>Heartbeat checklist (heartbeat turns only)</li>
+                    <li>Safety reminder (<code>&lt;reminder&gt;</code> tag, recency bias) - most dynamic</li>
+                </ol>
+                <p>The memory context is frozen into a snapshot at the start of each session (<code>captureMemorySnapshot()</code>) and reused on every turn, so mid-session <code>memory_write</code> calls do not invalidate the Anthropic prompt cache prefix.</p>
+
+                <h3>I: Tool Selection</h3>
+                <p>If Tool RAG is enabled (<code>tool_rag.enabled = true</code> in config), <code>registry.getForContextWithRAG()</code> is called. It first applies scope and mode filters, then uses the query embedding to find semantically relevant tools via the <code>tool_index</code> FTS and vector tables. Always-included tools (defined in <code>tool_rag.always_include</code>) are added unconditionally. If the search returns no results, the full scope-filtered list is used as fallback.</p>
+                <p>Without Tool RAG, <code>registry.getForContext()</code> returns all scope-appropriate tools directly.</p>
+
+                <h3>J: LLM Call and Tool Loop</h3>
+                <p>The tool loop runs until the model stops requesting tools:</p>
+                <ol>
+                    <li>Call the LLM with the current messages, tool list, and system prompt.</li>
+                    <li>If the response <code>stop_reason</code> is <code>end_turn</code>, exit the loop.</li>
+                    <li>For each tool call in the response (processed concurrently, up to <code>TOOL_CONCURRENCY_LIMIT</code>):
+                        <ol type="a">
+                            <li>Fire the plugin <code>before:tool_call</code> hook (can mutate parameters).</li>
+                            <li>Run <code>registry.execute(toolCall, context)</code>: scope check (defense-in-depth), JSON schema validation, executor wrapped in a <code>Promise.race</code> against the timeout, result truncated to <code>MAX_TOOL_RESULT_SIZE</code>.</li>
+                            <li>Fire the plugin <code>after:tool_call</code> hook.</li>
+                        </ol>
+                    </li>
+                    <li>Append tool results to the messages array and continue the loop.</li>
+                </ol>
+                <p>If the token count exceeds the compaction threshold, <code>CompactionManager</code> either truncates old messages or requests an LLM-generated summary before the next iteration.</p>
+                <p>Tool results larger than <code>MAX_TOOL_RESULT_SIZE</code> bytes are truncated with a notice to the LLM. Old tool results in long conversations are progressively masked (replaced with a size summary) by <code>maskOldToolResults()</code> to reduce context pressure while preserving assistant reasoning.</p>
+
+                <h3>Streaming</h3>
+                <p>In bot mode, if <code>config.telegram.stream_mode</code> is <code>"all"</code> or <code>"replace"</code>, <code>streamWithContext()</code> is used instead of <code>chatWithContext()</code>. The bridge's <code>streamResponse()</code> method sends tokens to Telegram incrementally via message draft updates, giving the user a typing-like experience for long responses.</p>
+            </section>
+
+            <section class="section" id="phase-response">
+                <h2>Phase 4: Response Dispatch</h2>
+                <p>After <code>processMessage()</code> returns, <code>MessageHandler</code> decides how to deliver the response:</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Condition</th><th>Action</th></tr></thead>
+                    <tbody>
+                        <tr><td>Response text is <code>__SILENT__</code></td><td>Suppress: nothing is sent to Telegram</td></tr>
+                        <tr><td><code>response.streamed == true</code></td><td>Already sent token by token; no further action</td></tr>
+                        <tr><td>A Telegram send tool was called (e.g., <code>telegram_send_message</code>)</td><td>Tool already sent the message; store the text to feed for history continuity</td></tr>
+                        <tr><td>Non-empty plain text, no send tool</td><td>Call <code>bridge.sendMessage()</code> with a reply to the original message; store response to feed</td></tr>
+                    </tbody>
+                </table></div>
+                <p>After dispatch, the offset is written for user mode, the per-chat typing interval is cleared, and the pending group history is cleared. Any unhandled exception during the queue task is caught and logged without crashing the process.</p>
+            </section>
+
+            <section class="section" id="heartbeat">
+                <h2>Heartbeat Turns</h2>
+                <p>The <code>HeartbeatRunner</code> fires <code>AgentRuntime.processMessage()</code> on a configurable timer without a user message. The system prompt includes the <code>HEARTBEAT.md</code> checklist and an instruction to work through it step by step. The agent may make tool calls, write to memory, and send messages autonomously. If no action is needed, it replies <code>NO_ACTION</code>, which the heartbeat runner recognises and discards without sending anything to Telegram.</p>
+                <p>Heartbeat turns use a separate virtual chat ID (<code>heartbeat</code>) so they do not interfere with real conversation sessions.</p>
+            </section>
+
+            </div>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

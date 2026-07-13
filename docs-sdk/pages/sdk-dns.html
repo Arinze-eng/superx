@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sdk.ton.dns, DNS &amp; Domains - Teleton Agent Documentation</title>
+    <meta name="description" content="Manage .ton domains: check availability, resolve addresses, participate in auctions, and link wallets via the Teleton Plugin SDK.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="sdk-dns">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link active">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>sdk.ton.dns, DNS &amp; Domains</h1>
+            <p class="lead">Manage .ton domains: check availability, resolve addresses, participate in auctions, and link wallets. Access via <code>sdk.ton.dns</code> in your plugin.</p>
+
+            <section class="section" id="quick-example">
+                <h2>Quick Example</h2>
+                <div class="code-block"><div class="code-header"><span>Check availability and resolve a domain</span></div><pre><code class="language-typescript">import type { PluginSDK } from "@teleton-agent/sdk";
+
+// Check if a domain is available
+const check = await sdk.ton.dns.check("myproject.ton");
+
+if (check.available) {
+  console.log("Domain is available! Starting auction...");
+  const auction = await sdk.ton.dns.startAuction("myproject.ton");
+  console.log(`Auction started with initial bid: ${auction.bidAmount} TON`);
+} else {
+  console.log(`Taken by: ${check.owner}`);
+  console.log(`NFT: ${check.nftAddress}`);
+}
+
+// Resolve an existing domain
+const resolved = await sdk.ton.dns.resolve("foundation.ton");
+if (resolved) {
+  console.log(`Wallet: ${resolved.walletAddress}`);
+  console.log(`Owner: ${resolved.owner}`);
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="methods">
+                <h2>Methods</h2>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>check(domain)</code></td><td><code>Promise&lt;DnsCheckResult&gt;</code></td><td>Check domain availability, current owner, and NFT address.</td></tr>
+                        <tr><td><code>resolve(domain)</code></td><td><code>Promise&lt;DnsResolveResult | null&gt;</code></td><td>Resolve a .ton domain to a wallet address. Returns <code>null</code> if not found.</td></tr>
+                        <tr><td><code>getAuctions(limit?)</code></td><td><code>Promise&lt;DnsAuction[]&gt;</code></td><td>List active DNS auctions.</td></tr>
+                        <tr><td><code>startAuction(domain)</code></td><td><code>Promise&lt;DnsAuctionResult&gt;</code></td><td>Start a new auction for an unclaimed domain.</td></tr>
+                        <tr><td><code>bid(domain, amount)</code></td><td><code>Promise&lt;DnsBidResult&gt;</code></td><td>Place a bid on an active auction.</td></tr>
+                        <tr><td><code>link(domain, address)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Link a domain you own to a wallet address.</td></tr>
+                        <tr><td><code>unlink(domain)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Remove the wallet link from a domain you own.</td></tr>
+                        <tr><td><code>setSiteRecord(domain, adnlAddress)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Set the TON Site (ADNL) record for a .ton domain you own.</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="check">
+                <h2>check(domain)</h2>
+                <p>Check whether a .ton domain is available, and if taken, who owns it.</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                    <li><code>domain</code> (<code>string</code>), Domain name (e.g. <code>"myproject.ton"</code>)</li>
+                </ul>
+
+                <div class="code-block"><div class="code-header"><span>Domain availability check</span></div><pre><code class="language-typescript">const result = await sdk.ton.dns.check("wallet.ton");
+
+console.log(`Domain: ${result.domain}`);        // "wallet.ton"
+console.log(`Available: ${result.available}`);   // false
+
+if (!result.available) {
+  console.log(`Owner: ${result.owner}`);
+  console.log(`NFT address: ${result.nftAddress}`);
+  console.log(`Linked wallet: ${result.walletAddress}`);
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="resolve">
+                <h2>resolve(domain)</h2>
+                <p>Resolve a .ton domain to its linked wallet address. Returns <code>null</code> if the domain is not registered.</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                    <li><code>domain</code> (<code>string</code>), Domain name (e.g. <code>"foundation.ton"</code>)</li>
+                </ul>
+
+                <div class="code-block"><div class="code-header"><span>Domain resolution</span></div><pre><code class="language-typescript">const resolved = await sdk.ton.dns.resolve("foundation.ton");
+
+if (resolved) {
+  console.log(`Domain: ${resolved.domain}`);
+  console.log(`Wallet: ${resolved.walletAddress}`);  // Linked address or null
+  console.log(`NFT: ${resolved.nftAddress}`);
+  console.log(`Owner: ${resolved.owner}`);
+  if (resolved.expirationDate) {
+    console.log(`Expires: ${new Date(resolved.expirationDate * 1000).toISOString()}`);
+  }
+
+  // Use the resolved address for a transfer
+  if (resolved.walletAddress) {
+    await sdk.ton.sendTON(resolved.walletAddress, 1.0, "Payment via .ton domain");
+  }
+} else {
+  console.log("Domain not found");
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="get-auctions">
+                <h2>getAuctions(limit?)</h2>
+                <p>List currently active DNS auctions on the TON network.</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                    <li><code>limit</code> (<code>number</code>, optional), Maximum auctions to return.</li>
+                </ul>
+
+                <div class="code-block"><div class="code-header"><span>Browse active auctions</span></div><pre><code class="language-typescript">const auctions = await sdk.ton.dns.getAuctions(10);
+
+for (const auction of auctions) {
+  const endsIn = auction.endTime - Math.floor(Date.now() / 1000);
+  const hoursLeft = Math.floor(endsIn / 3600);
+
+  console.log(`${auction.domain}`);
+  console.log(`  Current bid: ${auction.lastBid} TON (${auction.bids} bids)`);
+  console.log(`  Leader: ${auction.owner}`);
+  console.log(`  Ends in: ${hoursLeft} hours`);
+  console.log(`  NFT: ${auction.nftAddress}`);
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="start-auction">
+                <h2>startAuction(domain)</h2>
+                <p>Start a new auction for an unclaimed .ton domain. This places an initial bid.</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                    <li><code>domain</code> (<code>string</code>), Domain to auction (e.g. <code>"newproject.ton"</code>)</li>
+                </ul>
+
+                <div class="code-block"><div class="code-header"><span>Start an auction</span></div><pre><code class="language-typescript">const result = await sdk.ton.dns.startAuction("newproject.ton");
+
+if (result.success) {
+  console.log(`Auction started for ${result.domain}`);
+  console.log(`Initial bid: ${result.bidAmount} TON`);
+} else {
+  console.log("Failed to start auction (domain may be taken or ineligible)");
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="bid">
+                <h2>bid(domain, amount)</h2>
+                <p>Place a bid on an active auction. Your bid must exceed the current highest bid.</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                    <li><code>domain</code> (<code>string</code>), Domain with active auction</li>
+                    <li><code>amount</code> (<code>number</code>), Bid amount in TON</li>
+                </ul>
+
+                <div class="code-block"><div class="code-header"><span>Place a bid</span></div><pre><code class="language-typescript">const bid = await sdk.ton.dns.bid("premium-name.ton", 15);
+
+if (bid.success) {
+  console.log(`Bid placed: ${bid.bidAmount} TON on ${bid.domain}`);
+} else {
+  console.log("Bid failed (may be too low or auction ended)");
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="link-unlink">
+                <h2>link(domain, address) / unlink(domain)</h2>
+                <p>Link a domain you own to a wallet address, or remove the link.</p>
+                <p><strong>Parameters (link):</strong></p>
+                <ul>
+                    <li><code>domain</code> (<code>string</code>), Domain you own</li>
+                    <li><code>address</code> (<code>string</code>), TON wallet address to link</li>
+                </ul>
+                <p><strong>Parameters (unlink):</strong></p>
+                <ul>
+                    <li><code>domain</code> (<code>string</code>), Domain you own</li>
+                </ul>
+
+                <div class="code-block"><div class="code-header"><span>Link and unlink a domain</span></div><pre><code class="language-typescript">// Link domain to the bot's own wallet
+const myAddress = sdk.ton.getAddress();
+if (myAddress) {
+  await sdk.ton.dns.link("mybot.ton", myAddress);
+  console.log("Domain linked to wallet");
+}
+
+// Remove the link
+await sdk.ton.dns.unlink("mybot.ton");
+console.log("Domain unlinked");</code></pre></div>
+            </section>
+
+            <section class="section" id="set-site-record">
+                <h2>setSiteRecord(domain, adnlAddress)</h2>
+                <p>Set or update the TON Site (ADNL) record for a .ton domain. This allows the domain to point to a TON Site served over the ADNL network.</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                    <li><code>domain</code> (<code>string</code>), Domain you own (e.g. <code>"mysite.ton"</code>)</li>
+                    <li><code>adnlAddress</code> (<code>string</code>), ADNL address of the TON Site node (hex string)</li>
+                </ul>
+
+                <div class="code-block"><div class="code-header"><span>Set ADNL site record</span></div><pre><code class="language-typescript">// Point a .ton domain to a TON Site
+await sdk.ton.dns.setSiteRecord(
+  "mysite.ton",
+  "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2"
+);
+console.log("TON Site ADNL record set successfully");</code></pre></div>
+            </section>
+
+            <section class="section" id="type-definitions">
+                <h2>Type Definitions</h2>
+
+                <div class="code-block"><div class="code-header"><span>DnsCheckResult</span></div><pre><code class="language-typescript">interface DnsCheckResult {
+  domain: string;          // e.g. "example.ton"
+  available: boolean;      // Whether the domain is available
+  owner?: string;          // Current owner address (if taken)
+  nftAddress?: string;     // NFT address of the domain
+  walletAddress?: string;  // Linked wallet address
+  auction?: {              // Active auction info (reserved, see gotchas)
+    bids: number;
+    lastBid: string;
+    endTime: number;
+  };
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>DnsResolveResult</span></div><pre><code class="language-typescript">interface DnsResolveResult {
+  domain: string;                // Domain name
+  walletAddress: string | null;  // Linked wallet (null if not set)
+  nftAddress: string;            // NFT address of the domain
+  owner: string | null;          // Owner address
+  expirationDate?: number;       // Expiration (unix timestamp)
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>DnsAuction</span></div><pre><code class="language-typescript">interface DnsAuction {
+  domain: string;       // Domain name
+  nftAddress: string;   // NFT address
+  owner: string;        // Current highest bidder
+  lastBid: string;      // Current highest bid in TON
+  endTime: number;      // Auction end (unix timestamp)
+  bids: number;         // Total number of bids
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>DnsAuctionResult</span></div><pre><code class="language-typescript">interface DnsAuctionResult {
+  domain: string;     // Domain name
+  success: boolean;   // Whether auction was started
+  bidAmount: string;  // Initial bid amount in TON
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>DnsBidResult</span></div><pre><code class="language-typescript">interface DnsBidResult {
+  domain: string;     // Domain name
+  bidAmount: string;  // Bid amount in TON
+  success: boolean;   // Whether bid was placed
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="gotchas">
+                <h2>Gotchas</h2>
+                <ul>
+                    <li><strong><code>DnsCheckResult.auction</code> is reserved</strong>, the <code>auction</code> field exists in the TypeScript types but is NOT populated by the current implementation. It is reserved for future use. Do not rely on this field; use <code>getAuctions()</code> to find active auctions.</li>
+                    <li><strong>Domain names include <code>.ton</code></strong>, always pass the full domain name including the <code>.ton</code> suffix (e.g. <code>"myproject.ton"</code>).</li>
+                    <li><strong>You must own the domain</strong> to call <code>link()</code>, <code>unlink()</code>, or <code>setSiteRecord()</code>. These operations require the bot's wallet to be the domain owner.</li>
+                    <li><strong>Auction bids are irreversible</strong>, TON sent for bids is locked until the auction ends. If you are outbid, your TON is returned.</li>
+                    <li><strong><code>resolve()</code> returns <code>null</code></strong> if the domain does not exist. It returns a result with <code>walletAddress: null</code> if the domain exists but has no wallet linked.</li>
+                </ul>
+            </section>
+
+            <section class="section" id="auction-flow">
+                <h2>Auction Flow</h2>
+                <p>The typical flow for acquiring a new .ton domain:</p>
+                <div class="code-block"><div class="code-header"><span>Auction lifecycle</span></div><pre><code class="language-text">  check(domain)
+       |
+       v
+  available? ----NO---&gt; Domain is taken. Check owner/wallet.
+       |
+      YES
+       |
+       v
+  startAuction(domain)    &lt;-- Places initial bid, starts timer
+       |
+       v
+  bid(domain, amount)     &lt;-- Other participants can bid too
+       |                       Each bid extends the auction
+       v
+  Auction ends            &lt;-- Highest bidder wins the domain NFT
+       |
+       v
+  link(domain, address)   &lt;-- Link your wallet to the domain
+       |
+       v
+  setSiteRecord(...)      &lt;-- Optionally point to a TON Site</code></pre></div>
+            </section>
+
+            <section class="section" id="complete-example">
+                <h2>Complete Example: Domain Registration Flow</h2>
+                <div class="code-block"><div class="code-header"><span>Full domain registration plugin</span></div><pre><code class="language-typescript">import type { PluginSDK } from "@teleton-agent/sdk";
+
+export default {
+  name: "domain-manager",
+  version: "1.0.0",
+  tools: [
+    {
+      name: "register_domain",
+      description: "Check and start auction for a .ton domain",
+      parameters: {
+        type: "object",
+        properties: {
+          domain: { type: "string", description: "Domain name (e.g. mysite.ton)" },
+        },
+        required: ["domain"],
+      },
+      execute: async (args: { domain: string }, sdk: PluginSDK) =&gt; {
+        // Ensure .ton suffix
+        const domain = args.domain.endsWith(".ton")
+          ? args.domain
+          : `${args.domain}.ton`;
+
+        // Step 1: Check availability
+        const check = await sdk.ton.dns.check(domain);
+
+        if (!check.available) {
+          // Domain is taken, resolve for details
+          const resolved = await sdk.ton.dns.resolve(domain);
+          return {
+            available: false,
+            domain: check.domain,
+            owner: check.owner,
+            wallet: resolved?.walletAddress ?? "not linked",
+            nft: check.nftAddress,
+          };
+        }
+
+        // Step 2: Check wallet balance for bidding
+        const balance = await sdk.ton.getBalance();
+        if (!balance || parseFloat(balance.balance) &lt; 2) {
+          return { error: "Need at least 2 TON to start an auction" };
+        }
+
+        // Step 3: Start the auction
+        const auction = await sdk.ton.dns.startAuction(domain);
+
+        if (!auction.success) {
+          return { error: `Failed to start auction for ${domain}` };
+        }
+
+        return {
+          success: true,
+          domain: auction.domain,
+          initialBid: auction.bidAmount,
+          message: `Auction started for ${domain} with bid of ${auction.bidAmount} TON. Monitor with getAuctions().`,
+        };
+      },
+    },
+    {
+      name: "setup_domain",
+      description: "Link wallet and optionally set ADNL record for a domain",
+      parameters: {
+        type: "object",
+        properties: {
+          domain: { type: "string", description: "Domain you own" },
+          adnlAddress: { type: "string", description: "ADNL address for TON Site (optional)" },
+        },
+        required: ["domain"],
+      },
+      execute: async (args: { domain: string; adnlAddress?: string }, sdk: PluginSDK) =&gt; {
+        const address = sdk.ton.getAddress();
+        if (!address) return { error: "Wallet not initialized" };
+
+        // Link domain to bot's wallet
+        await sdk.ton.dns.link(args.domain, address);
+
+        // Optionally set ADNL record
+        if (args.adnlAddress) {
+          await sdk.ton.dns.setSiteRecord(args.domain, args.adnlAddress);
+        }
+
+        // Verify
+        const resolved = await sdk.ton.dns.resolve(args.domain);
+
+        return {
+          domain: args.domain,
+          linkedWallet: resolved?.walletAddress,
+          adnlSet: !!args.adnlAddress,
+        };
+      },
+    },
+  ],
+};</code></pre></div>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+/**
+ * journal_log - Manual logging of business operations
+ * Use this to record trades, gifts, middleman, KOL activities with reasoning
+ */
+
+import { Type } from "@sinclair/typebox";
+import { getDatabase } from "../../../memory/database.js";
+import { JournalStore } from "../../../memory/journal-store.js";
+import type { JournalType, JournalOutcome } from "../../../memory/journal-store.js";
+import type { Tool, ToolExecutor } from "../types.js";
+import { formatAssetFlow, formatTxHash } from "./format.js";
+
+interface JournalLogParams {
+  type: JournalType;
+  action: string;
+  asset_from?: string;
+  asset_to?: string;
+  amount_from?: number;
+  amount_to?: number;
+  price_ton?: number;
+  counterparty?: string;
+  platform?: string;
+  reasoning: string;
+  outcome?: JournalOutcome;
+  tx_hash?: string;
+}
+
+export const journalLogTool: Tool = {
+  name: "journal_log",
+  description:
+    "Log a business operation (trade, gift, middleman, kol) to the journal. Always include reasoning.",
+
+  parameters: Type.Object({
+    type: Type.Union(
+      [Type.Literal("trade"), Type.Literal("gift"), Type.Literal("middleman"), Type.Literal("kol")],
+      { description: "Type of operation" }
+    ),
+    action: Type.String({
+      description: "Brief action description (e.g., 'buy', 'sell', 'swap', 'escrow', 'post')",
+    }),
+    asset_from: Type.Optional(
+      Type.String({ description: "Asset sent/sold (e.g., 'TON', 'USDT', 'Deluxe Heart')" })
+    ),
+    asset_to: Type.Optional(Type.String({ description: "Asset received/bought" })),
+    amount_from: Type.Optional(Type.Number({ description: "Amount sent/sold" })),
+    amount_to: Type.Optional(Type.Number({ description: "Amount received/bought" })),
+    price_ton: Type.Optional(Type.Number({ description: "Price in TON (for gifts, services)" })),
+    counterparty: Type.Optional(
+      Type.String({ description: "Username or ID of the other party (if applicable)" })
+    ),
+    platform: Type.Optional(
+      Type.String({ description: "Platform used (e.g., 'STON.fi', 'Telegram', 'DeDust')" })
+    ),
+    reasoning: Type.String({
+      description:
+        "WHY you took this action - explain your decision-making (this is CRITICAL for learning and auditing)",
+    }),
+    outcome: Type.Optional(
+      Type.Union(
+        [
+          Type.Literal("pending"),
+          Type.Literal("profit"),
+          Type.Literal("loss"),
+          Type.Literal("neutral"),
+          Type.Literal("cancelled"),
+        ],
+        {
+          description:
+            "P&L result (default: 'pending'). Must be EXACTLY one of: 'pending' (still open), 'profit', 'loss', 'neutral' (break-even), 'cancelled'. This is the profit/loss outcome, NOT a completion status — do not use 'closed'/'completed'/'success'/'done'. Leave as 'pending' for in-progress operations and close them later with journal_update.",
+        }
+      )
+    ),
+    tx_hash: Type.Optional(
+      Type.String({ description: "Blockchain transaction hash (if applicable)" })
+    ),
+  }),
+};
+
+export const journalLogExecutor: ToolExecutor<JournalLogParams> = async (params, context) => {
+  const db = getDatabase().getDb();
+  const store = new JournalStore(db);
+
+  const entry = store.addEntry({
+    type: params.type,
+    action: params.action,
+    asset_from: params.asset_from,
+    asset_to: params.asset_to,
+    amount_from: params.amount_from,
+    amount_to: params.amount_to,
+    price_ton: params.price_ton,
+    counterparty: params.counterparty,
+    platform: params.platform,
+    reasoning: params.reasoning,
+    outcome: params.outcome ?? "pending",
+    tx_hash: params.tx_hash,
+    tool_used: "journal_log",
+    chat_id: context.chatId?.toString(),
+    user_id: context.senderId,
+  });
+
+  // Format output
+  const lines: string[] = [
+    `📝 Journal Entry #${entry.id} logged`,
+    ``,
+    `**Type**: ${entry.type}`,
+    `**Action**: ${entry.action}`,
+  ];
+
+  const assetFlow = formatAssetFlow(entry);
+  if (assetFlow) {
+    lines.push(`**Assets**: ${assetFlow}`);
+  }
+
+  if (entry.price_ton) {
+    lines.push(`**Price**: ${entry.price_ton} TON`);
+  }
+
+  if (entry.counterparty) {
+    lines.push(`**Counterparty**: ${entry.counterparty}`);
+  }
+
+  if (entry.platform) {
+    lines.push(`**Platform**: ${entry.platform}`);
+  }
+
+  lines.push(`**Outcome**: ${entry.outcome}`);
+  lines.push(`**Reasoning**: ${entry.reasoning}`);
+
+  if (entry.tx_hash) {
+    lines.push(`**TX**: ${formatTxHash(entry.tx_hash)}`);
+  }
+
+  lines.push(``, `_Logged at ${new Date(entry.created_at * 1000).toISOString()}_`);
+
+  return {
+    success: true,
+    data: {
+      entry,
+      message: lines.join("\n"),
+    },
+  };
+};

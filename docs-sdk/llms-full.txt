@@ -1,0 +1,350 @@
+# Teleton Plugin SDK — Complete Reference
+
+> @teleton-agent/sdk v2.0.0 — TypeScript SDK for building Teleton Agent plugins with TON blockchain and Telegram integration.
+
+## Installation
+
+```bash
+npm install @teleton-agent/sdk@^2
+```
+
+## Plugin Structure
+
+A plugin exports: manifest (optional), migrate(db) (optional), tools(sdk) (required), start(ctx) (optional), stop() (optional), onMessage(event) (optional), onCallbackQuery(event) (optional).
+
+```typescript
+import type { PluginSDK, SimpleToolDef, PluginManifest } from "@teleton-agent/sdk";
+
+export const manifest: PluginManifest = {
+  name: "my-plugin",
+  version: "1.0.0",
+  description: "My plugin description",
+};
+
+export const tools = (sdk: PluginSDK): SimpleToolDef[] => [{
+  name: "my_tool",
+  description: "Does something",
+  parameters: { type: "object", properties: { input: { type: "string" } }, required: ["input"] },
+  async execute(params, context) {
+    return { success: true, data: "result" };
+  }
+}];
+```
+
+## PluginSDK Interface
+
+```typescript
+interface PluginSDK {
+  readonly version: string;           // "2.0.0"
+  readonly ton: TonSDK;              // TON blockchain (18 methods + dex + dns)
+  readonly telegram: TelegramSDK;    // Telegram (51 methods)
+  readonly db: Database | null;      // Isolated SQLite (null only on initialization failure)
+  readonly config: Record<string, unknown>;      // Sanitized app config
+  readonly pluginConfig: Record<string, unknown>; // Plugin-specific config
+  readonly secrets: SecretsSDK;      // API keys (3 methods)
+  readonly storage: StorageSDK | null; // KV store (5 methods)
+  readonly log: PluginLogger;        // Logger (4 methods)
+  readonly bot: BotSDK | null;       // Inline bot (7 methods, null without bot manifest)
+}
+```
+
+---
+
+## sdk.ton — TON Blockchain (18 methods)
+
+### Wallet & Balance
+- `getAddress(): string | null` — Bot's wallet address. null if not initialized.
+- `getBalance(address?: string): Promise<TonBalance | null>` — Balance in TON + nanoTON. Defaults to bot wallet.
+- `validateAddress(address: string): boolean` — Check if TON address is valid.
+
+### Price
+- `getPrice(): Promise<TonPrice | null>` — TON/USD price (cached 30s). TonAPI with CoinGecko fallback.
+
+### Transfers
+- `sendTON(to: string, amount: number, comment?: string): Promise<TonSendResult>` — IRREVERSIBLE. Uses PAY_GAS_SEPARATELY (exact amount). Throws: WALLET_NOT_INITIALIZED, INVALID_ADDRESS, OPERATION_FAILED.
+- `getTransactions(address: string, limit?: number): Promise<TonTransaction[]>` — Recent transactions (max 50, default 10).
+
+### Payment Verification
+- `verifyPayment(params: SDKVerifyPaymentParams): Promise<SDKPaymentVerification>` — Verify TON payment with memo matching and replay protection. REQUIRES used_transactions table in migrate(). Params: { amount, memo, gameType, maxAgeMinutes? }. Returns: { verified, txHash?, amount?, playerWallet?, date?, secondsAgo?, error? }.
+
+### Jettons
+- `getJettonBalances(ownerAddress?: string): Promise<JettonBalance[]>` — Token balances for owner (default: bot wallet).
+- `getJettonInfo(jettonAddress: string): Promise<JettonInfo | null>` — Token metadata: name, symbol, decimals, supply, holders.
+- `sendJetton(jettonAddress: string, to: string, amount: number, opts?: { comment?: string }): Promise<JettonSendResult>` — IRREVERSIBLE. Transfer jetton tokens.
+- `getJettonWalletAddress(ownerAddress: string, jettonAddress: string): Promise<string | null>` — Resolve jetton wallet address.
+
+### Jetton Analytics
+- `getJettonPrice(jettonAddress: string): Promise<JettonPrice | null>` — USD/TON price with 24h/7d/30d changes.
+- `getJettonHolders(jettonAddress: string, limit?: number): Promise<JettonHolder[]>` — Top holders (max 100, default 10).
+- `getJettonHistory(jettonAddress: string): Promise<JettonHistory | null>` — Market analytics: volume, FDV, market cap.
+
+### NFTs
+- `getNftItems(ownerAddress?: string): Promise<NftItem[]>` — NFTs owned (default: bot wallet).
+- `getNftInfo(nftAddress: string): Promise<NftItem | null>` — Single NFT metadata.
+
+### Utilities
+- `toNano(amount: number | string): bigint` — Convert TON to nanoTON.
+- `fromNano(nano: bigint | string): string` — Convert nanoTON to TON string.
+
+### Sub-namespaces
+- `readonly dex: DexSDK` — DEX trading (6 methods)
+- `readonly dns: DnsSDK` — DNS domains (8 methods)
+
+---
+
+## sdk.ton.dex — DEX Trading (6 methods)
+
+- `quote(params: DexQuoteParams): Promise<DexQuoteResult>` — Compare quotes from STON.fi and DeDust. Returns recommended DEX.
+- `quoteSTONfi(params: DexQuoteParams): Promise<DexSingleQuote | null>` — STON.fi only quote.
+- `quoteDeDust(params: DexQuoteParams): Promise<DexSingleQuote | null>` — DeDust only quote.
+- `swap(params: DexSwapParams): Promise<DexSwapResult>` — Execute swap (auto-selects best DEX unless dex param specified).
+- `swapSTONfi(params: DexSwapParams): Promise<DexSwapResult>` — Swap on STON.fi.
+- `swapDeDust(params: DexSwapParams): Promise<DexSwapResult>` — Swap on DeDust.
+
+DexQuoteParams: { fromAsset: string, toAsset: string, amount: number, slippage?: number }
+DexSwapParams extends DexQuoteParams: { dex?: "stonfi" | "dedust" }
+
+---
+
+## sdk.ton.dns — DNS & Domains (8 methods)
+
+- `check(domain: string): Promise<DnsCheckResult>` — Check domain availability, owner, auction status.
+- `resolve(domain: string): Promise<DnsResolveResult | null>` — Resolve .ton domain to wallet address.
+- `getAuctions(limit?: number): Promise<DnsAuction[]>` — List active domain auctions.
+- `startAuction(domain: string): Promise<DnsAuctionResult>` — Start auction for unclaimed domain.
+- `bid(domain: string, amount: number): Promise<DnsBidResult>` — Place bid on active auction.
+- `link(domain: string, address: string): Promise<void>` — Link domain to wallet address.
+- `unlink(domain: string): Promise<void>` — Remove domain link.
+- `setSiteRecord(domain: string, adnlAddress: string): Promise<void>` — Set TON Site ADNL record.
+
+NOTE: DnsCheckResult.auction field exists in types but is NOT populated by implementation (reserved for future).
+
+---
+
+## sdk.telegram — Telegram (51 methods)
+
+### Core
+- `sendMessage(chatId: string, text: string, opts?: SendMessageOptions): Promise<number>` — Send text message. opts: { replyToId?, inlineKeyboard? }. Returns message ID.
+- `editMessage(chatId: string, messageId: number, text: string, opts?: EditMessageOptions): Promise<number>` — Edit message.
+- `sendDice(chatId: string, emoticon: string, replyToId?: number): Promise<DiceResult>` — Dice animation. Emoticons: dice, darts, basketball, football, bowling, slots.
+- `sendReaction(chatId: string, messageId: number, emoji: string): Promise<void>` — React to message.
+- `getMe(): TelegramUser | null` — Bot's own user info.
+
+### Media
+- `sendPhoto(chatId: string, photo: string | Buffer, opts?: MediaSendOptions): Promise<number>`
+- `sendVideo(chatId: string, video: string | Buffer, opts?: MediaSendOptions): Promise<number>`
+- `sendVoice(chatId: string, voice: string | Buffer, opts?: MediaSendOptions): Promise<number>` — OGG/Opus format.
+- `sendFile(chatId: string, file: string | Buffer, opts?: MediaSendOptions & { fileName?: string }): Promise<number>`
+- `sendGif(chatId: string, gif: string | Buffer, opts?: MediaSendOptions): Promise<number>`
+- `sendSticker(chatId: string, sticker: string | Buffer): Promise<number>` — WEBP format.
+- `downloadMedia(chatId: string, messageId: number): Promise<Buffer | null>`
+
+### Messages
+- `getMessages(chatId: string, limit?: number): Promise<SimpleMessage[]>` — Recent messages (default: 50).
+- `searchMessages(chatId: string, query: string, limit?: number): Promise<SimpleMessage[]>`
+- `getReplies(chatId: string, messageId: number, limit?: number): Promise<SimpleMessage[]>`
+- `deleteMessage(chatId: string, messageId: number, revoke?: boolean): Promise<void>`
+- `forwardMessage(fromChatId: string, toChatId: string, messageId: number): Promise<number | null>`
+- `pinMessage(chatId: string, messageId: number, opts?: { silent?: boolean; unpin?: boolean }): Promise<void>`
+
+### Scheduling
+- `scheduleMessage(chatId: string, text: string, scheduleDate: number): Promise<number | null>` — Schedule for future delivery (Unix timestamp).
+- `getScheduledMessages(chatId: string): Promise<SimpleMessage[]>`
+- `deleteScheduledMessage(chatId: string, messageId: number): Promise<void>`
+- `sendScheduledNow(chatId: string, messageId: number): Promise<void>`
+
+### Chat & Users
+- `getChatInfo(chatId: string): Promise<ChatInfo | null>` — Returns: { id, title, type, membersCount?, username?, description? }
+- `getUserInfo(userId: number | string): Promise<UserInfo | null>` — Returns: { id, firstName, lastName?, username?, isBot }
+- `resolveUsername(username: string): Promise<ResolvedPeer | null>` — Resolve @username to entity.
+- `getParticipants(chatId: string, limit?: number): Promise<UserInfo[]>` — Group/channel members (default: 100).
+- `getDialogs(limit?: number): Promise<Dialog[]>` — All conversations (default: 50, max: 100).
+- `getHistory(chatId: string, limit?: number): Promise<SimpleMessage[]>` — Chat message history.
+
+### Interactive
+- `createPoll(chatId: string, question: string, answers: string[], opts?: PollOptions): Promise<number | null>` — opts: { isAnonymous?, multipleChoice? }
+- `createQuiz(chatId: string, question: string, answers: string[], correctIndex: number, explanation?: string): Promise<number | null>`
+
+### Moderation
+- `banUser(chatId: string, userId: number | string): Promise<void>`
+- `unbanUser(chatId: string, userId: number | string): Promise<void>`
+- `muteUser(chatId: string, userId: number | string, untilDate: number): Promise<void>` — 0 = permanent.
+- `kickUser(chatId: string, userId: number | string): Promise<void>` — Ban + immediate unban.
+
+### Stars & Gifts
+- `getStarsBalance(): Promise<number>`
+- `getStarsTransactions(limit?: number): Promise<StarsTransaction[]>`
+- `sendGift(userId: number | string, giftId: string, opts?: { message?: string; anonymous?: boolean }): Promise<void>`
+- `getAvailableGifts(): Promise<StarGift[]>`
+- `getMyGifts(limit?: number): Promise<ReceivedGift[]>`
+- `getResaleGifts(giftId: string, limit?: number): Promise<StarGift[]>`
+- `buyResaleGift(giftId: string): Promise<void>`
+
+### Collectibles
+- `transferCollectible(msgId: number, toUserId: number | string): Promise<TransferResult>`
+- `setCollectiblePrice(msgId: number, price: number): Promise<void>` — 0 to unlist.
+- `getCollectibleInfo(slug: string): Promise<CollectibleInfo | null>` — Fragment collectible (username/phone).
+- `getUniqueGift(slug: string): Promise<UniqueGift | null>` — NFT gift by slug (t.me/nft/<slug>).
+- `getUniqueGiftValue(slug: string): Promise<GiftValue | null>` — Market value of NFT gift.
+- `sendGiftOffer(userId: number | string, giftSlug: string, price: number, opts?: GiftOfferOptions): Promise<void>` — Buy offer on NFT.
+
+### Stories
+- `sendStory(mediaPath: string, opts?: { caption?: string }): Promise<number | null>` — Path restrictions: /tmp, Downloads/, Pictures/, Videos/, teleton workspace.
+
+### Advanced
+- `setTyping(chatId: string): Promise<void>` — Show typing indicator.
+- `isAvailable(): boolean` — Check if connected.
+
+---
+
+## sdk.bot — Bot SDK (7 methods)
+
+IMPORTANT: sdk.bot is null unless manifest declares `bot: { inline: true }`.
+
+- `readonly isAvailable: boolean` — Whether bot is ready.
+- `readonly username: string` — Bot username.
+- `onInlineQuery(handler: (ctx: InlineQueryContext) => Promise<InlineResult[]>): void` — Handle inline queries.
+- `onCallback(pattern: string, handler: (ctx: CallbackContext) => Promise<void>): void` — Handle button callbacks (glob patterns).
+- `onChosenResult(handler: (ctx: ChosenResultContext) => Promise<void>): void` — Handle chosen results.
+- `editInlineMessage(inlineMessageId: string, text: string, opts?: { keyboard?: ButtonDef[][]; parseMode?: string }): Promise<void>`
+- `keyboard(rows: ButtonDef[][]): BotKeyboard` — Build keyboard. Returns { toTL() (colored), toGrammy() (standard), rows }.
+
+ButtonDef: { text, callback? (auto-prefixed), url?, copy?, style?: "success" | "danger" | "primary" }
+Styled buttons (green/red/blue) only work with .toTL() (GramJS Layer 222). .toGrammy() falls back to standard buttons.
+
+---
+
+## sdk.secrets — Secrets (3 methods)
+
+Resolution order: 1. Manifest `env` override or derived TELETON_PLUGIN_${PLUGIN_NAME_UPPER}_${KEY_UPPER}, 2. Secrets store (/plugin set), 3. pluginConfig. Overrides must use the same reserved TELETON_PLUGIN_ namespace.
+
+- `get(key: string): string | undefined` — Get secret value.
+- `require(key: string): string` — Get or throw SECRET_NOT_FOUND.
+- `has(key: string): boolean` — Check if configured.
+
+---
+
+## sdk.storage — Key-Value Storage (5 methods)
+
+Auto-creates `_kv` table. Values are JSON-serialized. Optional TTL for auto-expiration.
+
+- `get<T>(key: string): T | undefined` — Get value (undefined if expired).
+- `set<T>(key: string, value: T, opts?: { ttl?: number }): void` — Set value. TTL in milliseconds.
+- `delete(key: string): boolean` — Delete key. Returns true if existed.
+- `has(key: string): boolean` — Check if exists (not expired).
+- `clear(): void` — Delete all keys.
+
+---
+
+## sdk.log — Logger (4 methods)
+
+Auto-prefixed with [plugin:name].
+
+- `info(...args: unknown[]): void`
+- `warn(...args: unknown[]): void`
+- `error(...args: unknown[]): void`
+- `debug(...args: unknown[]): void` — Only visible with DEBUG or VERBOSE env.
+
+---
+
+## sdk.db — SQLite Database
+
+Type: `Database.Database | null` (better-sqlite3). The database is created for every plugin and is null only if initialization fails.
+Each plugin gets an isolated database. Sync API.
+
+```typescript
+export const migrate = (db: any) => {
+  db.exec(`CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY, name TEXT, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)`);
+};
+```
+
+---
+
+## Error Handling
+
+```typescript
+import { PluginSDKError } from "@teleton-agent/sdk";
+
+try {
+  await sdk.ton.sendTON(address, 1.0);
+} catch (err) {
+  if (err instanceof PluginSDKError) {
+    switch (err.code) {
+      case "WALLET_NOT_INITIALIZED": // TON wallet not configured
+      case "INVALID_ADDRESS":        // Malformed TON address
+      case "OPERATION_FAILED":       // Generic failure
+      case "BRIDGE_NOT_CONNECTED":   // Telegram not ready
+      case "SECRET_NOT_FOUND":       // Missing required secret
+    }
+  }
+}
+```
+
+---
+
+## Plugin Manifest
+
+```typescript
+interface PluginManifest {
+  name: string;                    // Lowercase, 1-64 chars
+  version: string;                 // Semver
+  author?: string;
+  description?: string;            // Max 256 chars
+  dependencies?: string[];         // Required built-in modules
+  defaultConfig?: Record<string, unknown>;
+  sdkVersion?: string;             // Range: ">=2.0.0"
+  secrets?: Record<string, SecretDeclaration>;
+  bot?: BotManifest;               // Enables sdk.bot
+  hooks?: PluginHookDeclaration[];
+}
+```
+
+## Tool Definition
+
+```typescript
+interface SimpleToolDef {
+  name: string;                    // Unique identifier (e.g. "casino_spin")
+  description: string;             // For LLM
+  parameters?: Record<string, unknown>; // JSON Schema
+  execute: (params, context) => Promise<ToolResult>;
+  scope?: "open" | "always" | "dm-only" | "group-only" | "admin-only" | "allowlist" | "disabled";
+  category?: "data-bearing" | "action";
+  requiresApproval?: boolean;
+}
+
+interface ToolResult {
+  success: boolean;
+  data?: unknown;
+  error?: string;
+}
+```
+
+## Event Hooks
+
+```typescript
+export const onMessage = async (event: PluginMessageEvent) => {
+  // event: { chatId, senderId, senderUsername?, text, isGroup, hasMedia, messageId, timestamp }
+};
+
+export const onCallbackQuery = async (event: PluginCallbackEvent) => {
+  // event: { data, action, params[], chatId, messageId, userId, answer(text?, alert?) }
+};
+```
+
+---
+
+## Important Gotchas
+
+1. SDK object is frozen — plugins cannot modify or extend it.
+2. sdk.bot is null if manifest doesn't declare `bot: { inline: true }`.
+3. sdk.db is isolated per plugin and is null only if database initialization failed.
+4. sdk.storage is null if no database is available.
+5. sendTON() uses PAY_GAS_SEPARATELY — amount sent is exact.
+6. Float precision: SDK uses string-based decimal conversion, NOT Math.floor(amount * 10**d).
+7. verifyPayment() requires `used_transactions` table for replay protection.
+8. sendStory() has path allowlist: /tmp, Downloads/, Pictures/, Videos/, teleton workspace.
+9. Secrets env naming uses TELETON_PLUGIN_${PLUGIN_NAME_UPPER}_${KEY_UPPER}. Overrides must stay under the same reserved plugin prefix; cross-plugin/global env access is rejected.
+10. DnsCheckResult.auction field exists in types but is NOT populated (reserved).
+11. Bot SDK callback data is auto-prefixed with plugin name.
+12. Styled buttons (colors) only work with .toTL() (GramJS), .toGrammy() falls back to standard.
+13. Plugins cannot access the raw Telegram bridge or GramJS client; use typed SDK capabilities.

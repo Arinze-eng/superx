@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction - Teleton Agent Documentation</title>
+    <meta name="description" content="Teleton is an autonomous AI agent platform for Telegram with native TON blockchain integration. 128 base tools plus 5 optional system tools, 16 LLM providers, open source.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="index">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link active">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>Teleton Agent</h1>
+            <p class="lead">Autonomous AI agent platform for Telegram with native TON blockchain integration. 128 base tools plus 5 optional system tools, 16 LLM providers, Plugin SDK: open source.</p>
+
+            <p>Teleton operates as a real Telegram user account or a Telegram Bot. It thinks through an agentic loop with tool calling, remembers conversations across sessions with hybrid RAG, and natively integrates the TON blockchain: send crypto, swap on DEXs, bid on domains, verify payments: all from a chat message. It can schedule tasks to run autonomously at any time.</p>
+
+            <section class="section" id="highlights">
+                <h2>Key Highlights</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Capability</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Full Telegram Access</strong></td><td>Real user via MTProto, not a bot</td></tr>
+                        <tr><td><strong>Agentic Loop</strong></td><td>Think, act, observe, repeat until tasks complete</td></tr>
+                        <tr><td><strong>16 LLM Providers</strong></td><td>Anthropic, Codex, Grok Build, OpenAI, Google, xAI, Groq, and more</td></tr>
+                        <tr><td><strong>TON Blockchain</strong></td><td>Wallet, jettons, DEX swaps, DNS, NFTs</td></tr>
+                        <tr><td><strong>Persistent Memory</strong></td><td>Hybrid RAG, vector + keyword, auto-compaction</td></tr>
+                        <tr><td><strong>128+ Built-in Tools</strong></td><td>Messaging, media, crypto, DEX, DNS, files</td></tr>
+                        <tr><td><strong>Plugin SDK</strong></td><td>Custom tools, isolated DBs, secrets, hooks</td></tr>
+                        <tr><td><strong>MCP Client</strong></td><td>Connect any MCP tool server</td></tr>
+                        <tr><td><strong>Secure by Design</strong></td><td>Sandbox, plugin isolation, prompt defense</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="tool-categories">
+                <h2>Tool Categories</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Category</th><th>Tools</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td>Telegram</td><td>83</td><td>Messages, media, chats, polls, stickers, gifts, stars, stories</td></tr>
+                        <tr><td>TON &amp; Jettons</td><td>15</td><td>Wallet, send/receive, balances, prices, NFTs, DEX router</td></tr>
+                        <tr><td>STON.fi DEX</td><td>5</td><td>Swap, quote, search, trending, pools</td></tr>
+                        <tr><td>DeDust DEX</td><td>5</td><td>Swap, quote, pools, prices, token analytics</td></tr>
+                        <tr><td>TON DNS</td><td>8</td><td>Auctions, bidding, linking, TON Sites, resolution</td></tr>
+                        <tr><td>Journal</td><td>3</td><td>Trade logging, P&amp;L tracking, natural language queries</td></tr>
+                        <tr><td>Web</td><td>2</td><td>Search and page extraction via Tavily</td></tr>
+                        <tr><td>Workspace</td><td>6</td><td>Sandboxed file operations, path traversal protection</td></tr>
+                        <tr><td>Tool Search</td><td>1</td><td>Semantic retrieval across the complete tool registry</td></tr>
+                        <tr><td>System</td><td>5</td><td>Exec (4) and TON Proxy status (1), both optional</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="advanced-capabilities">
+                <h2>Advanced Capabilities</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Capability</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Multi-Provider LLM</strong></td><td>16 providers, hot-swap from dashboard or CLI</td></tr>
+                        <tr><td><strong>RAG + Hybrid Search</strong></td><td>Vector (sqlite-vec) + keyword (FTS5) fused search</td></tr>
+                        <tr><td><strong>Auto-Compaction</strong></td><td>AI summarizes old context, saves to <code>memory/*.md</code></td></tr>
+                        <tr><td><strong>Observation Masking</strong></td><td>Compresses old tool results, saves ~90% context</td></tr>
+                        <tr><td><strong>Plugin SDK</strong></td><td>Frozen SDK, isolated DBs, secrets, lifecycle hooks</td></tr>
+                        <tr><td><strong>Smart DEX Router</strong></td><td>Compares STON.fi vs DeDust, picks best rate</td></tr>
+                        <tr><td><strong>Vision Analysis</strong></td><td>Image understanding via utility model</td></tr>
+                        <tr><td><strong>Scheduled Tasks</strong></td><td>Cron-like tasks with dependency chains</td></tr>
+                        <tr><td><strong>Message Debouncing</strong></td><td>Batches rapid group messages, DMs stay instant</td></tr>
+                        <tr><td><strong>Tool RAG</strong></td><td>Sends only top-K relevant tools per message</td></tr>
+                        <tr><td><strong>MCP Client</strong></td><td>stdio, SSE, Streamable HTTP, auto-discovery, CLI or WebUI</td></tr>
+                        <tr><td><strong>Management API</strong></td><td>HTTPS control plane for remote admin, bootstrap mode, lifecycle control</td></tr>
+                        <tr><td><strong>Heartbeat</strong></td><td>Autonomous periodic wake-up, HEARTBEAT.md task checklist, configurable intervals</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="user-vs-bot">
+                <h2>User Mode vs Bot Mode</h2>
+                <p>Teleton can run as a <strong>user account</strong> (MTProto) or a <strong>Telegram bot</strong> (Bot API). Set <code>telegram.mode</code> in your config:</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th></th><th>User Mode (default)</th><th>Bot Mode</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Auth</strong></td><td>Phone + api_id + api_hash</td><td>Bot token from @BotFather</td></tr>
+                        <tr><td><strong>Protocol</strong></td><td>MTProto (GramJS)</td><td>Bot API (Grammy)</td></tr>
+                        <tr><td><strong>Tools</strong></td><td>128 base, up to 133 with optional system modules</td><td>Registry filtered automatically by bot-compatible capabilities</td></tr>
+                        <tr><td><strong>Risk</strong></td><td>Account ban possible</td><td>No ban risk</td></tr>
+                        <tr><td><strong>Dialogs/History</strong></td><td>Full access</td><td>Not available</td></tr>
+                        <tr><td><strong>Media sending</strong></td><td>All types</td><td>Photos only (v1)</td></tr>
+                        <tr><td><strong>Stars/Gifts</strong></td><td>Full access</td><td>Not available</td></tr>
+                        <tr><td><strong>Scheduled tasks</strong></td><td>Yes</td><td>Not available</td></tr>
+                        <tr><td><strong>Setup</strong></td><td><code>telegram.mode: "user"</code></td><td><code>telegram.mode: "bot"</code></td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="prerequisites">
+                <h2>Prerequisites</h2>
+                <ul>
+                    <li><strong>Node.js 22.22.2+ LTS</strong>: <a href="https://nodejs.org/" target="_blank" rel="noopener">Download</a> (Node 24 requires 24.15.0+)</li>
+                    <li><strong>LLM credentials</strong>: An API key for a supported hosted provider, or local CLI credentials for Codex/Grok Build; Gocoon and Local are keyless</li>
+                    <li><strong>Telegram Account</strong>: Dedicated account recommended for security</li>
+                    <li><strong>Telegram API Credentials</strong>: From <a href="https://my.telegram.org/apps" target="_blank" rel="noopener">my.telegram.org/apps</a></li>
+                    <li><strong>Your Telegram User ID</strong>: Message <a href="https://t.me/userinfobot" target="_blank" rel="noopener">@userinfobot</a></li>
+                    <li><strong>Bot Token</strong> <em>(optional in user mode)</em>: From @BotFather for plugin inline cards and callbacks; required in bot mode</li>
+                </ul>
+                <p><strong>Security Warning:</strong> The agent will have full control over the Telegram account. Use a dedicated account, not your main one.</p>
+            </section>
+
+            <section class="section" id="quick-start">
+                <h2>Quick Start</h2>
+                <div class="code-block"><div class="code-header"><span>Install</span></div><pre><code class="language-bash">npm install -g teleton@latest</code></pre></div>
+                <div class="code-block"><div class="code-header"><span>Setup &amp; Start</span></div><pre><code class="language-bash">teleton setup --ui</code></pre></div>
+                <p>The WebUI wizard walks you through everything: LLM provider, Telegram auth (QR code or phone), access policies, admin ID, TON wallet, and workspace files. Once done, the agent starts automatically.</p>
+                <div class="code-block"><div class="code-header"><span>Verify</span></div><pre><code class="language-bash">You: /ping
+Agent: Pong! I'm alive.
+
+You: /status
+Agent: [Displays uptime, model, tool count, wallet balance]</code></pre></div>
+                <p>See <a href="installation.html"><strong>Installation</strong></a> for the full guide.</p>
+            </section>
+
+            <section class="section" id="next-steps">
+                <h2>Next Steps</h2>
+                <ul>
+                    <li><a href="installation.html"><strong>Installation</strong></a>: Full install guide with all deployment methods</li>
+                    <li><a href="quickstart.html"><strong>Quick Start</strong></a>: Deploy your agent in 5 minutes</li>
+                    <li><a href="configuration.html"><strong>Configuration</strong></a>: Complete reference for <code>config.yaml</code></li>
+                    <li><a href="telegram-setup.html"><strong>Telegram Setup</strong></a>: API credentials, policies, admin commands</li>
+                    <li><a href="plugin-sdk.html"><strong>Plugin SDK</strong></a>: Build custom tools and extensions</li>
+                    <li><a href="deploy-docker.html"><strong>Docker</strong></a>: Production deployment guide</li>
+                </ul>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

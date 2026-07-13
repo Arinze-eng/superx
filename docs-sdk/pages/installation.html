@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation - Teleton Agent Documentation</title>
+    <meta name="description" content="Complete guide to installing, configuring, and running Teleton Agent. npm, Docker, one-liner, and source install methods covered.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="installation">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link active">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>Installation</h1>
+            <p class="lead">Complete guide to installing, configuring, and running Teleton Agent.</p>
+
+            <section class="section" id="prerequisites">
+                <h2>Prerequisites</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Requirement</th><th>Details</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Node.js 22.22.2+ LTS</strong></td><td><a href="https://nodejs.org/" target="_blank" rel="noopener">Download</a>: Node 24 requires 24.15.0+; check with <code>node --version</code></td></tr>
+                        <tr><td><strong>LLM API Key</strong></td><td>Anthropic (recommended), OpenAI, Google, xAI, Groq, OpenRouter, Moonshot, Mistral, Cerebras, ZAI, MiniMax, Hugging Face, or any of 15 supported providers</td></tr>
+                        <tr><td><strong>Telegram Account</strong></td><td>Dedicated account recommended (agent has full control)</td></tr>
+                        <tr><td><strong>Telegram API Credentials</strong></td><td><code>api_id</code> + <code>api_hash</code> from <a href="https://my.telegram.org/apps" target="_blank" rel="noopener">my.telegram.org/apps</a></td></tr>
+                        <tr><td><strong>Telegram User ID</strong></td><td>Message <a href="https://t.me/userinfobot" target="_blank" rel="noopener">@userinfobot</a> to get yours</td></tr>
+                        <tr><td><strong>Bot Token</strong> <em>(optional in user mode)</em></td><td>From @BotFather for plugin inline cards and callbacks; required in bot mode</td></tr>
+                        <tr><td><strong>TonAPI Key</strong> <em>(optional)</em></td><td>From @AntTonTechBot mini app: higher rate limits</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="install">
+                <h2>Installation</h2>
+
+                <h3>npm (recommended)</h3>
+                <div class="code-block"><div class="code-header"><span>npm</span></div><pre><code class="language-bash">npm install -g teleton@latest</code></pre></div>
+
+                <h3>One-liner</h3>
+                <div class="code-block"><div class="code-header"><span>curl install</span></div><pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/TONresistor/teleton-agent/main/install.sh | bash</code></pre></div>
+
+                <h3>Docker</h3>
+                <div class="code-block"><div class="code-header"><span>Docker</span></div><pre><code class="language-bash">docker run -it -v ~/.teleton:/data ghcr.io/tonresistor/teleton:latest setup</code></pre></div>
+
+                <h3>From Source</h3>
+                <div class="code-block"><div class="code-header"><span>From Source</span></div><pre><code class="language-bash">git clone https://github.com/TONresistor/teleton-agent.git
+cd teleton-agent
+npm install && npm run build</code></pre></div>
+            </section>
+
+            <section class="section" id="setup">
+                <h2>Setup</h2>
+                <div class="code-block"><div class="code-header"><span>Interactive setup wizard</span></div><pre><code class="language-bash">teleton setup</code></pre></div>
+                <p>The interactive wizard configures everything:</p>
+                <ol>
+                    <li><strong>LLM Provider</strong>: Choose between 15 providers (Anthropic, OpenAI, Google, xAI, Groq, OpenRouter, Moonshot, Mistral, Cerebras, ZAI, MiniMax, Hugging Face, and more)</li>
+                    <li><strong>Telegram Auth</strong>: API credentials, phone number, login code, 2FA password</li>
+                    <li><strong>Access Policies</strong>: DM policy (open/allowlist/pairing/disabled), group policy, mention rules</li>
+                    <li><strong>Admin</strong>: Your Telegram User ID, owner name/username</li>
+                    <li><strong>TON Wallet</strong>: Generates a W5R1 wallet with 24-word mnemonic</li>
+                    <li><strong>Optional integrations</strong>: Bot token, TonAPI, Toncenter, and Tavily credentials</li>
+                    <li><strong>Workspace</strong>: Creates template files (SOUL.md, IDENTITY.md, STRATEGY.md, etc.)</li>
+                </ol>
+
+                <h3>Files Created</h3>
+                <div class="code-block"><div class="code-header"><span>~/.teleton/ directory structure</span></div><pre><code class="language-bash">~/.teleton/
+├── config.yaml            # Main configuration
+├── wallet.json            # TON wallet (chmod 600 - backup mnemonic!)
+├── memory.db              # SQLite database
+├── telegram_session.txt   # Telegram session
+├── plugins/               # Custom plugins (auto-loaded at startup)
+└── workspace/             # Sandboxed agent workspace
+    ├── SOUL.md            # Personality and behavior
+    ├── IDENTITY.md        # Agent identity
+    ├── BOOTSTRAP.md       # First-run instructions
+    ├── MEMORY.md          # Persistent memory (RAG-indexed)
+    ├── STRATEGY.md        # Trading rules and thresholds
+    ├── USER.md            # User information
+    ├── SECURITY.md        # Security rules
+    ├── memory/            # Daily logs
+    ├── downloads/         # Downloaded files
+    ├── uploads/           # Uploaded files
+    └── temp/              # Temporary files</code></pre></div>
+            </section>
+
+            <section class="section" id="start">
+                <h2>Start</h2>
+                <div class="code-block"><div class="code-header"><span>Start the agent</span></div><pre><code class="language-bash">teleton start</code></pre></div>
+                <p>You should see:</p>
+                <div class="code-block"><div class="code-header"><span>Startup output</span></div><pre><code class="language-bash">Starting Teleton AI Agent...
+Config loaded from ~/.teleton/config.yaml
+SOUL.md loaded
+Knowledge indexed
+Telegram: @your_agent connected
+TON Blockchain: connected
+Agent is ready! (128 base tools)</code></pre></div>
+                <p><strong>Verify:</strong> Send <code>/ping</code> to your agent on Telegram.</p>
+            </section>
+
+            <section class="section" id="admin-commands">
+                <h2>Admin Commands</h2>
+                <p>Admin commands are only available to users listed in <code>admin_ids</code>. All commands work with <code>/</code>, <code>!</code>, or <code>.</code> prefix.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Command</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>/ping</code></td><td>Check if agent is alive</td></tr>
+                        <tr><td><code>/status</code></td><td>Uptime, model, tool count, memory stats</td></tr>
+                        <tr><td><code>/task &lt;description&gt;</code></td><td>Give agent a task to execute</td></tr>
+                        <tr><td><code>/clear</code></td><td>Clear current chat history</td></tr>
+                        <tr><td><code>/model &lt;name&gt;</code></td><td>Switch LLM model at runtime</td></tr>
+                        <tr><td><code>/wallet</code></td><td>Show wallet address and balance</td></tr>
+                        <tr><td><code>/policy dm open</code></td><td>Change DM policy at runtime</td></tr>
+                        <tr><td><code>/pause</code> / <code>/resume</code></td><td>Pause/resume agent responses</td></tr>
+                        <tr><td><code>/stop</code></td><td>Emergency shutdown</td></tr>
+                        <tr><td><code>/help</code></td><td>List all commands</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="ton-wallet">
+                <h2>TON Wallet</h2>
+                <p>During setup, a <strong>W5R1 wallet</strong> is generated with a 24-word mnemonic stored in <code>~/.teleton/wallet.json</code>.</p>
+                <p><strong>CRITICAL: Backup your mnemonic immediately.</strong> It's the only way to recover your wallet.</p>
+
+                <h3>Fund Your Wallet</h3>
+                <ol>
+                    <li>Ask the agent: <em>"What's my wallet address?"</em></li>
+                    <li>Send TON from an exchange or another wallet</li>
+                    <li>Minimum ~0.5 TON for gas fees, 10+ TON recommended for trading</li>
+                </ol>
+            </section>
+
+            <section class="section" id="troubleshooting">
+                <h2>Troubleshooting</h2>
+
+                <h3>Telegram Login Fails</h3>
+                <ul>
+                    <li>Use international phone format: <code>+1234567890</code></li>
+                    <li>If 2FA is enabled, enter the password when prompted</li>
+                    <li>Session expired: <code>rm ~/.teleton/telegram_session.txt</code> then <code>teleton setup</code></li>
+                    <li><code>api_id</code> is a number, <code>api_hash</code> is a string</li>
+                </ul>
+
+                <h3>Agent Not Responding</h3>
+                <ul>
+                    <li>Check <code>dm_policy</code> / <code>group_policy</code> in config</li>
+                    <li>In groups with <code>require_mention: true</code>, you must @mention the agent</li>
+                    <li>Verify your User ID is in <code>admin_ids</code></li>
+                    <li>Check if agent is paused (<code>/resume</code>)</li>
+                </ul>
+
+                <h3>API Errors</h3>
+                <ul>
+                    <li><strong>401</strong>: Invalid API key: check provider and key format</li>
+                    <li><strong>429</strong>: Rate limited: wait and retry, or switch to a different model</li>
+                    <li><strong>Context overflow</strong>: Reduce <code>max_tokens</code> or <code>max_agentic_iterations</code></li>
+                </ul>
+
+                <h3>Health Check</h3>
+                <div class="code-block"><div class="code-header"><span>Diagnose your setup</span></div><pre><code class="language-bash">teleton doctor</code></pre></div>
+                <p>Verifies config, Telegram session, wallet, and database.</p>
+            </section>
+
+            <section class="section" id="support">
+                <h2>Support</h2>
+                <ul>
+                    <li><strong>GitHub Issues</strong>: <a href="https://github.com/TONresistor/teleton-agent/issues" target="_blank" rel="noopener">github.com/TONresistor/teleton-agent/issues</a></li>
+                    <li><strong>Group Chat</strong>: <a href="https://t.me/ResistanceForum" target="_blank" rel="noopener">@ResistanceForum</a></li>
+                </ul>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

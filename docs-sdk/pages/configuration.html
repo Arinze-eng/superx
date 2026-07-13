@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration - Teleton Agent Documentation</title>
+    <meta name="description" content="Complete reference for config.yaml: every configuration option, its type, default value, and behavior for Teleton Agent.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="configuration">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link active">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>Configuration Reference</h1>
+            <p class="lead">Teleton Agent is configured through a single YAML file at <code>~/.teleton/config.yaml</code>. Run <code>teleton setup</code> to generate it interactively.</p>
+
+            <section class="section" id="agent">
+                <h2>agent</h2>
+                <p>LLM provider and agentic loop configuration.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Key</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>agent.provider</code></td><td><code>enum</code></td><td><code>"anthropic"</code></td><td>LLM provider. One of: <code>anthropic</code>, <code>claude-code</code>, <code>openai</code>, <code>google</code>, <code>xai</code>, <code>groq</code>, <code>openrouter</code>, <code>moonshot</code>, <code>mistral</code>, <code>cerebras</code>, <code>zai</code>, <code>minimax</code>, <code>huggingface</code>, <code>cocoon</code>, <code>local</code>.</td></tr>
+                        <tr><td><code>agent.api_key</code></td><td><code>string</code></td><td><code>""</code></td><td>API key for the chosen provider. Can be overridden with <code>TELETON_API_KEY</code> env var.</td></tr>
+                        <tr><td><code>agent.model</code></td><td><code>string</code></td><td><code>"claude-haiku-4-5-20251001"</code></td><td>Primary model ID.</td></tr>
+                        <tr><td><code>agent.utility_model</code></td><td><code>string</code></td><td><em>auto-detected</em></td><td>Cheap/fast model for summarization and compaction.</td></tr>
+                        <tr><td><code>agent.base_url</code></td><td><code>string</code></td><td><em>optional</em></td><td>Base URL for local LLM server (e.g., <code>http://localhost:11434/v1</code>).</td></tr>
+                        <tr><td><code>agent.max_tokens</code></td><td><code>number</code></td><td><code>4096</code></td><td>Maximum tokens in each LLM response.</td></tr>
+                        <tr><td><code>agent.temperature</code></td><td><code>number</code></td><td><code>0.7</code></td><td>Sampling temperature (0.0 = deterministic, 1.0 = creative).</td></tr>
+                        <tr><td><code>agent.max_agentic_iterations</code></td><td><code>number</code></td><td><code>5</code></td><td>Maximum agentic loop iterations per message.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>agent.session_reset_policy</h3>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Key</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>daily_reset_enabled</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Enable automatic daily session reset.</td></tr>
+                        <tr><td><code>daily_reset_hour</code></td><td><code>number</code></td><td><code>4</code></td><td>Hour of day (0-23) to reset all sessions.</td></tr>
+                        <tr><td><code>idle_expiry_enabled</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Enable session reset after inactivity.</td></tr>
+                        <tr><td><code>idle_expiry_minutes</code></td><td><code>number</code></td><td><code>1440</code></td><td>Minutes of inactivity before session resets (default: 24h).</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Provider Default Models</h3>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Provider</th><th>Default Model</th><th>Default Utility Model</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>anthropic</code></td><td><code>claude-haiku-4-5-20251001</code></td><td><code>claude-haiku-4-5-20251001</code></td></tr>
+                        <tr><td><code>openai</code></td><td><code>gpt-5.4</code></td><td><code>gpt-4o-mini</code></td></tr>
+                        <tr><td><code>google</code></td><td><code>gemini-2.5-flash</code></td><td><code>gemini-2.0-flash-lite</code></td></tr>
+                        <tr><td><code>xai</code></td><td><code>grok-3</code></td><td><code>grok-3-mini-fast</code></td></tr>
+                        <tr><td><code>groq</code></td><td><code>llama-3.3-70b-versatile</code></td><td><code>llama-3.1-8b-instant</code></td></tr>
+                        <tr><td><code>openrouter</code></td><td><code>anthropic/claude-opus-4.5</code></td><td><code>google/gemini-2.5-flash-lite</code></td></tr>
+                        <tr><td><code>mistral</code></td><td><code>devstral-small-2507</code></td><td><code>ministral-8b-latest</code></td></tr>
+                        <tr><td><code>local</code></td><td><code>auto</code></td><td><code>auto</code></td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>agent example</span></div><pre><code class="language-yaml">agent:
+  provider: "anthropic"
+  api_key: "sk-ant-..."
+  model: "claude-haiku-4-5-20251001"
+  utility_model: "claude-haiku-4-5-20251001"
+  max_tokens: 4096
+  temperature: 0.7
+  max_agentic_iterations: 5
+  session_reset_policy:
+    daily_reset_enabled: true
+    daily_reset_hour: 4
+    idle_expiry_enabled: true
+    idle_expiry_minutes: 1440</code></pre></div>
+            </section>
+
+            <section class="section" id="telegram">
+                <h2>telegram</h2>
+                <p>Telegram client and messaging behavior.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Key</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>telegram.api_id</code></td><td><code>number</code></td><td><strong>(required)</strong></td><td>Telegram API ID from <a href="https://my.telegram.org/apps" target="_blank" rel="noopener">my.telegram.org/apps</a>.</td></tr>
+                        <tr><td><code>telegram.api_hash</code></td><td><code>string</code></td><td><strong>(required)</strong></td><td>Telegram API hash.</td></tr>
+                        <tr><td><code>telegram.phone</code></td><td><code>string</code></td><td><strong>(required)</strong></td><td>Phone number in international format (e.g., <code>"+1234567890"</code>).</td></tr>
+                        <tr><td><code>telegram.dm_policy</code></td><td><code>enum</code></td><td><code>"allowlist"</code></td><td>Who can interact via DMs. See policies below.</td></tr>
+                        <tr><td><code>telegram.allow_from</code></td><td><code>number[]</code></td><td><code>[]</code></td><td>Telegram user IDs allowed to DM (used with <code>"allowlist"</code>).</td></tr>
+                        <tr><td><code>telegram.group_policy</code></td><td><code>enum</code></td><td><code>"open"</code></td><td>Who can interact in groups.</td></tr>
+                        <tr><td><code>telegram.require_mention</code></td><td><code>boolean</code></td><td><code>true</code></td><td>In groups, only respond when mentioned by name/username.</td></tr>
+                        <tr><td><code>telegram.admin_ids</code></td><td><code>number[]</code></td><td><code>[]</code></td><td>Telegram user IDs with admin privileges.</td></tr>
+                        <tr><td><code>telegram.debounce_ms</code></td><td><code>number</code></td><td><code>1500</code></td><td>Debounce delay for group messages. Set to <code>0</code> to disable.</td></tr>
+                        <tr><td><code>telegram.bot_token</code></td><td><code>string</code></td><td><em>optional in user mode</em></td><td>Required in bot mode; enables plugin inline cards and callbacks in user mode.</td></tr>
+                        <tr><td><code>telegram.owner_name</code></td><td><code>string</code></td><td><em>optional</em></td><td>Owner's first name (used in personality prompts).</td></tr>
+                        <tr><td><code>telegram.owner_username</code></td><td><code>string</code></td><td><em>optional</em></td><td>Owner's Telegram username without <code>@</code>.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>DM Policies</h3>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Value</th><th>Behavior</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>"allowlist"</code></td><td>Only users listed in <code>allow_from</code> can interact. Default.</td></tr>
+                        <tr><td><code>"open"</code></td><td>Anyone can DM the agent.</td></tr>
+                        <tr><td><code>"admin-only"</code></td><td>Only users in <code>admin_ids</code> can interact via DM.</td></tr>
+                        <tr><td><code>"disabled"</code></td><td>DMs are completely ignored.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Group Policies</h3>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Value</th><th>Behavior</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>"open"</code></td><td>Agent responds in any group it is a member of. Default.</td></tr>
+                        <tr><td><code>"allowlist"</code></td><td>Only responds in groups listed in <code>group_allow_from</code>.</td></tr>
+                        <tr><td><code>"admin-only"</code></td><td>Only responds when triggered by users in <code>admin_ids</code>.</td></tr>
+                        <tr><td><code>"disabled"</code></td><td>Group messages are completely ignored.</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="webui">
+                <h2>webui</h2>
+                <p>Optional web dashboard for monitoring and management.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Key</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>webui.enabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Enable the WebUI server.</td></tr>
+                        <tr><td><code>webui.port</code></td><td><code>number</code></td><td><code>7777</code></td><td>HTTP server port.</td></tr>
+                        <tr><td><code>webui.host</code></td><td><code>string</code></td><td><code>"127.0.0.1"</code></td><td>Bind address. Set to <code>"0.0.0.0"</code> to expose externally (use with a reverse proxy).</td></tr>
+                        <tr><td><code>webui.auth_token</code></td><td><code>string</code></td><td><em>auto-generated</em></td><td>Bearer token for API authentication.</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="heartbeat">
+                <h2>heartbeat</h2>
+                <p>Periodic timer that triggers the agent to check for pending tasks.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Key</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>heartbeat.enabled</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Enable the periodic heartbeat timer.</td></tr>
+                        <tr><td><code>heartbeat.interval_ms</code></td><td><code>number</code></td><td><code>3600000</code></td><td>Heartbeat interval in milliseconds (minimum 60000).</td></tr>
+                        <tr><td><code>heartbeat.prompt</code></td><td><code>string</code></td><td><em>see docs</em></td><td>Prompt sent to the agent on each heartbeat tick.</td></tr>
+                        <tr><td><code>heartbeat.self_configurable</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Allow the agent to modify heartbeat config at runtime.</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="mcp">
+                <h2>mcp</h2>
+                <p>Model Context Protocol (MCP) server configuration. Supports stdio, SSE, and Streamable HTTP transports.</p>
+                <div class="code-block"><div class="code-header"><span>mcp example</span></div><pre><code class="language-yaml">mcp:
+  servers:
+    filesystem:
+      command: "npx @modelcontextprotocol/server-filesystem /tmp"
+      scope: "admin-only"
+    remote-api:
+      url: "https://mcp.example.com/sse"
+      enabled: true</code></pre></div>
+            </section>
+
+            <section class="section" id="capabilities">
+                <h2>capabilities</h2>
+                <p>Controls optional agent capabilities that require explicit opt-in.</p>
+                <div class="code-block"><div class="code-header"><span>YOLO mode (exec)</span></div><pre><code class="language-yaml">capabilities:
+  exec:
+    mode: "yolo"        # off | yolo
+    scope: "admin-only" # admin-only | allowlist | all
+    limits:
+      timeout: 120
+      max_output: 50000
+    audit:
+      log_commands: true</code></pre></div>
+            </section>
+
+            <section class="section" id="env-vars">
+                <h2>Environment Variable Overrides</h2>
+                <p>Environment variables override values set in <code>config.yaml</code>.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Variable</th><th>Config Path</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>TELETON_HOME</code></td><td>-</td><td>Root data directory (default: <code>~/.teleton</code>)</td></tr>
+                        <tr><td><code>TELETON_API_KEY</code></td><td><code>agent.api_key</code></td><td>Override the LLM provider API key</td></tr>
+                        <tr><td><code>TELETON_TG_API_ID</code></td><td><code>telegram.api_id</code></td><td>Override the Telegram API ID</td></tr>
+                        <tr><td><code>TELETON_TG_API_HASH</code></td><td><code>telegram.api_hash</code></td><td>Override the Telegram API hash</td></tr>
+                        <tr><td><code>TELETON_TG_PHONE</code></td><td><code>telegram.phone</code></td><td>Override the phone number</td></tr>
+                        <tr><td><code>TELETON_WEBUI_ENABLED</code></td><td><code>webui.enabled</code></td><td>Enable WebUI (<code>"true"</code> or <code>"false"</code>)</td></tr>
+                        <tr><td><code>TELETON_WEBUI_PORT</code></td><td><code>webui.port</code></td><td>WebUI server port</td></tr>
+                        <tr><td><code>TELETON_API_ENABLED</code></td><td><code>api.enabled</code></td><td>Enable Management API</td></tr>
+                        <tr><td><code>TELETON_TAVILY_API_KEY</code></td><td><code>tavily_api_key</code></td><td>Tavily API key for web search</td></tr>
+                        <tr><td><code>TELETON_TONAPI_KEY</code></td><td><code>tonapi_key</code></td><td>TonAPI key for blockchain queries</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Precedence Order</h3>
+                <ol>
+                    <li><strong>CLI flags</strong> (<code>--webui</code>, <code>-c</code>): highest priority</li>
+                    <li><strong>Environment variables</strong> (<code>TELETON_*</code> overrides)</li>
+                    <li><strong>Config file</strong> (<code>config.yaml</code>)</li>
+                    <li><strong>Schema defaults</strong>: lowest priority</li>
+                </ol>
+            </section>
+
+            <section class="section" id="complete-example">
+                <h2>Complete Example</h2>
+                <div class="code-block"><div class="code-header"><span>~/.teleton/config.yaml</span></div><pre><code class="language-yaml">meta:
+  version: "1.0.0"
+
+agent:
+  provider: "anthropic"
+  api_key: "sk-ant-..."
+  model: "claude-haiku-4-5-20251001"
+  max_tokens: 4096
+  temperature: 0.7
+  max_agentic_iterations: 5
+  session_reset_policy:
+    daily_reset_enabled: true
+    daily_reset_hour: 4
+    idle_expiry_enabled: true
+    idle_expiry_minutes: 1440
+
+telegram:
+  api_id: 12345678
+  api_hash: "0123456789abcdef0123456789abcdef"
+  phone: "+1234567890"
+  dm_policy: "allowlist"
+  group_policy: "open"
+  require_mention: true
+  admin_ids: [123456789]
+  owner_name: "Alex"
+  owner_username: "zkproof"
+  debounce_ms: 1500
+
+embedding:
+  provider: "local"
+
+webui:
+  enabled: false
+  port: 7777
+  host: "127.0.0.1"
+
+logging:
+  level: "info"
+  pretty: true
+
+heartbeat:
+  enabled: true
+  interval_ms: 3600000
+
+tool_rag:
+  enabled: true
+  top_k: 35
+
+dev:
+  hot_reload: false</code></pre></div>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

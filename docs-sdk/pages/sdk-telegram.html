@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sdk.telegram, Telegram - Teleton Agent Documentation</title>
+    <meta name="description" content="Complete reference for the 51 Telegram methods in the Teleton Plugin SDK: messaging, media, moderation, stars, gifts, collectibles, and more.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="sdk-telegram">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link active">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>sdk.telegram: Telegram</h1>
+            <p class="lead">Complete reference for the 51 Telegram methods: messaging, media, moderation, stars, gifts, collectibles, and more. Access via <code>sdk.telegram</code> in any plugin tool executor or lifecycle hook.</p>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="quick-example">
+                <h2>Quick Example</h2>
+                <div class="code-block"><div class="code-header"><span>Basic usage: send messages and media</span></div><pre><code class="language-typescript">import type { PluginSDK } from "@teleton-agent/sdk";
+
+export const tools = [
+  {
+    name: "greet",
+    description: "Send a greeting with a photo",
+    parameters: { chatId: { type: "string" } },
+    async execute({ chatId }: { chatId: string }, sdk: PluginSDK) {
+      // Who am I?
+      const me = sdk.telegram.getMe();
+
+      // Send a text message with an inline button
+      const msgId = await sdk.telegram.sendMessage(chatId, "Hello from the plugin!", {
+        inlineKeyboard: [[{ text: "Click me", callback_data: "greet:clicked" }]],
+      });
+
+      // Send a photo with caption
+      await sdk.telegram.sendPhoto(chatId, "/tmp/welcome.jpg", {
+        caption: `Sent by @${me?.username ?? "unknown"}`,
+        replyToId: msgId,
+      });
+
+      return { success: true, messageId: msgId };
+    },
+  },
+];</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="core">
+                <h2>Core (5 methods)</h2>
+                <p>Fundamental messaging operations: sending, editing, reacting, dice, and identity.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>sendMessage(chatId, text, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Send a text message. Returns the message ID.</td></tr>
+                        <tr><td><code>editMessage(chatId, messageId, text, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Edit an existing message's text and/or keyboard. Returns the message ID.</td></tr>
+                        <tr><td><code>sendDice(chatId, emoticon, replyToId?)</code></td><td><code>Promise&lt;DiceResult&gt;</code></td><td>Send a dice/slot animation. Returns the rolled value and message ID.</td></tr>
+                        <tr><td><code>sendReaction(chatId, messageId, emoji)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Add an emoji reaction to a message.</td></tr>
+                        <tr><td><code>getMe()</code></td><td><code>TelegramUser | null</code></td><td>Get the bot's own user info. Returns <code>null</code> if not connected.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>sendMessage</h3>
+                <div class="code-block"><div class="code-header"><span>Signature</span></div><pre><code class="language-typescript">sendMessage(
+  chatId: string,
+  text: string,
+  opts?: SendMessageOptions
+): Promise&lt;number&gt;</code></pre></div>
+                <p>Sends a text message to the specified chat. The optional <code>opts</code> parameter accepts <code>replyToId</code> (message ID to reply to) and <code>inlineKeyboard</code> (2D array of <code>InlineButton</code> objects for inline keyboard rows).</p>
+                <p><strong>Throws:</strong> <code>PluginSDKError</code> with code <code>BRIDGE_NOT_CONNECTED</code> or <code>OPERATION_FAILED</code>.</p>
+
+                <div class="code-block"><div class="code-header"><span>Send with inline keyboard</span></div><pre><code class="language-typescript">const msgId = await sdk.telegram.sendMessage(chatId, "Choose an option:", {
+  replyToId: 12345,
+  inlineKeyboard: [
+    [
+      { text: "Option A", callback_data: "choose:a" },
+      { text: "Option B", callback_data: "choose:b" },
+    ],
+    [{ text: "Cancel", callback_data: "choose:cancel" }],
+  ],
+});</code></pre></div>
+
+                <h3>editMessage</h3>
+                <div class="code-block"><div class="code-header"><span>Signature</span></div><pre><code class="language-typescript">editMessage(
+  chatId: string,
+  messageId: number,
+  text: string,
+  opts?: EditMessageOptions
+): Promise&lt;number&gt;</code></pre></div>
+                <p>Edits an existing message's text. Pass <code>opts.inlineKeyboard</code> to update the keyboard, or omit it to keep the existing keyboard.</p>
+
+                <h3>sendDice</h3>
+                <div class="code-block"><div class="code-header"><span>Signature</span></div><pre><code class="language-typescript">sendDice(
+  chatId: string,
+  emoticon: string,
+  replyToId?: number
+): Promise&lt;DiceResult&gt;</code></pre></div>
+                <p>Sends a dice animation and returns the result. Supported emoticons and value ranges:</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Emoticon</th><th>Name</th><th>Values</th></tr></thead>
+                    <tbody>
+                        <tr><td>&#x1F3B2;</td><td>Dice</td><td>1&ndash;6</td></tr>
+                        <tr><td>&#x1F3AF;</td><td>Darts</td><td>1&ndash;6</td></tr>
+                        <tr><td>&#x1F3C0;</td><td>Basketball</td><td>1&ndash;5</td></tr>
+                        <tr><td>&#x26BD;</td><td>Football</td><td>1&ndash;5</td></tr>
+                        <tr><td>&#x1F3B3;</td><td>Bowling</td><td>1&ndash;6</td></tr>
+                        <tr><td>&#x1F3B0;</td><td>Slots</td><td>1&ndash;64</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>sendReaction</h3>
+                <div class="code-block"><div class="code-header"><span>Signature</span></div><pre><code class="language-typescript">sendReaction(
+  chatId: string,
+  messageId: number,
+  emoji: string
+): Promise&lt;void&gt;</code></pre></div>
+                <p>Adds an emoji reaction to a message. Common reactions include thumbs up, fire, heart, etc.</p>
+
+                <h3>getMe</h3>
+                <div class="code-block"><div class="code-header"><span>Signature</span></div><pre><code class="language-typescript">getMe(): TelegramUser | null</code></pre></div>
+                <p>Returns the bot's own <code>TelegramUser</code> info synchronously. Returns <code>null</code> if the Telegram bridge is not connected. Note: this is <strong>not</strong> async: it returns directly, not a Promise.</p>
+                <div class="code-block"><div class="code-header"><span>Example</span></div><pre><code class="language-typescript">const me = sdk.telegram.getMe();
+if (!me) return { success: false, error: "Telegram not connected" };
+console.log(`I am @${me.username}, ID: ${me.id}`);</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="media">
+                <h2>Media (7 methods)</h2>
+                <p>Send photos, videos, voice messages, files, GIFs, stickers, and download media from messages.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>sendPhoto(chatId, photo, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Send a photo (file path or Buffer). Returns message ID.</td></tr>
+                        <tr><td><code>sendVideo(chatId, video, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Send a video. Returns message ID.</td></tr>
+                        <tr><td><code>sendVoice(chatId, voice, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Send a voice message (OGG/Opus format). Returns message ID.</td></tr>
+                        <tr><td><code>sendFile(chatId, file, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Send a file/document. Accepts additional <code>fileName</code> option. Returns message ID.</td></tr>
+                        <tr><td><code>sendGif(chatId, gif, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Send an animated GIF. Returns message ID.</td></tr>
+                        <tr><td><code>sendSticker(chatId, sticker)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Send a sticker (WEBP format). Returns message ID.</td></tr>
+                        <tr><td><code>downloadMedia(chatId, messageId)</code></td><td><code>Promise&lt;Buffer | null&gt;</code></td><td>Download media from a message. Returns <code>null</code> if no media found.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Signatures</h3>
+                <div class="code-block"><div class="code-header"><span>Media method signatures</span></div><pre><code class="language-typescript">sendPhoto(chatId: string, photo: string | Buffer, opts?: MediaSendOptions): Promise&lt;number&gt;
+sendVideo(chatId: string, video: string | Buffer, opts?: MediaSendOptions): Promise&lt;number&gt;
+sendVoice(chatId: string, voice: string | Buffer, opts?: MediaSendOptions): Promise&lt;number&gt;
+sendFile(chatId: string, file: string | Buffer, opts?: MediaSendOptions &amp; { fileName?: string }): Promise&lt;number&gt;
+sendGif(chatId: string, gif: string | Buffer, opts?: MediaSendOptions): Promise&lt;number&gt;
+sendSticker(chatId: string, sticker: string | Buffer): Promise&lt;number&gt;
+downloadMedia(chatId: string, messageId: number): Promise&lt;Buffer | null&gt;</code></pre></div>
+
+                <p>All media send methods accept either a file path (string) or a <code>Buffer</code>. The <code>MediaSendOptions</code> type provides caption, reply-to, inline keyboard, and dimension/duration hints for video and voice.</p>
+                <p><code>sendFile</code> additionally accepts <code>fileName</code> in its options to set the displayed file name. <code>sendSticker</code> takes no options: just the chat ID and sticker data.</p>
+                <p><strong>Throws:</strong> <code>PluginSDKError</code> with code <code>BRIDGE_NOT_CONNECTED</code> or <code>OPERATION_FAILED</code> (except <code>downloadMedia</code> which returns <code>null</code> on failure).</p>
+
+                <div class="code-block"><div class="code-header"><span>Send media examples</span></div><pre><code class="language-typescript">// Photo with caption and reply
+await sdk.telegram.sendPhoto(chatId, "/tmp/chart.png", {
+  caption: "Daily price chart",
+  replyToId: originalMsgId,
+});
+
+// Video with dimensions
+await sdk.telegram.sendVideo(chatId, videoBuffer, {
+  caption: "Screen recording",
+  duration: 30,
+  width: 1920,
+  height: 1080,
+});
+
+// File with custom name
+await sdk.telegram.sendFile(chatId, reportBuffer, {
+  fileName: "report-2026-03.pdf",
+  caption: "Monthly report attached",
+});
+
+// Download and re-send media
+const media = await sdk.telegram.downloadMedia(chatId, 42);
+if (media) {
+  await sdk.telegram.sendPhoto(otherChatId, media, {
+    caption: "Forwarded image",
+  });
+}</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="messages">
+                <h2>Messages (5 methods)</h2>
+                <p>Retrieve, search, delete, and forward messages.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>getMessages(chatId, limit?)</code></td><td><code>Promise&lt;SimpleMessage[]&gt;</code></td><td>Get recent messages from a chat. Default limit: 50.</td></tr>
+                        <tr><td><code>searchMessages(chatId, query, limit?)</code></td><td><code>Promise&lt;SimpleMessage[]&gt;</code></td><td>Search messages in a chat by query. Default limit: 20.</td></tr>
+                        <tr><td><code>getReplies(chatId, messageId, limit?)</code></td><td><code>Promise&lt;SimpleMessage[]&gt;</code></td><td>Get replies to a specific message (thread). Default limit: 50.</td></tr>
+                        <tr><td><code>deleteMessage(chatId, messageId, revoke?)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Delete a message. <code>revoke</code> deletes for all users (default: <code>true</code>).</td></tr>
+                        <tr><td><code>forwardMessage(fromChatId, toChatId, messageId)</code></td><td><code>Promise&lt;number | null&gt;</code></td><td>Forward a message to another chat. Returns forwarded message ID.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Signatures</h3>
+                <div class="code-block"><div class="code-header"><span>Message method signatures</span></div><pre><code class="language-typescript">getMessages(chatId: string, limit?: number): Promise&lt;SimpleMessage[]&gt;
+searchMessages(chatId: string, query: string, limit?: number): Promise&lt;SimpleMessage[]&gt;
+getReplies(chatId: string, messageId: number, limit?: number): Promise&lt;SimpleMessage[]&gt;
+deleteMessage(chatId: string, messageId: number, revoke?: boolean): Promise&lt;void&gt;
+forwardMessage(fromChatId: string, toChatId: string, messageId: number): Promise&lt;number | null&gt;</code></pre></div>
+
+                <p>All retrieval methods return an array of <code>SimpleMessage</code> objects (or an empty array on error). The <code>deleteMessage</code> method defaults <code>revoke</code> to <code>true</code>, which removes the message for all participants.</p>
+
+                <div class="code-block"><div class="code-header"><span>Example: search and forward</span></div><pre><code class="language-typescript">// Search for messages mentioning "invoice"
+const results = await sdk.telegram.searchMessages(chatId, "invoice", 10);
+
+// Forward the first match to the admin chat
+if (results.length &gt; 0) {
+  await sdk.telegram.forwardMessage(chatId, adminChatId, results[0].id);
+}
+
+// Get thread replies
+const replies = await sdk.telegram.getReplies(chatId, parentMsgId, 20);
+console.log(`Thread has ${replies.length} replies`);</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="scheduling">
+                <h2>Scheduling (4 methods)</h2>
+                <p>Schedule messages for future delivery, inspect scheduled messages, and send them immediately or delete them.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>scheduleMessage(chatId, text, scheduleDate)</code></td><td><code>Promise&lt;number | null&gt;</code></td><td>Schedule a text message for later delivery. <code>scheduleDate</code> is a Unix timestamp.</td></tr>
+                        <tr><td><code>getScheduledMessages(chatId)</code></td><td><code>Promise&lt;SimpleMessage[]&gt;</code></td><td>Get all pending scheduled messages in a chat.</td></tr>
+                        <tr><td><code>deleteScheduledMessage(chatId, messageId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Delete a scheduled message before it is sent.</td></tr>
+                        <tr><td><code>sendScheduledNow(chatId, messageId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Send a scheduled message immediately instead of waiting.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Signatures</h3>
+                <div class="code-block"><div class="code-header"><span>Scheduling method signatures</span></div><pre><code class="language-typescript">scheduleMessage(chatId: string, text: string, scheduleDate: number): Promise&lt;number | null&gt;
+getScheduledMessages(chatId: string): Promise&lt;SimpleMessage[]&gt;
+deleteScheduledMessage(chatId: string, messageId: number): Promise&lt;void&gt;
+sendScheduledNow(chatId: string, messageId: number): Promise&lt;void&gt;</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Example: schedule and manage</span></div><pre><code class="language-typescript">// Schedule a reminder for 1 hour from now
+const oneHour = Math.floor(Date.now() / 1000) + 3600;
+const scheduledId = await sdk.telegram.scheduleMessage(
+  chatId,
+  "Reminder: team standup in 5 minutes!",
+  oneHour
+);
+
+// List all scheduled messages
+const pending = await sdk.telegram.getScheduledMessages(chatId);
+console.log(`${pending.length} messages scheduled`);
+
+// Send one immediately
+if (pending.length &gt; 0) {
+  await sdk.telegram.sendScheduledNow(chatId, pending[0].id);
+}
+
+// Or cancel one
+if (scheduledId) {
+  await sdk.telegram.deleteScheduledMessage(chatId, scheduledId);
+}</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="pinning">
+                <h2>Pinning (1 method)</h2>
+                <p>Pin or unpin messages in chats and channels.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>pinMessage(chatId, messageId, opts?)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Pin or unpin a message. Options: <code>silent</code> (no notification), <code>unpin</code> (unpin instead of pin).</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Signature</h3>
+                <div class="code-block"><div class="code-header"><span>pinMessage signature</span></div><pre><code class="language-typescript">pinMessage(
+  chatId: string,
+  messageId: number,
+  opts?: { silent?: boolean; unpin?: boolean }
+): Promise&lt;void&gt;</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Example</span></div><pre><code class="language-typescript">// Pin silently (no notification to members)
+await sdk.telegram.pinMessage(chatId, importantMsgId, { silent: true });
+
+// Unpin
+await sdk.telegram.pinMessage(chatId, importantMsgId, { unpin: true });</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="chat-users">
+                <h2>Chat &amp; Users (6 methods)</h2>
+                <p>Look up chat info, user profiles, resolve usernames, list participants, browse dialogs, and fetch message history.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>getChatInfo(chatId)</code></td><td><code>Promise&lt;ChatInfo | null&gt;</code></td><td>Get chat/group/channel information.</td></tr>
+                        <tr><td><code>getUserInfo(userId)</code></td><td><code>Promise&lt;UserInfo | null&gt;</code></td><td>Get user information by ID or username.</td></tr>
+                        <tr><td><code>resolveUsername(username)</code></td><td><code>Promise&lt;ResolvedPeer | null&gt;</code></td><td>Resolve a <code>@username</code> to a peer entity. Pass username without the <code>@</code> prefix.</td></tr>
+                        <tr><td><code>getParticipants(chatId, limit?)</code></td><td><code>Promise&lt;UserInfo[]&gt;</code></td><td>Get participants of a group/channel. Default limit: 100.</td></tr>
+                        <tr><td><code>getDialogs(limit?)</code></td><td><code>Promise&lt;Dialog[]&gt;</code></td><td>Get all dialogs (conversations). Default limit: 50, max: 100.</td></tr>
+                        <tr><td><code>getHistory(chatId, limit?)</code></td><td><code>Promise&lt;SimpleMessage[]&gt;</code></td><td>Get message history from a chat. Default limit: 50, max: 100.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Signatures</h3>
+                <div class="code-block"><div class="code-header"><span>Chat &amp; Users method signatures</span></div><pre><code class="language-typescript">getChatInfo(chatId: string): Promise&lt;ChatInfo | null&gt;
+getUserInfo(userId: number | string): Promise&lt;UserInfo | null&gt;
+resolveUsername(username: string): Promise&lt;ResolvedPeer | null&gt;
+getParticipants(chatId: string, limit?: number): Promise&lt;UserInfo[]&gt;
+getDialogs(limit?: number): Promise&lt;Dialog[]&gt;
+getHistory(chatId: string, limit?: number): Promise&lt;SimpleMessage[]&gt;</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Example: user and chat lookups</span></div><pre><code class="language-typescript">// Resolve a username to get their ID
+const peer = await sdk.telegram.resolveUsername("durov");
+if (peer) {
+  console.log(`@durov is a ${peer.type} with ID ${peer.id}`);
+}
+
+// Get chat info
+const chat = await sdk.telegram.getChatInfo(chatId);
+if (chat) {
+  console.log(`${chat.title} (${chat.type}), ${chat.membersCount ?? "?"} members`);
+}
+
+// List recent dialogs
+const dialogs = await sdk.telegram.getDialogs(20);
+for (const d of dialogs) {
+  console.log(`${d.title} [${d.type}] unread: ${d.unreadCount}`);
+}
+
+// Browse history
+const history = await sdk.telegram.getHistory(chatId, 30);
+console.log(`Last ${history.length} messages fetched`);</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="interactive">
+                <h2>Interactive (2 methods)</h2>
+                <p>Create polls and quizzes in chats.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>createPoll(chatId, question, answers, opts?)</code></td><td><code>Promise&lt;number | null&gt;</code></td><td>Create a poll with 2&ndash;10 answer options. Returns message ID.</td></tr>
+                        <tr><td><code>createQuiz(chatId, question, answers, correctIndex, explanation?)</code></td><td><code>Promise&lt;number | null&gt;</code></td><td>Create a quiz with a correct answer. Returns message ID.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Signatures</h3>
+                <div class="code-block"><div class="code-header"><span>Interactive method signatures</span></div><pre><code class="language-typescript">createPoll(
+  chatId: string,
+  question: string,
+  answers: string[],
+  opts?: PollOptions
+): Promise&lt;number | null&gt;
+
+createQuiz(
+  chatId: string,
+  question: string,
+  answers: string[],
+  correctIndex: number,
+  explanation?: string
+): Promise&lt;number | null&gt;</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Example: poll and quiz</span></div><pre><code class="language-typescript">// Anonymous poll with multiple choice
+await sdk.telegram.createPoll(chatId, "Favorite blockchain?", [
+  "TON", "Ethereum", "Solana", "Bitcoin"
+], {
+  isAnonymous: true,
+  multipleChoice: false,
+});
+
+// Quiz with explanation
+await sdk.telegram.createQuiz(
+  chatId,
+  "What is the native token of TON?",
+  ["ETH", "TON", "SOL", "BTC"],
+  1, // correct index (TON)
+  "Toncoin (TON) is the native cryptocurrency of The Open Network."
+);</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="moderation">
+                <h2>Moderation (4 methods)</h2>
+                <p>Ban, unban, mute, and kick users in groups and channels. The bot must have admin privileges.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>banUser(chatId, userId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Permanently ban a user from a group/channel.</td></tr>
+                        <tr><td><code>unbanUser(chatId, userId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Unban a previously banned user.</td></tr>
+                        <tr><td><code>muteUser(chatId, userId, untilDate?)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Mute a user (restrict sending messages). <code>untilDate</code> is a Unix timestamp; pass <code>0</code> for permanent mute.</td></tr>
+                        <tr><td><code>kickUser(chatId, userId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Kick a user (ban + immediate unban). User can rejoin via invite link.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Signatures</h3>
+                <div class="code-block"><div class="code-header"><span>Moderation method signatures</span></div><pre><code class="language-typescript">banUser(chatId: string, userId: number | string): Promise&lt;void&gt;
+unbanUser(chatId: string, userId: number | string): Promise&lt;void&gt;
+muteUser(chatId: string, userId: number | string, untilDate: number): Promise&lt;void&gt;
+kickUser(chatId: string, userId: number | string): Promise&lt;void&gt;</code></pre></div>
+
+                <p>Note: <code>muteUser</code> requires an <code>untilDate</code> parameter (not optional in the type signature). Pass <code>0</code> for a permanent mute, or a future Unix timestamp for a temporary mute.</p>
+
+                <div class="code-block"><div class="code-header"><span>Example: moderation actions</span></div><pre><code class="language-typescript">// Mute for 1 hour
+const oneHourFromNow = Math.floor(Date.now() / 1000) + 3600;
+await sdk.telegram.muteUser(chatId, spammerId, oneHourFromNow);
+
+// Kick (can rejoin)
+await sdk.telegram.kickUser(chatId, troublemaker);
+
+// Permanent ban
+await sdk.telegram.banUser(chatId, spammerId);
+
+// Forgive and unban
+await sdk.telegram.unbanUser(chatId, spammerId);</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="stars">
+                <h2>Stars (2 methods)</h2>
+                <p>Query the bot's Telegram Stars balance and transaction history.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>getStarsBalance()</code></td><td><code>Promise&lt;number&gt;</code></td><td>Get current Telegram Stars balance.</td></tr>
+                        <tr><td><code>getStarsTransactions(limit?)</code></td><td><code>Promise&lt;StarsTransaction[]&gt;</code></td><td>Get Stars transaction history. Default limit: 50.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Signatures</h3>
+                <div class="code-block"><div class="code-header"><span>Stars method signatures</span></div><pre><code class="language-typescript">getStarsBalance(): Promise&lt;number&gt;
+getStarsTransactions(limit?: number): Promise&lt;StarsTransaction[]&gt;</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Example: check balance and history</span></div><pre><code class="language-typescript">const balance = await sdk.telegram.getStarsBalance();
+console.log(`Stars balance: ${balance}`);
+
+const txs = await sdk.telegram.getStarsTransactions(10);
+for (const tx of txs) {
+  const direction = tx.amount &gt; 0 ? "received" : "spent";
+  console.log(`${direction} ${Math.abs(tx.amount)} stars, ${tx.description ?? "no description"}`);
+}</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="gifts">
+                <h2>Gifts (5 methods)</h2>
+                <p>Send, browse, and purchase Telegram Star Gifts.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>sendGift(userId, giftId, opts?)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Send a star gift to a user. Options: <code>message</code>, <code>anonymous</code>.</td></tr>
+                        <tr><td><code>getAvailableGifts()</code></td><td><code>Promise&lt;StarGift[]&gt;</code></td><td>Get available star gifts catalog.</td></tr>
+                        <tr><td><code>getMyGifts(limit?)</code></td><td><code>Promise&lt;ReceivedGift[]&gt;</code></td><td>Get star gifts received by the bot. Default limit: 50.</td></tr>
+                        <tr><td><code>getResaleGifts(giftId, limit?)</code></td><td><code>Promise&lt;StarGift[]&gt;</code></td><td>Get gifts available for resale from a collection.</td></tr>
+                        <tr><td><code>buyResaleGift(giftId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Buy a star gift from the resale market.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Signatures</h3>
+                <div class="code-block"><div class="code-header"><span>Gifts method signatures</span></div><pre><code class="language-typescript">sendGift(
+  userId: number | string,
+  giftId: string,
+  opts?: { message?: string; anonymous?: boolean }
+): Promise&lt;void&gt;
+
+getAvailableGifts(): Promise&lt;StarGift[]&gt;
+getMyGifts(limit?: number): Promise&lt;ReceivedGift[]&gt;
+getResaleGifts(giftId: string, limit?: number): Promise&lt;StarGift[]&gt;
+buyResaleGift(giftId: string): Promise&lt;void&gt;</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Example: browse and send gifts</span></div><pre><code class="language-typescript">// Browse available gifts
+const gifts = await sdk.telegram.getAvailableGifts();
+const cheapest = gifts.sort((a, b) =&gt; a.starsAmount - b.starsAmount)[0];
+
+// Send the cheapest gift anonymously
+await sdk.telegram.sendGift(userId, cheapest.id, {
+  message: "A small gift for you!",
+  anonymous: true,
+});
+
+// Check received gifts
+const myGifts = await sdk.telegram.getMyGifts(10);
+console.log(`Received ${myGifts.length} gifts`);
+
+// Browse resale market for a specific collection
+const resale = await sdk.telegram.getResaleGifts(cheapest.id, 20);
+if (resale.length &gt; 0) {
+  await sdk.telegram.buyResaleGift(resale[0].id);
+}</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="collectibles">
+                <h2>Collectibles (6 methods)</h2>
+                <p>Transfer, price, and inspect collectible gifts and unique NFTs. These methods interact with Telegram's Fragment marketplace and unique gift system.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>transferCollectible(msgId, toUserId)</code></td><td><code>Promise&lt;TransferResult&gt;</code></td><td>Transfer a collectible gift to another user. <code>msgId</code> is from <code>getMyGifts()</code>.</td></tr>
+                        <tr><td><code>setCollectiblePrice(msgId, price)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Set or remove the resale price of a collectible. Pass <code>0</code> to unlist.</td></tr>
+                        <tr><td><code>getCollectibleInfo(slug)</code></td><td><code>Promise&lt;CollectibleInfo | null&gt;</code></td><td>Get info about a Fragment collectible (username or phone number).</td></tr>
+                        <tr><td><code>getUniqueGift(slug)</code></td><td><code>Promise&lt;UniqueGift | null&gt;</code></td><td>Look up a unique NFT gift by its slug (from <code>t.me/nft/&lt;slug&gt;</code>).</td></tr>
+                        <tr><td><code>getUniqueGiftValue(slug)</code></td><td><code>Promise&lt;GiftValue | null&gt;</code></td><td>Get market value/appraisal of a unique NFT gift.</td></tr>
+                        <tr><td><code>sendGiftOffer(userId, giftSlug, price, opts?)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Send a buy offer on a unique NFT gift to its owner.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Signatures</h3>
+                <div class="code-block"><div class="code-header"><span>Collectibles method signatures</span></div><pre><code class="language-typescript">transferCollectible(msgId: number, toUserId: number | string): Promise&lt;TransferResult&gt;
+
+setCollectiblePrice(msgId: number, price: number): Promise&lt;void&gt;
+
+getCollectibleInfo(slug: string): Promise&lt;CollectibleInfo | null&gt;
+
+getUniqueGift(slug: string): Promise&lt;UniqueGift | null&gt;
+
+getUniqueGiftValue(slug: string): Promise&lt;GiftValue | null&gt;
+
+sendGiftOffer(
+  userId: number | string,
+  giftSlug: string,
+  price: number,
+  opts?: GiftOfferOptions
+): Promise&lt;void&gt;</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Example: collectibles workflow</span></div><pre><code class="language-typescript">// Look up a unique NFT gift
+const gift = await sdk.telegram.getUniqueGift("blue-diamond-42");
+if (!gift) return { success: false, error: "Gift not found" };
+
+console.log(`${gift.title} #${gift.num} owned by ${gift.owner.name}`);
+console.log(`Attributes: ${gift.attributes.map(a =&gt; a.name).join(", ")}`);
+
+// Check its market value
+const value = await sdk.telegram.getUniqueGiftValue("blue-diamond-42");
+if (value) {
+  console.log(`Floor: ${value.floorPrice} | Avg: ${value.averagePrice}`);
+}
+
+// Send a buy offer (valid for 24h by default)
+await sdk.telegram.sendGiftOffer(gift.owner.id!, "blue-diamond-42", 5000);
+
+// Or with custom duration (minimum 6 hours = 21600 seconds)
+await sdk.telegram.sendGiftOffer(gift.owner.id!, "blue-diamond-42", 5000, {
+  duration: 43200, // 12 hours
+});
+
+// Transfer a collectible you own
+const myGifts = await sdk.telegram.getMyGifts(50);
+const collectible = myGifts.find(g =&gt; g.messageId);
+if (collectible?.messageId) {
+  const result = await sdk.telegram.transferCollectible(collectible.messageId, recipientId);
+  console.log(`Transferred to ${result.transferredTo}, paid: ${result.paidTransfer}`);
+}
+
+// Set resale price (in Stars)
+await sdk.telegram.setCollectiblePrice(collectible!.messageId!, 2500);
+
+// Unlist from resale
+await sdk.telegram.setCollectiblePrice(collectible!.messageId!, 0);
+
+// Look up a Fragment collectible (username or phone)
+const info = await sdk.telegram.getCollectibleInfo("durov");
+if (info) {
+  console.log(`@${info.value} purchased on ${info.purchaseDate} for ${info.cryptoAmount} ${info.cryptoCurrency}`);
+}</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="stories">
+                <h2>Stories (1 method)</h2>
+                <p>Post a story to the bot's Telegram profile.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>sendStory(mediaPath, opts?)</code></td><td><code>Promise&lt;number | null&gt;</code></td><td>Post a photo or video story. Returns story ID.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Signature</h3>
+                <div class="code-block"><div class="code-header"><span>sendStory signature</span></div><pre><code class="language-typescript">sendStory(
+  mediaPath: string,
+  opts?: { caption?: string }
+): Promise&lt;number | null&gt;</code></pre></div>
+
+                <p><strong>Security gotcha:</strong> The <code>mediaPath</code> must be within an allowed directory. The following paths are whitelisted:</p>
+                <ul>
+                    <li><code>/tmp</code></li>
+                    <li><code>Downloads/</code></li>
+                    <li><code>Pictures/</code></li>
+                    <li><code>Videos/</code></li>
+                    <li>The Teleton workspace directory</li>
+                </ul>
+                <p>Paths are resolved with <code>realpathSync()</code> to prevent symlink traversal. Attempting to send a story from outside these directories will throw an error.</p>
+
+                <div class="code-block"><div class="code-header"><span>Example</span></div><pre><code class="language-typescript">const storyId = await sdk.telegram.sendStory("/tmp/daily-chart.jpg", {
+  caption: "Today's market overview",
+});
+if (storyId) {
+  console.log(`Story posted: ${storyId}`);
+}</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="advanced">
+                <h2>Advanced (3 methods)</h2>
+                <p>Runtime-mode, connection-status, and typing-indicator utilities.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>getMode()</code></td><td><code>"user" | "bot"</code></td><td>Return the active Telegram runtime mode.</td></tr>
+                        <tr><td><code>setTyping(chatId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Show "typing..." indicator in a chat. Automatically expires after ~5 seconds.</td></tr>
+                        <tr><td><code>isAvailable()</code></td><td><code>boolean</code></td><td>Check if the Telegram bridge is connected and ready.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Signatures</h3>
+                <div class="code-block"><div class="code-header"><span>Advanced method signatures</span></div><pre><code class="language-typescript">getMode(): "user" | "bot"
+setTyping(chatId: string): Promise&lt;void&gt;
+isAvailable(): boolean</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Example: connection and typing</span></div><pre><code class="language-typescript">// Always check availability first
+if (!sdk.telegram.isAvailable()) {
+  return { success: false, error: "Telegram not connected" };
+}
+
+// Show typing while processing
+await sdk.telegram.setTyping(chatId);
+return { success: true };</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="types">
+                <h2>Type Definitions</h2>
+                <p>All types used by <code>sdk.telegram</code> methods. Import from <code>@teleton-agent/sdk</code>.</p>
+
+                <h3 id="type-sendmessageoptions">SendMessageOptions</h3>
+                <div class="code-block"><div class="code-header"><span>SendMessageOptions</span></div><pre><code class="language-typescript">interface SendMessageOptions {
+  /** Message ID to reply to */
+  replyToId?: number;
+  /** Inline keyboard buttons (2D array: rows of buttons) */
+  inlineKeyboard?: InlineButton[][];
+}</code></pre></div>
+
+                <h3 id="type-editmessageoptions">EditMessageOptions</h3>
+                <div class="code-block"><div class="code-header"><span>EditMessageOptions</span></div><pre><code class="language-typescript">interface EditMessageOptions {
+  /** Updated inline keyboard (omit to keep existing) */
+  inlineKeyboard?: InlineButton[][];
+}</code></pre></div>
+
+                <h3 id="type-inlinebutton">InlineButton</h3>
+                <div class="code-block"><div class="code-header"><span>InlineButton</span></div><pre><code class="language-typescript">interface InlineButton {
+  /** Button label text */
+  text: string;
+  /** Callback data sent when button is pressed */
+  callback_data: string;
+}</code></pre></div>
+
+                <h3 id="type-mediasendoptions">MediaSendOptions</h3>
+                <div class="code-block"><div class="code-header"><span>MediaSendOptions</span></div><pre><code class="language-typescript">interface MediaSendOptions {
+  /** Media caption text */
+  caption?: string;
+  /** Message ID to reply to */
+  replyToId?: number;
+  /** Inline keyboard buttons */
+  inlineKeyboard?: InlineButton[][];
+  /** Duration in seconds (for video/voice) */
+  duration?: number;
+  /** Width in pixels (for video) */
+  width?: number;
+  /** Height in pixels (for video) */
+  height?: number;
+}</code></pre></div>
+
+                <h3 id="type-polloptions">PollOptions</h3>
+                <div class="code-block"><div class="code-header"><span>PollOptions</span></div><pre><code class="language-typescript">interface PollOptions {
+  /** Whether voters are anonymous (default: true) */
+  isAnonymous?: boolean;
+  /** Allow multiple answers (default: false) */
+  multipleChoice?: boolean;
+}</code></pre></div>
+
+                <h3 id="type-simplemessage">SimpleMessage</h3>
+                <div class="code-block"><div class="code-header"><span>SimpleMessage</span></div><pre><code class="language-typescript">interface SimpleMessage {
+  /** Message ID */
+  id: number;
+  /** Message text */
+  text: string;
+  /** Sender user ID */
+  senderId: number;
+  /** Sender username */
+  senderUsername?: string;
+  /** Message timestamp */
+  timestamp: Date;
+}</code></pre></div>
+
+                <h3 id="type-telegramuser">TelegramUser</h3>
+                <div class="code-block"><div class="code-header"><span>TelegramUser</span></div><pre><code class="language-typescript">interface TelegramUser {
+  /** Telegram user ID */
+  id: number;
+  /** Username without @ (may be undefined) */
+  username?: string;
+  /** First name */
+  firstName?: string;
+  /** Whether the user is a bot */
+  isBot: boolean;
+}</code></pre></div>
+
+                <h3 id="type-chatinfo">ChatInfo</h3>
+                <div class="code-block"><div class="code-header"><span>ChatInfo</span></div><pre><code class="language-typescript">interface ChatInfo {
+  /** Chat ID as string */
+  id: string;
+  /** Chat title (or user's first name for private chats) */
+  title: string;
+  /** Chat type */
+  type: "private" | "group" | "supergroup" | "channel";
+  /** Number of members (groups/channels only) */
+  membersCount?: number;
+  /** Chat username without @ (if public) */
+  username?: string;
+  /** Chat/channel description/bio */
+  description?: string;
+}</code></pre></div>
+
+                <h3 id="type-userinfo">UserInfo</h3>
+                <div class="code-block"><div class="code-header"><span>UserInfo</span></div><pre><code class="language-typescript">interface UserInfo {
+  /** Telegram user ID */
+  id: number;
+  /** First name */
+  firstName: string;
+  /** Last name */
+  lastName?: string;
+  /** Username without @ */
+  username?: string;
+  /** Whether the user is a bot */
+  isBot: boolean;
+}</code></pre></div>
+
+                <h3 id="type-resolvedpeer">ResolvedPeer</h3>
+                <div class="code-block"><div class="code-header"><span>ResolvedPeer</span></div><pre><code class="language-typescript">interface ResolvedPeer {
+  /** Entity ID */
+  id: number;
+  /** Entity type */
+  type: "user" | "chat" | "channel";
+  /** Username if available */
+  username?: string;
+  /** Title (for groups/channels) or first name (for users) */
+  title?: string;
+}</code></pre></div>
+
+                <h3 id="type-diceresult">DiceResult</h3>
+                <div class="code-block"><div class="code-header"><span>DiceResult</span></div><pre><code class="language-typescript">interface DiceResult {
+  /** The dice value (1-6 for dice, 1-64 for slots, etc.) */
+  value: number;
+  /** Message ID of the dice message */
+  messageId: number;
+}</code></pre></div>
+
+                <h3 id="type-stargift">StarGift</h3>
+                <div class="code-block"><div class="code-header"><span>StarGift</span></div><pre><code class="language-typescript">interface StarGift {
+  /** Gift ID */
+  id: string;
+  /** Cost in Telegram Stars */
+  starsAmount: number;
+  /** Remaining available (limited gifts) */
+  availableAmount?: number;
+  /** Total supply (limited gifts) */
+  totalAmount?: number;
+}</code></pre></div>
+
+                <h3 id="type-receivedgift">ReceivedGift</h3>
+                <div class="code-block"><div class="code-header"><span>ReceivedGift</span></div><pre><code class="language-typescript">interface ReceivedGift {
+  /** Gift ID */
+  id: string;
+  /** Sender user ID */
+  fromId?: number;
+  /** Unix timestamp when received */
+  date: number;
+  /** Stars value */
+  starsAmount: number;
+  /** Whether saved to profile */
+  saved: boolean;
+  /** Associated message ID */
+  messageId?: number;
+}</code></pre></div>
+
+                <h3 id="type-dialog">Dialog</h3>
+                <div class="code-block"><div class="code-header"><span>Dialog</span></div><pre><code class="language-typescript">interface Dialog {
+  /** Chat ID */
+  id: string | null;
+  /** Chat title or name */
+  title: string;
+  /** Chat type */
+  type: "dm" | "group" | "channel";
+  /** Number of unread messages */
+  unreadCount: number;
+  /** Number of unread mentions */
+  unreadMentionsCount: number;
+  /** Whether the chat is pinned */
+  isPinned: boolean;
+  /** Whether the chat is archived */
+  isArchived: boolean;
+  /** Last message date (unix timestamp) */
+  lastMessageDate: number | null;
+  /** Last message preview (truncated) */
+  lastMessage: string | null;
+}</code></pre></div>
+
+                <h3 id="type-starstransaction">StarsTransaction</h3>
+                <div class="code-block"><div class="code-header"><span>StarsTransaction</span></div><pre><code class="language-typescript">interface StarsTransaction {
+  /** Transaction ID */
+  id: string;
+  /** Amount (positive = received, negative = spent) */
+  amount: number;
+  /** Transaction date (unix timestamp) */
+  date: number;
+  /** Peer info */
+  peer?: string;
+  /** Description */
+  description?: string;
+}</code></pre></div>
+
+                <h3 id="type-transferresult">TransferResult</h3>
+                <div class="code-block"><div class="code-header"><span>TransferResult</span></div><pre><code class="language-typescript">interface TransferResult {
+  /** Message ID of the transferred gift */
+  msgId: number;
+  /** Recipient identifier */
+  transferredTo: string;
+  /** Whether transfer cost Stars */
+  paidTransfer: boolean;
+  /** Stars spent (if paid transfer) */
+  starsSpent?: string;
+}</code></pre></div>
+
+                <h3 id="type-collectibleinfo">CollectibleInfo</h3>
+                <div class="code-block"><div class="code-header"><span>CollectibleInfo</span></div><pre><code class="language-typescript">interface CollectibleInfo {
+  /** Collectible type */
+  type: "username" | "phone";
+  /** The username or phone number */
+  value: string;
+  /** Purchase date (ISO 8601) */
+  purchaseDate: string;
+  /** Fiat currency */
+  currency: string;
+  /** Fiat amount */
+  amount?: string;
+  /** Crypto currency (e.g. "TON") */
+  cryptoCurrency?: string;
+  /** Crypto amount */
+  cryptoAmount?: string;
+  /** Fragment URL */
+  url?: string;
+}</code></pre></div>
+
+                <h3 id="type-uniquegift">UniqueGift</h3>
+                <div class="code-block"><div class="code-header"><span>UniqueGift</span></div><pre><code class="language-typescript">interface UniqueGift {
+  /** Gift ID */
+  id: string;
+  /** Collection gift ID */
+  giftId: string;
+  /** URL slug */
+  slug: string;
+  /** Gift title */
+  title: string;
+  /** Number in collection */
+  num: number;
+  /** Owner info */
+  owner: {
+    id?: string;
+    name?: string;
+    address?: string;
+    username?: string;
+  };
+  /** TON address of the gift NFT */
+  giftAddress?: string;
+  /** NFT attributes */
+  attributes: Array&lt;{ type: string; name: string; rarityPercent?: number }&gt;;
+  /** Availability info */
+  availability?: { total: number; remaining: number };
+  /** Link to NFT page */
+  nftLink: string;
+}</code></pre></div>
+
+                <h3 id="type-giftvalue">GiftValue</h3>
+                <div class="code-block"><div class="code-header"><span>GiftValue</span></div><pre><code class="language-typescript">interface GiftValue {
+  /** NFT slug */
+  slug: string;
+  /** Initial sale date (ISO 8601) */
+  initialSaleDate?: string;
+  /** Initial sale price in Stars */
+  initialSaleStars?: string;
+  /** Last sale date (ISO 8601) */
+  lastSaleDate?: string;
+  /** Last sale price */
+  lastSalePrice?: string;
+  /** Floor price */
+  floorPrice?: string;
+  /** Average price */
+  averagePrice?: string;
+  /** Number listed */
+  listedCount?: number;
+  /** Currency */
+  currency?: string;
+}</code></pre></div>
+
+                <h3 id="type-giftofferoptions">GiftOfferOptions</h3>
+                <div class="code-block"><div class="code-header"><span>GiftOfferOptions</span></div><pre><code class="language-typescript">interface GiftOfferOptions {
+  /** Offer validity in seconds (default: 86400 = 24h, min: 21600 = 6h) */
+  duration?: number;
+}</code></pre></div>
+
+                <h3 id="type-startcontext">StartContext</h3>
+                <div class="code-block"><div class="code-header"><span>StartContext</span></div><pre><code class="language-typescript">interface StartContext {
+  /** Capability-scoped SDK for background work */
+  sdk: PluginSDK;
+  /** Plugin's isolated SQLite database (null if unavailable) */
+  db: unknown;
+  /** Sanitized application config (no API keys) */
+  config: Record&lt;string, unknown&gt;;
+  /** Plugin-specific config from config.yaml */
+  pluginConfig: Record&lt;string, unknown&gt;;
+  /** Prefixed logger */
+  log: PluginLogger;
+}</code></pre></div>
+            </section>
+
+            <!-- ────────────────────────────────────────────────── -->
+            <section class="section" id="method-index">
+                <h2>Full Method Index</h2>
+                <p>All 51 methods on <code>sdk.telegram</code> at a glance, grouped by category.</p>
+
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>#</th><th>Method</th><th>Returns</th><th>Category</th></tr></thead>
+                    <tbody>
+                        <tr><td>1</td><td><code>sendMessage(chatId, text, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Core</td></tr>
+                        <tr><td>2</td><td><code>editMessage(chatId, messageId, text, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Core</td></tr>
+                        <tr><td>3</td><td><code>sendDice(chatId, emoticon, replyToId?)</code></td><td><code>Promise&lt;DiceResult&gt;</code></td><td>Core</td></tr>
+                        <tr><td>4</td><td><code>sendReaction(chatId, messageId, emoji)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Core</td></tr>
+                        <tr><td>5</td><td><code>getMe()</code></td><td><code>TelegramUser | null</code></td><td>Core</td></tr>
+                        <tr><td>6</td><td><code>sendPhoto(chatId, photo, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Media</td></tr>
+                        <tr><td>7</td><td><code>sendVideo(chatId, video, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Media</td></tr>
+                        <tr><td>8</td><td><code>sendVoice(chatId, voice, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Media</td></tr>
+                        <tr><td>9</td><td><code>sendFile(chatId, file, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Media</td></tr>
+                        <tr><td>10</td><td><code>sendGif(chatId, gif, opts?)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Media</td></tr>
+                        <tr><td>11</td><td><code>sendSticker(chatId, sticker)</code></td><td><code>Promise&lt;number&gt;</code></td><td>Media</td></tr>
+                        <tr><td>12</td><td><code>downloadMedia(chatId, messageId)</code></td><td><code>Promise&lt;Buffer | null&gt;</code></td><td>Media</td></tr>
+                        <tr><td>13</td><td><code>getMessages(chatId, limit?)</code></td><td><code>Promise&lt;SimpleMessage[]&gt;</code></td><td>Messages</td></tr>
+                        <tr><td>14</td><td><code>searchMessages(chatId, query, limit?)</code></td><td><code>Promise&lt;SimpleMessage[]&gt;</code></td><td>Messages</td></tr>
+                        <tr><td>15</td><td><code>getReplies(chatId, messageId, limit?)</code></td><td><code>Promise&lt;SimpleMessage[]&gt;</code></td><td>Messages</td></tr>
+                        <tr><td>16</td><td><code>deleteMessage(chatId, messageId, revoke?)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Messages</td></tr>
+                        <tr><td>17</td><td><code>forwardMessage(fromChatId, toChatId, messageId)</code></td><td><code>Promise&lt;number | null&gt;</code></td><td>Messages</td></tr>
+                        <tr><td>18</td><td><code>scheduleMessage(chatId, text, scheduleDate)</code></td><td><code>Promise&lt;number | null&gt;</code></td><td>Scheduling</td></tr>
+                        <tr><td>19</td><td><code>getScheduledMessages(chatId)</code></td><td><code>Promise&lt;SimpleMessage[]&gt;</code></td><td>Scheduling</td></tr>
+                        <tr><td>20</td><td><code>deleteScheduledMessage(chatId, messageId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Scheduling</td></tr>
+                        <tr><td>21</td><td><code>sendScheduledNow(chatId, messageId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Scheduling</td></tr>
+                        <tr><td>22</td><td><code>pinMessage(chatId, messageId, opts?)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Pinning</td></tr>
+                        <tr><td>23</td><td><code>getChatInfo(chatId)</code></td><td><code>Promise&lt;ChatInfo | null&gt;</code></td><td>Chat &amp; Users</td></tr>
+                        <tr><td>24</td><td><code>getUserInfo(userId)</code></td><td><code>Promise&lt;UserInfo | null&gt;</code></td><td>Chat &amp; Users</td></tr>
+                        <tr><td>25</td><td><code>resolveUsername(username)</code></td><td><code>Promise&lt;ResolvedPeer | null&gt;</code></td><td>Chat &amp; Users</td></tr>
+                        <tr><td>26</td><td><code>getParticipants(chatId, limit?)</code></td><td><code>Promise&lt;UserInfo[]&gt;</code></td><td>Chat &amp; Users</td></tr>
+                        <tr><td>27</td><td><code>getDialogs(limit?)</code></td><td><code>Promise&lt;Dialog[]&gt;</code></td><td>Chat &amp; Users</td></tr>
+                        <tr><td>28</td><td><code>getHistory(chatId, limit?)</code></td><td><code>Promise&lt;SimpleMessage[]&gt;</code></td><td>Chat &amp; Users</td></tr>
+                        <tr><td>29</td><td><code>createPoll(chatId, question, answers, opts?)</code></td><td><code>Promise&lt;number | null&gt;</code></td><td>Interactive</td></tr>
+                        <tr><td>30</td><td><code>createQuiz(chatId, question, answers, correctIndex, explanation?)</code></td><td><code>Promise&lt;number | null&gt;</code></td><td>Interactive</td></tr>
+                        <tr><td>31</td><td><code>banUser(chatId, userId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Moderation</td></tr>
+                        <tr><td>32</td><td><code>unbanUser(chatId, userId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Moderation</td></tr>
+                        <tr><td>33</td><td><code>muteUser(chatId, userId, untilDate)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Moderation</td></tr>
+                        <tr><td>34</td><td><code>kickUser(chatId, userId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Moderation</td></tr>
+                        <tr><td>35</td><td><code>getStarsBalance()</code></td><td><code>Promise&lt;number&gt;</code></td><td>Stars</td></tr>
+                        <tr><td>36</td><td><code>getStarsTransactions(limit?)</code></td><td><code>Promise&lt;StarsTransaction[]&gt;</code></td><td>Stars</td></tr>
+                        <tr><td>37</td><td><code>sendGift(userId, giftId, opts?)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Gifts</td></tr>
+                        <tr><td>38</td><td><code>getAvailableGifts()</code></td><td><code>Promise&lt;StarGift[]&gt;</code></td><td>Gifts</td></tr>
+                        <tr><td>39</td><td><code>getMyGifts(limit?)</code></td><td><code>Promise&lt;ReceivedGift[]&gt;</code></td><td>Gifts</td></tr>
+                        <tr><td>40</td><td><code>getResaleGifts(giftId, limit?)</code></td><td><code>Promise&lt;StarGift[]&gt;</code></td><td>Gifts</td></tr>
+                        <tr><td>41</td><td><code>buyResaleGift(giftId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Gifts</td></tr>
+                        <tr><td>42</td><td><code>sendStory(mediaPath, opts?)</code></td><td><code>Promise&lt;number | null&gt;</code></td><td>Stories</td></tr>
+                        <tr><td>43</td><td><code>transferCollectible(msgId, toUserId)</code></td><td><code>Promise&lt;TransferResult&gt;</code></td><td>Collectibles</td></tr>
+                        <tr><td>44</td><td><code>setCollectiblePrice(msgId, price)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Collectibles</td></tr>
+                        <tr><td>45</td><td><code>getCollectibleInfo(slug)</code></td><td><code>Promise&lt;CollectibleInfo | null&gt;</code></td><td>Collectibles</td></tr>
+                        <tr><td>46</td><td><code>getUniqueGift(slug)</code></td><td><code>Promise&lt;UniqueGift | null&gt;</code></td><td>Collectibles</td></tr>
+                        <tr><td>47</td><td><code>getUniqueGiftValue(slug)</code></td><td><code>Promise&lt;GiftValue | null&gt;</code></td><td>Collectibles</td></tr>
+                        <tr><td>48</td><td><code>sendGiftOffer(userId, giftSlug, price, opts?)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Collectibles</td></tr>
+                        <tr><td>49</td><td><code>setTyping(chatId)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Advanced</td></tr>
+                        <tr><td>50</td><td><code>isAvailable()</code></td><td><code>boolean</code></td><td>Advanced</td></tr>
+                        <tr><td>51</td><td><code>getMode()</code></td><td><code>"user" | "bot"</code></td><td>Advanced</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

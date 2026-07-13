@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture - Teleton Agent Documentation</title>
+    <meta name="description" content="System architecture of Teleton Agent: bridge layer, agent runtime, tool registry, plugin system, memory system, and WebUI.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="architecture">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link active">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            
+
+            <h1>Architecture</h1>
+            <p class="lead">Teleton Agent is structured as a layered system: a Telegram bridge at the bottom, an agent runtime in the middle, and a plugin/tool registry on top. All components are wired together by <code>TeletonApp</code> at startup.</p>
+
+            <section class="section" id="overview">
+                <h2>System Overview</h2>
+                <p>The system is composed of the following layers, from bottom to top:</p>
+                <dl>
+                    <dt><strong>Telegram Network</strong></dt>
+                    <dd>The external Telegram infrastructure (MTProto or Bot API).</dd>
+                    <dt><strong>ITelegramBridge</strong></dt>
+                    <dd>Abstracts user mode (GramJS) and bot mode (Grammy) behind a single interface.</dd>
+                    <dt><strong>MessageHandler</strong></dt>
+                    <dd>Handles deduplication, rate limiting, and per-chat serialization queues.</dd>
+                    <dt><strong>AgentRuntime</strong></dt>
+                    <dd>Manages sessions, assembles the system prompt, calls the LLM, and drives the tool loop.</dd>
+                    <dt><strong>ToolRegistry</strong></dt>
+                    <dd>Applies scope filtering, Tool RAG selection, tool execution, and timeout enforcement. Backed by both built-in modules and hot-reloadable plugins or MCP servers.</dd>
+                    <dt><strong>MemorySystem</strong></dt>
+                    <dd>SQLite database with FTS5 full-text search and <code>sqlite-vec</code> cosine-similarity embeddings.</dd>
+                    <dt><strong>WebUI / API</strong></dt>
+                    <dd>Optional Hono HTTP server with a React dashboard.</dd>
+                </dl>
+                <p><code>TeletonApp</code> (<code>src/index.ts</code>) is the root class. Its constructor initialises every subsystem synchronously, then <code>start()</code> connects the bridge and wires event handlers.</p>
+            </section>
+
+            <section class="section" id="telegram-bridge">
+                <h2>Telegram Bridge Layer</h2>
+                <p>All Telegram I/O flows through the <code>ITelegramBridge</code> interface (<code>src/telegram/bridge-interface.ts</code>). Two concrete implementations exist behind the same interface:</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Mode</th><th>Implementation</th><th>Capabilities</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>user</strong></td><td>GramJS MTProto client</td><td>Full Telegram API: dialogs, history, search, stories, profile editing, Stars, gifts, stickers, voice, NFT marketplace, folders</td></tr>
+                        <tr><td><strong>bot</strong></td><td>Grammy Bot API client</td><td>Send/edit/delete messages, reactions, pins, inline keyboards, streaming responses via message drafts</td></tr>
+                    </tbody>
+                </table></div>
+                <p>The active mode is set in <code>config.telegram.mode</code>. The factory function <code>createBridge()</code> returns the correct implementation. The bridge can be swapped at runtime (e.g., to switch from user to bot) via <code>MessageHandler.setBridge()</code> without restarting the agent.</p>
+                <div class="code-block"><div class="code-header"><span>ITelegramBridge (simplified)</span></div><pre><code class="language-typescript">interface ITelegramBridge {
+  connect(): Promise&lt;void&gt;;
+  getMode(): "user" | "bot";
+
+  // Identity
+  getOwnUserId(): bigint | undefined;
+  getMe(): Promise&lt;BotInfo | undefined&gt;;
+
+  // Messaging
+  sendMessage(options: SendMessageOptions): Promise&lt;SentMessage&gt;;
+  editMessage(options: EditMessageOptions): Promise&lt;SentMessage&gt;;
+  deleteMessage(chatId: string, messageId: number): Promise&lt;boolean&gt;;
+
+  // Streaming (bot mode only)
+  streamResponse?(chatId: string, textStream: AsyncIterable&lt;string&gt;): Promise&lt;SentMessage&gt;;
+
+  // Events
+  onNewMessage(handler: (msg: TelegramMessage) =&gt; void): void;
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="message-handler">
+                <h2>Message Handler</h2>
+                <p><code>MessageHandler</code> (<code>src/telegram/handlers.ts</code>) sits between the bridge and the agent runtime. It owns all pre-processing logic before a message reaches the LLM.</p>
+                <ul>
+                    <li><strong>Deduplication:</strong> an in-memory <code>Set</code> of up to 500 recent <code>chatId:messageId</code> keys prevents double-processing duplicate MTProto events. In user mode, a persistent offset store (<code>offset-store.ts</code>) additionally tracks the highest processed message ID per chat.</li>
+                    <li><strong>Policy check (<code>analyzeMessage</code>):</strong> evaluates <code>dm_policy</code>, <code>group_policy</code>, <code>allow_from</code>, <code>admin_ids</code>, and <code>require_mention</code> from config to decide whether to respond.</li>
+                    <li><strong>Rate limiting:</strong> a <code>RateLimiter</code> enforces a global messages-per-second cap and a per-group messages-per-minute cap.</li>
+                    <li><strong>Per-chat queue (<code>ChatQueue</code>):</strong> messages for the same chat are processed serially via a promise chain. Up to 10 chats are processed concurrently; additional chats are back-pressured.</li>
+                    <li><strong>Feed storage:</strong> every message is stored to the SQLite feed (<code>tg_messages</code>, <code>tg_chats</code>, <code>tg_users</code>) regardless of whether the agent responds.</li>
+                    <li><strong>Plugin hooks:</strong> <code>onMessage</code> hooks from loaded plugins are fired fire-and-forget after feed storage.</li>
+                    <li><strong>Voice transcription:</strong> voice and audio messages are automatically transcribed before being sent to the agent.</li>
+                </ul>
+            </section>
+
+            <section class="section" id="agent-runtime">
+                <h2>Agent Runtime</h2>
+                <p><code>AgentRuntime</code> (<code>src/agent/runtime.ts</code>) drives the LLM interaction loop. Its <code>processMessage()</code> method handles a single conversation turn end-to-end.</p>
+                <p>Key responsibilities:</p>
+                <ul>
+                    <li><strong>Session management:</strong> loads or creates a per-chat session from SQLite, applies daily reset policy, archives and summarises old sessions before reset.</li>
+                    <li><strong>System prompt assembly:</strong> calls <code>buildSystemPrompt()</code> from <code>src/soul/loader.ts</code>, composing soul, security rules, strategy, identity, user profile, memory context, and current user info into a single prompt string.</li>
+                    <li><strong>Context retrieval:</strong> the <code>ContextBuilder</code> runs a hybrid RAG search (FTS5 + vector) over past messages and knowledge chunks to inject relevant context into the user message envelope.</li>
+                    <li><strong>Tool RAG:</strong> when enabled, the <code>ToolIndex</code> uses embedding similarity to select the most relevant tools from the registry, rather than sending all tools to the LLM.</li>
+                    <li><strong>LLM call and tool loop:</strong> calls the provider (Anthropic, OpenAI, Gemini, etc.) via <code>pi-ai</code>, executing tool calls concurrently (up to <code>TOOL_CONCURRENCY_LIMIT</code>) and feeding results back until the model stops requesting tools.</li>
+                    <li><strong>Context compaction:</strong> a <code>CompactionManager</code> monitors context token usage. Near the context window limit it either truncates old messages or triggers an LLM-assisted summary to preserve the session.</li>
+                    <li><strong>Streaming:</strong> in bot mode, the agent can stream the LLM response token-by-token via Telegram message draft updates.</li>
+                </ul>
+            </section>
+
+            <section class="section" id="tool-registry">
+                <h2>Tool Registry</h2>
+                <p><code>ToolRegistry</code> (<code>src/agent/tools/registry.ts</code>) is the central catalog of all callable tools. It is mode-aware, scope-aware, and database-backed.</p>
+                <h3>Registration</h3>
+                <p>Built-in tools are registered at startup via <code>registerAllTools()</code>. Each tool specifies a <code>ToolScope</code> and optional mode restriction (<code>"user"</code> or <code>"bot"</code>). Plugin tools are registered via <code>registerPluginTools()</code> and tracked by plugin name for hot-reload.</p>
+                <h3>Scope Filtering</h3>
+                <p><code>getForContext()</code> returns the subset of tools visible to the LLM for a given invocation, based on:</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Scope</th><th>Visible when</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>always</code> / <code>open</code></td><td>All contexts</td></tr>
+                        <tr><td><code>dm-only</code></td><td>Direct messages only</td></tr>
+                        <tr><td><code>group-only</code></td><td>Group chats only</td></tr>
+                        <tr><td><code>admin-only</code></td><td>Sender is in <code>admin_ids</code></td></tr>
+                        <tr><td><code>allowlist</code></td><td>Sender is in <code>allow_from</code> or is admin</td></tr>
+                        <tr><td><code>disabled</code></td><td>Never (hidden from LLM and blocked at execution)</td></tr>
+                    </tbody>
+                </table></div>
+                <p>Scopes can be overridden per-tool at runtime via the <code>tool_config</code> SQLite table, without restarting. Group chats additionally respect <code>ModulePermissions</code>, which allows disabling or admin-gating entire tool modules per group.</p>
+                <h3>Toolset Profiles</h3>
+                <p>The active toolset profile (<code>minimal</code>, <code>standard</code>, <code>trading</code>, or <code>full</code>) filters the tool list by tag before passing it to the LLM. Tags such as <code>core</code>, <code>workspace</code>, <code>finance</code>, and <code>social</code> are assigned at registration time.</p>
+                <h3>Execution</h3>
+                <p>Tool execution in <code>registry.execute()</code> enforces scope and mode checks a second time (defense-in-depth), validates parameters against the tool's JSON Schema via <code>pi-ai</code>, then runs the executor inside a <code>Promise.race()</code> against a configurable timeout. All errors are caught and returned as <code>{ success: false, error }</code>.</p>
+            </section>
+
+            <section class="section" id="plugin-system">
+                <h2>Plugin System</h2>
+                <p>The <code>PluginOrchestrator</code> (<code>src/plugin-orchestrator.ts</code>) loads all external capability layers after the built-in modules:</p>
+                <ol>
+                    <li><strong>Built-in modules</strong> are loaded first via <code>loadModules()</code>. These include <code>telegram</code>, <code>ton</code>, <code>dex</code>, <code>dns</code>, <code>exec</code>, <code>memory</code>, <code>workspace</code>, and others.</li>
+                    <li><strong>External plugins</strong> are discovered and loaded by <code>loadEnhancedPlugins()</code>. Each plugin is a separate npm package exporting a <code>manifest</code>, <code>tools(sdk)</code>, and optionally <code>migrate(db)</code>, <code>configure(config)</code>, <code>start()</code>, and <code>stop()</code>. Plugins receive a frozen, immutable <code>PluginSDK</code> object.</li>
+                    <li><strong>MCP servers</strong> are connected via <code>registerMcpTools()</code>, translating MCP tool schemas into registry entries. Both stdio and HTTP MCP transports are supported.</li>
+                </ol>
+                <p>After loading, a <code>PluginWatcher</code> monitors external plugin directories for file changes and performs hot-reload via <code>replacePluginTools()</code>, which atomically swaps old tool definitions for new ones without restarting.</p>
+                <p>Plugins communicate with the host application through a <strong>hook registry</strong>. Available hooks include <code>message:receive</code>, <code>before:tool_call</code>, <code>after:tool_call</code>, <code>session:start</code>, <code>session:end</code>, and others. Modifying hooks can mutate events; observing hooks are read-only.</p>
+            </section>
+
+            <section class="section" id="memory-system-overview">
+                <h2>Memory System</h2>
+                <p>All persistent state lives in a single SQLite database at <code>~/.teleton/memory.db</code>, managed by the <code>MemorySystem</code> module (<code>src/memory/index.ts</code>). See the <a href="memory-system.html">Memory System</a> page for the full schema and retrieval architecture.</p>
+                <p>The database is opened once at startup via <code>getDatabase()</code> (singleton) and shared across all subsystems. When an embedding provider is configured, <code>sqlite-vec</code> virtual tables (<code>knowledge_vec</code>, <code>tg_messages_vec</code>) enable cosine-similarity vector search alongside FTS5 full-text search.</p>
+            </section>
+
+            <section class="section" id="webui">
+                <h2>WebUI and API Server</h2>
+                <p>The optional WebUI is a Hono HTTP server (<code>src/webui/server.ts</code>) serving a React SPA. It exposes endpoints for inspecting sessions, memory, tool configurations, plugin management, and live chat. The API server (<code>src/api/server.ts</code>) provides a REST interface consumed by the WebUI and usable independently.</p>
+                <p>Both servers share the same <code>TeletonApp</code> instance via a dependency object built by <code>buildServerDeps()</code>, giving them read-write access to the agent runtime, tool registry, bridge, and memory system.</p>
+            </section>
+
+            <section class="section" id="startup-sequence">
+                <h2>Startup Sequence</h2>
+                <p><code>TeletonApp.start()</code> initializes all subsystems in the following order:</p>
+                <ol>
+                    <li><code>loadConfig()</code> - Load and validate <code>config.yaml</code></li>
+                    <li><code>new ToolRegistry()</code> - Create registry in configured mode</li>
+                    <li><code>registerAllTools()</code> - Register all built-in tools</li>
+                    <li><code>new AgentRuntime()</code> - Create runtime with tool registry</li>
+                    <li><code>createBridge()</code> - Instantiate user or bot bridge</li>
+                    <li><code>initializeMemory()</code> - Open SQLite, run migrations, initialize embedder</li>
+                    <li><code>loadModules()</code> - Load built-in capability modules</li>
+                    <li><code>PluginOrchestrator.loadAll()</code> - Load external plugins and MCP servers</li>
+                    <li><code>registry.loadConfigFromDB()</code> - Apply runtime tool config overrides</li>
+                    <li>Tool RAG index init - Index all tools for semantic search</li>
+                    <li><code>bridge.connect()</code> - Authenticate with Telegram</li>
+                    <li><code>bridge.getMe()</code> - Resolve own user ID</li>
+                    <li><code>bridge.onNewMessage()</code> - Register message handler</li>
+                    <li><code>HeartbeatRunner.start()</code> - Start periodic heartbeat timer</li>
+                    <li><code>ScheduledTaskHandler.start()</code> - Start scheduled task poller</li>
+                    <li>WebUI / API server start - Bind HTTP listeners (if enabled)</li>
+                </ol>
+            </section>
+
+            </div>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDK Utilities Reference - Teleton Agent Documentation</title>
+    <meta name="description" content="Secrets management, key-value storage, structured logging, and database access for Teleton plugins.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="sdk-utilities">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link active">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>SDK Utilities Reference</h1>
+            <p class="lead">Secrets management, key-value storage, and structured logging for Teleton plugins.</p>
+
+            <!-- ─── SECRETS ─────────────────────────────────────────── -->
+
+            <section class="section" id="secrets">
+                <h2>sdk.secrets</h2>
+                <p>The <code>SecretsSDK</code> namespace provides secure, read-only access to plugin credentials. Secrets are never exposed in logs or tool output: they are managed separately from application config.</p>
+
+                <h3>Methods</h3>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>get(key)</code></td><td><code>string | undefined</code></td><td>Get a secret value by key. Returns <code>undefined</code> if not configured.</td></tr>
+                        <tr><td><code>require(key)</code></td><td><code>string</code></td><td>Get a secret value, throwing <code>PluginSDKError</code> with code <code>SECRET_NOT_FOUND</code> if missing.</td></tr>
+                        <tr><td><code>has(key)</code></td><td><code>boolean</code></td><td>Check if a secret is configured (without retrieving the value).</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Secret Resolution Order</h3>
+                <p>When you call <code>sdk.secrets.get("api_key")</code>, the SDK checks these sources in order:</p>
+                <ol>
+                    <li><strong>Environment variable</strong>: the manifest <code>env</code> override, or <code>TELETON_PLUGIN_${PLUGIN_NAME_UPPER}_${KEY_UPPER}</code> by default (e.g. <code>TELETON_PLUGIN_WEATHER_REPORT_API_KEY</code>)</li>
+                    <li><strong>Secrets store</strong>: Set via the Telegram admin command <code>/plugin set &lt;plugin&gt; &lt;key&gt; &lt;value&gt;</code></li>
+                    <li><strong>pluginConfig</strong>: From the <code>plugins:</code> section in <code>config.yaml</code></li>
+                </ol>
+                <p>The first non-empty value wins. This allows you to use environment variables in production while falling back to config during development.</p>
+
+                <h3>Declaring Secrets in Manifest</h3>
+                <p>Declare required secrets in your <code>PluginManifest</code> so the agent warns the admin if they are missing:</p>
+                <div class="code-block"><div class="code-header"><span>SecretDeclaration Interface</span></div><pre><code class="language-typescript">interface SecretDeclaration {
+  required: boolean;       // Is this secret mandatory?
+  description: string;     // Human-readable description for admin
+  env?: string;            // Optional uppercase environment variable override
+}</code></pre></div>
+                <p>The optional <code>env</code> override must be uppercase and stay under the reserved plugin prefix (for example, <code>TELETON_PLUGIN_WEATHER_REPORT_</code>). This prevents plugins from reading unrelated agent secrets. Without an override, the runtime derives <code>TELETON_PLUGIN_${PLUGIN_NAME_UPPER}_${KEY_UPPER}</code>.</p>
+
+                <div class="code-block"><div class="code-header"><span>Weather Plugin Secrets</span></div><pre><code class="language-typescript">import type { PluginSDK, SimpleToolDef, PluginManifest } from "@teleton-agent/sdk";
+
+export const manifest: PluginManifest = {
+  name: "weather-report",
+  version: "1.0.0",
+  secrets: {
+    api_key: {
+      required: true,
+      description: "OpenWeatherMap API key (get one at openweathermap.org)",
+    },
+  },
+};
+
+export const tools = (sdk: PluginSDK): SimpleToolDef[] =&gt; [
+  {
+    name: "get_weather",
+    description: "Get current weather for a city",
+    parameters: {
+      type: "object",
+      properties: {
+        city: { type: "string", description: "City name" },
+      },
+      required: ["city"],
+    },
+    async execute(params) {
+      // Throws SECRET_NOT_FOUND if TELETON_PLUGIN_WEATHER_REPORT_API_KEY is not set
+      const apiKey = sdk.secrets.require("api_key");
+      const city = params.city as string;
+
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&amp;appid=${apiKey}&amp;units=metric`
+      );
+      const data = await response.json();
+
+      return {
+        success: true,
+        data: {
+          city: data.name,
+          temp: `${data.main.temp}C`,
+          description: data.weather[0].description,
+        },
+      };
+    },
+  },
+];</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Graceful Secret Handling</span></div><pre><code class="language-typescript">// Prefer get() + null check for optional features
+const webhookUrl = sdk.secrets.get("webhook_url");
+if (webhookUrl) {
+  await fetch(webhookUrl, {
+    method: "POST",
+    body: JSON.stringify({ event: "payment_received", amount }),
+  });
+}
+
+// Use has() for conditional logic
+if (sdk.secrets.has("premium_key")) {
+  sdk.log.info("Premium features enabled");
+}</code></pre></div>
+            </section>
+
+            <!-- ─── STORAGE ─────────────────────────────────────────── -->
+
+            <section class="section" id="storage">
+                <h2>sdk.storage</h2>
+                <p>The <code>StorageSDK</code> namespace provides simple key-value persistence. It auto-creates a <code>_kv</code> table in the plugin's isolated database: no <code>migrate()</code> export required.</p>
+                <p><strong>Note:</strong> <code>sdk.storage</code> is <code>null</code> if no database is available (rare edge case). Always check for null before use.</p>
+
+                <h3>Methods</h3>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>get&lt;T&gt;(key)</code></td><td><code>T | undefined</code></td><td>Get a value by key. Returns <code>undefined</code> if not found or expired.</td></tr>
+                        <tr><td><code>set&lt;T&gt;(key, value, opts?)</code></td><td><code>void</code></td><td>Set a value. Optional <code>{ ttl: number }</code> in milliseconds for auto-expiration.</td></tr>
+                        <tr><td><code>delete(key)</code></td><td><code>boolean</code></td><td>Delete a key. Returns <code>true</code> if the key existed.</td></tr>
+                        <tr><td><code>has(key)</code></td><td><code>boolean</code></td><td>Check if a key exists and is not expired.</td></tr>
+                        <tr><td><code>clear()</code></td><td><code>void</code></td><td>Delete all keys in this plugin's storage.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Caching API Responses with TTL</span></div><pre><code class="language-typescript">async execute(params) {
+  const city = params.city as string;
+  const cacheKey = `weather:${city.toLowerCase()}`;
+
+  // Check cache first (5-minute TTL)
+  const cached = sdk.storage?.get&lt;WeatherData&gt;(cacheKey);
+  if (cached) {
+    sdk.log.debug(`Cache hit for ${city}`);
+    return { success: true, data: cached };
+  }
+
+  // Fetch fresh data
+  const apiKey = sdk.secrets.require("api_key");
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&amp;appid=${apiKey}`
+  );
+  const weather = await response.json();
+
+  const result = {
+    city: weather.name,
+    temp: weather.main.temp,
+    humidity: weather.main.humidity,
+  };
+
+  // Cache for 5 minutes (300,000 ms)
+  sdk.storage?.set(cacheKey, result, { ttl: 300_000 });
+
+  return { success: true, data: result };
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Persistent Counter</span></div><pre><code class="language-typescript">async execute(params, context) {
+  if (!sdk.storage) {
+    return { success: false, error: "Storage unavailable" };
+  }
+
+  // Increment a per-user visit counter
+  const key = `visits:${context.senderId}`;
+  const count = sdk.storage.get&lt;number&gt;(key) ?? 0;
+  sdk.storage.set(key, count + 1);
+
+  return {
+    success: true,
+    data: { visits: count + 1 },
+  };
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Managing Storage State</span></div><pre><code class="language-typescript">// Check before accessing
+if (sdk.storage?.has("user_preferences")) {
+  const prefs = sdk.storage.get&lt;UserPrefs&gt;("user_preferences");
+  // Use prefs...
+}
+
+// Delete a single key
+const existed = sdk.storage?.delete("temp_data");
+sdk.log.info(`Cleanup: key existed = ${existed}`);
+
+// Reset all plugin storage
+sdk.storage?.clear();
+sdk.log.info("All storage cleared");</code></pre></div>
+            </section>
+
+            <!-- ─── LOGGING ─────────────────────────────────────────── -->
+
+            <section class="section" id="logging">
+                <h2>sdk.log</h2>
+                <p>The <code>PluginLogger</code> namespace provides structured logging. All messages are automatically prefixed with <code>[plugin:&lt;name&gt;]</code> and routed through the agent's Pino logger with proper log levels.</p>
+
+                <h3>Methods</h3>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>info(...args)</code></td><td><code>void</code></td><td>Log an informational message. Always visible.</td></tr>
+                        <tr><td><code>warn(...args)</code></td><td><code>void</code></td><td>Log a warning. Always visible.</td></tr>
+                        <tr><td><code>error(...args)</code></td><td><code>void</code></td><td>Log an error. Always visible.</td></tr>
+                        <tr><td><code>debug(...args)</code></td><td><code>void</code></td><td>Log a debug message. Only visible when <code>DEBUG</code> or <code>VERBOSE</code> environment variables are set.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Structured Logging Examples</span></div><pre><code class="language-typescript">// Basic logging
+sdk.log.info("Plugin initialized successfully");
+sdk.log.warn("API rate limit approaching", { remaining: 5 });
+sdk.log.error("Payment verification failed", { txHash, error: err.message });
+
+// Debug logging (only visible with DEBUG=1 or VERBOSE=1)
+sdk.log.debug("Raw API response", { status: response.status, body: data });
+
+// Output format:
+// [2026-03-02 14:30:00] INFO [plugin:weather-report] Plugin initialized successfully
+// [2026-03-02 14:30:01] WARN [plugin:weather-report] API rate limit approaching { remaining: 5 }
+// [2026-03-02 14:30:02] ERROR [plugin:weather-report] Payment verification failed { txHash: "abc...", error: "timeout" }</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Logging in Tool Execution</span></div><pre><code class="language-typescript">async execute(params, context) {
+  const address = params.address as string;
+  sdk.log.info(`Balance check requested for ${address}`);
+
+  try {
+    const balance = await sdk.ton.getBalance(address);
+    if (!balance) {
+      sdk.log.warn(`Balance fetch returned null for ${address}`);
+      return { success: false, error: "Could not fetch balance" };
+    }
+
+    sdk.log.debug("Balance result", { address, balance: balance.balance });
+    return { success: true, data: balance };
+  } catch (err) {
+    sdk.log.error("Balance check failed", {
+      address,
+      error: err instanceof Error ? err.message : String(err),
+    });
+    return { success: false, error: "Balance check failed" };
+  }
+}</code></pre></div>
+            </section>
+
+            <!-- ─── DATABASE ────────────────────────────────────────── -->
+
+            <section class="section" id="database">
+                <h2>sdk.db</h2>
+                <p>The <code>sdk.db</code> property exposes a <a href="https://github.com/WiseLibs/better-sqlite3" target="_blank" rel="noopener">better-sqlite3</a> <code>Database</code> instance for plugins that need full SQL capabilities beyond key-value storage.</p>
+                <p><strong>Important:</strong> Each plugin gets its own isolated SQLite database file even without a <code>migrate()</code> export. <code>sdk.db</code> is <code>null</code> only if database initialization fails.</p>
+
+                <h3>The migrate() Pattern</h3>
+                <p>Export a <code>migrate</code> function from your plugin entry point. It receives the raw <code>better-sqlite3</code> database instance and runs once when the plugin is loaded:</p>
+                <div class="code-block"><div class="code-header"><span>Plugin with Database Migration</span></div><pre><code class="language-typescript">import type { PluginSDK, SimpleToolDef } from "@teleton-agent/sdk";
+import type Database from "better-sqlite3";
+
+// Called once when plugin is loaded, create your tables here
+export function migrate(db: Database.Database): void {
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS leaderboard (
+      user_id INTEGER PRIMARY KEY,
+      username TEXT,
+      score INTEGER DEFAULT 0,
+      last_played TEXT
+    )
+  `);
+
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS used_transactions (
+      tx_hash TEXT PRIMARY KEY,
+      game_type TEXT NOT NULL,
+      used_at TEXT DEFAULT (datetime('now'))
+    )
+  `);
+}
+
+export const tools = (sdk: PluginSDK): SimpleToolDef[] =&gt; [
+  {
+    name: "update_score",
+    description: "Update a player's score on the leaderboard",
+    parameters: {
+      type: "object",
+      properties: {
+        score: { type: "number", description: "Points to add" },
+      },
+      required: ["score"],
+    },
+    async execute(params, context) {
+      if (!sdk.db) {
+        return { success: false, error: "Database not available" };
+      }
+
+      const score = params.score as number;
+      const userId = context.senderId;
+
+      const stmt = sdk.db.prepare(`
+        INSERT INTO leaderboard (user_id, score, last_played)
+        VALUES (?, ?, datetime('now'))
+        ON CONFLICT(user_id) DO UPDATE SET
+          score = score + excluded.score,
+          last_played = excluded.last_played
+      `);
+      stmt.run(userId, score);
+
+      const row = sdk.db.prepare(
+        "SELECT score FROM leaderboard WHERE user_id = ?"
+      ).get(userId) as { score: number } | undefined;
+
+      sdk.log.info(`Score updated for user ${userId}: +${score}`);
+
+      return {
+        success: true,
+        data: { totalScore: row?.score ?? score },
+      };
+    },
+  },
+];</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Querying the Database</span></div><pre><code class="language-typescript">async execute(params) {
+  if (!sdk.db) {
+    return { success: false, error: "Database not available" };
+  }
+
+  // Fetch top 10 players
+  const topPlayers = sdk.db.prepare(`
+    SELECT user_id, username, score
+    FROM leaderboard
+    ORDER BY score DESC
+    LIMIT 10
+  `).all() as Array&lt;{ user_id: number; username: string; score: number }&gt;;
+
+  // Use transactions for batch operations
+  const insertMany = sdk.db.transaction((players: Array&lt;{ id: number; score: number }&gt;) =&gt; {
+    const stmt = sdk.db!.prepare(
+      "INSERT OR REPLACE INTO leaderboard (user_id, score) VALUES (?, ?)"
+    );
+    for (const player of players) {
+      stmt.run(player.id, player.score);
+    }
+  });
+
+  return { success: true, data: { leaderboard: topPlayers } };
+}</code></pre></div>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

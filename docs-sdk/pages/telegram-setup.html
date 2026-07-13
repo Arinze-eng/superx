@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Setup - Teleton Agent Documentation</title>
+    <meta name="description" content="How to obtain Telegram API credentials, configure messaging policies, admin controls, and manage access for Teleton Agent.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="telegram-setup">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>Telegram Setup Guide</h1>
+            <p class="lead">How to obtain Telegram API credentials, configure the agent's messaging policies, and set up admin controls.</p>
+
+            <section class="section" id="getting-api-credentials">
+                <h2>Getting API Credentials</h2>
+                <p>Teleton Agent connects to Telegram as a <strong>user client</strong> (userbot) via the MTProto protocol using GramJS. This requires Telegram API credentials, not a regular bot token.</p>
+
+                <h3>Step-by-Step</h3>
+                <ol>
+                    <li>Open <a href="https://my.telegram.org" target="_blank" rel="noopener">my.telegram.org</a> in your browser</li>
+                    <li>Log in with your phone number (the same one you will use for the agent)</li>
+                    <li>Navigate to <strong>API development tools</strong></li>
+                    <li>Fill in the form:
+                        <ul>
+                            <li><strong>App title</strong>: Any name (e.g., "Teleton Agent")</li>
+                            <li><strong>Short name</strong>: A short identifier (e.g., "teleton")</li>
+                        </ul>
+                    </li>
+                    <li>Click <strong>Create application</strong></li>
+                    <li>Note your <strong>api_id</strong> (a number) and <strong>api_hash</strong> (a hex string)</li>
+                </ol>
+                <p>These credentials are permanent and do not expire. Store them securely.</p>
+
+                <div class="code-block"><div class="code-header"><span>config.yaml</span></div><pre><code class="language-yaml">telegram:
+  api_id: 12345678                              # Your numeric API ID
+  api_hash: "0123456789abcdef0123456789abcdef"   # Your 32-character hex hash
+  phone: "+1234567890"                           # Your phone number</code></pre></div>
+            </section>
+
+            <section class="section" id="phone-number-format">
+                <h2>Phone Number Format</h2>
+                <p>The phone number must be in full international format with the country code prefix:</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Country</th><th>Format</th><th>Example</th></tr></thead>
+                    <tbody>
+                        <tr><td>United States</td><td><code>+1XXXXXXXXXX</code></td><td><code>"+12125551234"</code></td></tr>
+                        <tr><td>United Kingdom</td><td><code>+44XXXXXXXXXX</code></td><td><code>"+447911123456"</code></td></tr>
+                        <tr><td>Germany</td><td><code>+49XXXXXXXXXXX</code></td><td><code>"+4915112345678"</code></td></tr>
+                        <tr><td>Russia</td><td><code>+7XXXXXXXXXX</code></td><td><code>"+79161234567"</code></td></tr>
+                        <tr><td>France</td><td><code>+33XXXXXXXXX</code></td><td><code>"+33612345678"</code></td></tr>
+                    </tbody>
+                </table></div>
+                <p>Always include the <code>+</code> prefix and the country code. Do not include spaces, dashes, or parentheses.</p>
+            </section>
+
+            <section class="section" id="first-time-auth">
+                <h2>First-Time Authentication</h2>
+                <p>On the first startup, Teleton Agent will prompt you for a verification code that Telegram sends to your phone:</p>
+                <div class="code-block"><div class="code-header"><span>Terminal</span></div><pre><code class="language-bash">Enter the code you received from Telegram: _____</code></pre></div>
+                <p>After successful authentication, a session file is saved to <code>~/.teleton/</code>. Subsequent launches use this saved session and do not require re-authentication.</p>
+
+                <h3>Headless/Docker Environments</h3>
+                <div class="code-block"><div class="code-header"><span>Docker setup then run</span></div><pre><code class="language-bash"># Run setup interactively
+docker run -it --rm -v teleton-data:/data ghcr.io/tonresistor/teleton-agent setup
+
+# Then start normally
+docker run -d -v teleton-data:/data ghcr.io/tonresistor/teleton-agent</code></pre></div>
+            </section>
+
+            <section class="section" id="2fa">
+                <h2>2FA Handling</h2>
+                <p>If your Telegram account has Two-Factor Authentication (2FA) enabled, you will be prompted for your password after entering the verification code. The password is not stored: it is only used during the initial authentication to establish the session.</p>
+            </section>
+
+            <section class="section" id="bot-token">
+                <h2>Bot Token (Optional)</h2>
+                <p>A regular Telegram Bot token (from @BotFather) is optionally used alongside the user client for:</p>
+                <ul>
+                    <li><strong>Plugin inline cards</strong> inserted into regular chats</li>
+                    <li><strong>Callback query handling</strong> for interactive plugin UI elements</li>
+                </ul>
+                <p>The bot token is <strong>NOT</strong> used for primary message sending/receiving: that is handled by the user client.</p>
+                <div class="code-block"><div class="code-header"><span>config.yaml</span></div><pre><code class="language-yaml">telegram:
+  bot_token: "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+  bot_username: "my_teleton_bot"   # Without @</code></pre></div>
+            </section>
+
+            <section class="section" id="dm-policies">
+                <h2>DM Policies</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Policy</th><th>Behavior</th><th>Use Case</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>"pairing"</code></td><td>Users must mutually pair with the agent before interaction.</td><td>Recommended for public deployments. Prevents spam.</td></tr>
+                        <tr><td><code>"allowlist"</code></td><td>Only user IDs listed in <code>allow_from</code> can send DMs.</td><td>Restricted access for known users.</td></tr>
+                        <tr><td><code>"open"</code></td><td>Anyone can DM the agent.</td><td>Public-facing agents. Use with caution.</td></tr>
+                        <tr><td><code>"disabled"</code></td><td>All DMs are ignored.</td><td>Group-only deployments.</td></tr>
+                    </tbody>
+                </table></div>
+                <div class="code-block"><div class="code-header"><span>Allowlist example</span></div><pre><code class="language-yaml">telegram:
+  dm_policy: "allowlist"
+  allow_from:
+    - 123456789    # Alice's user ID
+    - 987654321    # Bob's user ID</code></pre></div>
+            </section>
+
+            <section class="section" id="group-policies">
+                <h2>Group Policies</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Policy</th><th>Behavior</th><th>Use Case</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>"open"</code></td><td>Agent responds in any group it is added to.</td><td>Default. Convenient for small, trusted groups.</td></tr>
+                        <tr><td><code>"allowlist"</code></td><td>Only responds in group IDs listed in <code>group_allow_from</code>.</td><td>Controlled access: silent in groups not on the list.</td></tr>
+                        <tr><td><code>"disabled"</code></td><td>All group messages are ignored.</td><td>DM-only deployments.</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="admin-ids">
+                <h2>Admin IDs</h2>
+                <p>Admin IDs grant special privileges. Admins can:</p>
+                <ul>
+                    <li>Use <code>/admin</code> commands to control the agent</li>
+                    <li>Use admin-only tools (scope: <code>"admin-only"</code>)</li>
+                    <li>Manage plugins via <code>/plugin</code> commands</li>
+                    <li>View system status and diagnostics</li>
+                </ul>
+                <div class="code-block"><div class="code-header"><span>config.yaml</span></div><pre><code class="language-yaml">telegram:
+  admin_ids:
+    - 123456789    # Primary admin
+    - 987654321    # Secondary admin</code></pre></div>
+            </section>
+
+            <section class="section" id="admin-commands">
+                <h2>Admin Commands</h2>
+                <p>All admin commands require the sender's Telegram user ID to be listed in <code>admin_ids</code>. Commands can be prefixed with <code>/</code>, <code>!</code>, or <code>.</code>.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Command</th><th>Syntax</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>/status</code></td><td><code>/status</code></td><td>View provider, model, policies, and paused state.</td></tr>
+                        <tr><td><code>/model</code></td><td><code>/model [model_name]</code></td><td>View or switch the LLM model.</td></tr>
+                        <tr><td><code>/loop</code></td><td><code>/loop [1-50]</code></td><td>View or set max agentic iterations.</td></tr>
+                        <tr><td><code>/policy</code></td><td><code>/policy &lt;dm|group&gt; &lt;value&gt;</code></td><td>View or change access policies.</td></tr>
+                        <tr><td><code>/modules</code></td><td><code>/modules [set|info|reset] ...</code></td><td>Manage per-group module permissions.</td></tr>
+                        <tr><td><code>/plugin</code></td><td><code>/plugin &lt;set|unset|keys&gt; ...</code></td><td>Manage plugin secrets.</td></tr>
+                        <tr><td><code>/wallet</code></td><td><code>/wallet</code></td><td>Check TON wallet balance and address.</td></tr>
+                        <tr><td><code>/approve</code></td><td><code>/approve &lt;request_id&gt;</code></td><td>Approve a pending financial action.</td></tr>
+                        <tr><td><code>/reject</code></td><td><code>/reject &lt;request_id&gt;</code></td><td>Reject a pending financial action.</td></tr>
+                        <tr><td><code>/verbose</code></td><td><code>/verbose</code></td><td>Toggle verbose logging.</td></tr>
+                        <tr><td><code>/rag</code></td><td><code>/rag [status|topk &lt;n&gt;]</code></td><td>Toggle Tool RAG or view status.</td></tr>
+                        <tr><td><code>/guest</code></td><td><code>/guest [on|off]</code></td><td>View or toggle guest mode.</td></tr>
+                        <tr><td><code>/pause</code></td><td><code>/pause</code></td><td>Pause the agent.</td></tr>
+                        <tr><td><code>/resume</code></td><td><code>/resume</code></td><td>Resume the agent.</td></tr>
+                        <tr><td><code>/stop</code></td><td><code>/stop</code></td><td>Emergency shutdown.</td></tr>
+                        <tr><td><code>/clear</code></td><td><code>/clear [chat_id]</code></td><td>Clear conversation history.</td></tr>
+                        <tr><td><code>/ping</code></td><td><code>/ping</code></td><td>Health check.</td></tr>
+                        <tr><td><code>/help</code></td><td><code>/help</code></td><td>Display available commands.</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="rate-limiting">
+                <h2>Rate Limiting and Debounce</h2>
+
+                <h3>Rate Limits</h3>
+                <div class="code-block"><div class="code-header"><span>config.yaml</span></div><pre><code class="language-yaml">telegram:
+  rate_limit_messages_per_second: 1.0    # Max outbound messages per second
+  rate_limit_groups_per_minute: 20       # Max outbound group messages per minute</code></pre></div>
+
+                <h3>Debounce</h3>
+                <p>When multiple messages arrive in quick succession in a group, the debouncer batches them into a single processing cycle. This reduces API costs, produces more coherent responses, and prevents the agent from responding to each message individually.</p>
+                <div class="code-block"><div class="code-header"><span>config.yaml</span></div><pre><code class="language-yaml">telegram:
+  debounce_ms: 1500   # Group message batching delay (0 to disable)</code></pre></div>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

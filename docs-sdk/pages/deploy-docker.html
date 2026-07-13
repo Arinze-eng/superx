@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Deployment - Teleton Agent Documentation</title>
+    <meta name="description" content="Every method of deploying Teleton Agent: npm global install, Docker, Docker Compose, from source, and systemd service for VPS.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="deploy-docker">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link active">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>Deployment Guide</h1>
+            <p class="lead">Every method of deploying Teleton Agent: npm global install, Docker, Docker Compose, from source, and systemd for VPS.</p>
+
+            <section class="section" id="prerequisites">
+                <h2>Prerequisites</h2>
+                <ul>
+                    <li><strong>Node.js 22.22.2+ LTS</strong> (Node 24 requires 24.15.0+; enforced by <code>package.json</code>)</li>
+                    <li><strong>npm</strong> (ships with Node.js)</li>
+                    <li><strong>Telegram API credentials</strong>: <code>api_id</code> and <code>api_hash</code> from <a href="https://my.telegram.org/apps" target="_blank" rel="noopener">my.telegram.org/apps</a></li>
+                    <li><strong>LLM API key</strong>: from your chosen provider</li>
+                    <li><strong>Build tools</strong> (only for source/Docker builds): <code>python3</code>, <code>make</code>, <code>g++</code> for native modules</li>
+                </ul>
+            </section>
+
+            <section class="section" id="method-npm">
+                <h2>Method 1: npm Global Install</h2>
+                <p>The simplest deployment path. Suitable for personal use and quick testing.</p>
+                <div class="code-block"><div class="code-header"><span>npm global install</span></div><pre><code class="language-bash"># Install globally
+npm install -g teleton
+
+# Run the interactive setup wizard
+teleton setup
+
+# Start the agent
+teleton start</code></pre></div>
+                <p>On first launch, Telegram will send a login code to your phone. Enter it when prompted. After successful authentication, a session file is saved at <code>~/.teleton/</code> and subsequent launches will not require re-authentication.</p>
+            </section>
+
+            <section class="section" id="method-docker">
+                <h2>Method 2: Docker</h2>
+                <p>The official Docker image is available on GitHub Container Registry.</p>
+                <div class="code-block"><div class="code-header"><span>Pull and run</span></div><pre><code class="language-bash">docker run -d \
+  --name teleton \
+  --restart unless-stopped \
+  -v teleton-data:/data \
+  -p 7777:7777 \
+  ghcr.io/tonresistor/teleton-agent</code></pre></div>
+
+                <h3>Image Details</h3>
+                <ul>
+                    <li><strong>Data volume</strong>: Mounted at <code>/data</code> (set via <code>TELETON_HOME=/data</code> in the image)</li>
+                    <li><strong>Entrypoint</strong>: <code>node dist/cli/index.js</code></li>
+                    <li><strong>Default command</strong>: <code>start</code></li>
+                    <li><strong>Exposed port</strong>: <code>7777</code> (WebUI, when enabled)</li>
+                    <li><strong>Runs as</strong>: non-root <code>node</code> user</li>
+                </ul>
+
+                <h3>Interactive Setup with Docker</h3>
+                <div class="code-block"><div class="code-header"><span>Docker interactive setup then run</span></div><pre><code class="language-bash"># Run setup interactively
+docker run -it --rm \
+  -v teleton-data:/data \
+  ghcr.io/tonresistor/teleton-agent setup
+
+# Then start the agent
+docker run -d \
+  --name teleton \
+  --restart unless-stopped \
+  -v teleton-data:/data \
+  -p 7777:7777 \
+  ghcr.io/tonresistor/teleton-agent</code></pre></div>
+
+                <h3>Passing Configuration via Environment</h3>
+                <div class="code-block"><div class="code-header"><span>Docker with env vars</span></div><pre><code class="language-bash">docker run -d \
+  --name teleton \
+  --restart unless-stopped \
+  -e TELETON_API_KEY="sk-ant-..." \
+  -e TELETON_TG_API_ID="12345678" \
+  -e TELETON_TG_API_HASH="0123456789abcdef" \
+  -e TELETON_TG_PHONE="+1234567890" \
+  -e TELETON_WEBUI_ENABLED="true" \
+  -v teleton-data:/data \
+  -p 7777:7777 \
+  ghcr.io/tonresistor/teleton-agent</code></pre></div>
+            </section>
+
+            <section class="section" id="method-compose">
+                <h2>Method 3: Docker Compose</h2>
+                <div class="code-block"><div class="code-header"><span>docker-compose.yml</span></div><pre><code class="language-yaml">version: "3.8"
+
+services:
+  teleton:
+    image: ghcr.io/tonresistor/teleton-agent:latest
+    container_name: teleton
+    restart: unless-stopped
+    ports:
+      - "7777:7777"  # WebUI (remove if not using)
+    volumes:
+      - teleton-data:/data
+    environment:
+      - TELETON_WEBUI_ENABLED=true
+      - TELETON_WEBUI_HOST=0.0.0.0
+      # - TELETON_API_KEY=sk-ant-...
+      # - TELETON_TG_API_ID=12345678
+      # - TELETON_TG_API_HASH=0123456789abcdef
+      # - TELETON_TG_PHONE=+1234567890
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7777/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  teleton-data:
+    driver: local</code></pre></div>
+                <div class="code-block"><div class="code-header"><span>Docker Compose commands</span></div><pre><code class="language-bash"># Initial setup (interactive)
+docker compose run --rm teleton setup
+
+# Start in background
+docker compose up -d
+
+# View logs
+docker compose logs -f teleton
+
+# Update to latest image
+docker compose pull && docker compose up -d</code></pre></div>
+            </section>
+
+            <section class="section" id="method-source">
+                <h2>Method 4: From Source</h2>
+                <div class="code-block"><div class="code-header"><span>Build from source</span></div><pre><code class="language-bash">git clone https://github.com/TONresistor/teleton-agent.git
+cd teleton-agent
+
+npm install
+cd web && npm install && cd ..
+npm run build
+
+node dist/cli/index.js setup
+node dist/cli/index.js start</code></pre></div>
+
+                <h3>Development Mode</h3>
+                <div class="code-block"><div class="code-header"><span>Dev mode with auto-reload</span></div><pre><code class="language-bash"># Backend with tsx watch
+npm run dev
+
+# Frontend dev server (separate terminal)
+npm run dev:web</code></pre></div>
+            </section>
+
+            <section class="section" id="systemd">
+                <h2>systemd Service (VPS)</h2>
+                <div class="code-block"><div class="code-header"><span>/etc/systemd/system/teleton.service</span></div><pre><code class="language-ini">[Unit]
+Description=Teleton AI Agent for Telegram
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=teleton
+Group=teleton
+WorkingDirectory=/home/teleton
+
+ExecStart=/usr/bin/teleton start
+# Or: ExecStart=/usr/bin/node /home/teleton/teleton-agent/dist/cli/index.js start
+
+Restart=on-failure
+RestartSec=10
+
+Environment=NODE_ENV=production
+Environment=TELETON_HOME=/home/teleton/.teleton
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/teleton/.teleton
+PrivateTmp=true
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=teleton
+
+[Install]
+WantedBy=multi-user.target</code></pre></div>
+                <div class="code-block"><div class="code-header"><span>Enable and start</span></div><pre><code class="language-bash">sudo useradd -r -m -s /bin/bash teleton
+sudo npm install -g teleton
+sudo systemctl daemon-reload
+sudo systemctl enable teleton
+sudo systemctl start teleton
+sudo journalctl -u teleton -f</code></pre></div>
+            </section>
+
+            <section class="section" id="backup">
+                <h2>Backup Strategy</h2>
+                <p>All persistent data is in <code>~/.teleton/</code> (or <code>TELETON_HOME</code>). Regular backups of this directory are sufficient for full recovery.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Path</th><th>Contents</th><th>Sensitivity</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>config.yaml</code></td><td>All configuration</td><td>Contains API keys</td></tr>
+                        <tr><td><code>wallet.json</code></td><td>TON wallet mnemonic + keys</td><td><strong>Highly sensitive</strong> (0600 perms)</td></tr>
+                        <tr><td><code>teleton_session/</code></td><td>Telegram session</td><td>Grants account access</td></tr>
+                        <tr><td><code>memory.db</code></td><td>Conversation memory + sessions (SQLite)</td><td>Contains chat history</td></tr>
+                        <tr><td><code>plugins/</code></td><td>Installed plugins</td><td>Reproducible</td></tr>
+                        <tr><td><code>workspace/</code></td><td>Agent workspace files</td><td>User content</td></tr>
+                    </tbody>
+                </table></div>
+                <div class="code-block"><div class="code-header"><span>Backup commands</span></div><pre><code class="language-bash"># Simple backup
+tar -czf teleton-backup-$(date +%Y%m%d).tar.gz ~/.teleton/
+
+# Exclude transient files
+tar -czf teleton-backup-$(date +%Y%m%d).tar.gz \
+  --exclude='*.db-wal' \
+  --exclude='*.db-shm' \
+  ~/.teleton/</code></pre></div>
+            </section>
+
+            <section class="section" id="updating">
+                <h2>Updating</h2>
+                <div class="code-block"><div class="code-header"><span>npm</span></div><pre><code class="language-bash">npm update -g teleton
+# Or pin to a specific version:
+npm install -g teleton@0.5.2</code></pre></div>
+                <div class="code-block"><div class="code-header"><span>Docker Compose</span></div><pre><code class="language-bash">docker compose pull
+docker compose up -d</code></pre></div>
+                <div class="code-block"><div class="code-header"><span>From source</span></div><pre><code class="language-bash">cd teleton-agent
+git pull origin main
+npm install
+cd web && npm install && cd ..
+npm run build
+# Restart the agent</code></pre></div>
+            </section>
+
+            <section class="section" id="env-vars">
+                <h2>Environment Variables</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Variable</th><th>Purpose</th><th>Default</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>TELETON_HOME</code></td><td>Root data directory</td><td><code>~/.teleton</code></td></tr>
+                        <tr><td><code>TELETON_API_KEY</code></td><td>LLM provider API key</td><td>from config</td></tr>
+                        <tr><td><code>TELETON_TG_API_ID</code></td><td>Telegram API ID</td><td>from config</td></tr>
+                        <tr><td><code>TELETON_TG_API_HASH</code></td><td>Telegram API hash</td><td>from config</td></tr>
+                        <tr><td><code>TELETON_TG_PHONE</code></td><td>Telegram phone number</td><td>from config</td></tr>
+                        <tr><td><code>TELETON_WEBUI_ENABLED</code></td><td>Enable WebUI (<code>"true"</code> / <code>"false"</code>)</td><td>from config</td></tr>
+                        <tr><td><code>TELETON_WEBUI_PORT</code></td><td>WebUI port</td><td><code>7777</code></td></tr>
+                        <tr><td><code>TELETON_API_ENABLED</code></td><td>Enable Management API</td><td><code>false</code></td></tr>
+                        <tr><td><code>TELETON_API_PORT</code></td><td>Management API HTTPS port</td><td><code>7778</code></td></tr>
+                        <tr><td><code>NODE_ENV</code></td><td>Node.js environment</td><td><code>"development"</code></td></tr>
+                    </tbody>
+                </table></div>
+                <p>Environment variables always take precedence over <code>config.yaml</code> values.</p>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

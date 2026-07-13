@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial: Build a Payment Verification Bot - Teleton Agent Documentation</title>
+    <meta name="description" content="Step-by-step guide to building a Teleton plugin that accepts TON payments and verifies them on-chain with replay protection.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="tutorial-payment-bot">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link active">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>Tutorial: Build a Payment Verification Bot</h1>
+            <p class="lead">Step-by-step guide to building a plugin that accepts TON payments and verifies them on-chain.</p>
+
+            <section class="section" id="goal">
+                <h2>Goal</h2>
+                <p>By the end of this tutorial, you will have a plugin that:</p>
+                <ul>
+                    <li>Generates unique payment requests with memos for tracking</li>
+                    <li>Verifies incoming TON transfers on-chain using <code>sdk.ton.verifyPayment()</code></li>
+                    <li>Implements replay protection so a single payment cannot be claimed twice</li>
+                    <li>Shows wallet balance and recent transactions</li>
+                </ul>
+            </section>
+
+            <section class="section" id="prerequisites">
+                <h2>Prerequisites</h2>
+                <ul>
+                    <li>Teleton Agent running with a TON wallet configured (<code>config.yaml</code> has a valid mnemonic or wallet file)</li>
+                    <li>The wallet should have a small amount of TON for testing</li>
+                    <li><code>@teleton-agent/sdk</code> installed as a dev dependency in your plugin</li>
+                </ul>
+            </section>
+
+            <section class="section" id="step-1">
+                <h2>Step 1: Manifest &amp; Structure</h2>
+                <p>Create a new plugin directory and define the manifest. The manifest declares the plugin's identity and is required for proper registration.</p>
+                <div class="code-block"><div class="code-header"><span>pay-verify/index.ts: Manifest</span></div><pre><code class="language-typescript">import type { PluginSDK, SimpleToolDef, PluginManifest } from "@teleton-agent/sdk";
+import type Database from "better-sqlite3";
+
+export const manifest: PluginManifest = {
+  name: "pay-verify",
+  version: "1.0.0",
+  description: "Payment verification bot, generate requests, verify TON transfers on-chain",
+};</code></pre></div>
+            </section>
+
+            <section class="section" id="step-2">
+                <h2>Step 2: Database Migration</h2>
+                <p>The <code>migrate()</code> export runs once when the plugin is first loaded (and on schema changes). We create two tables: one for pending payment requests, and the critical <code>used_transactions</code> table for replay protection.</p>
+                <div class="code-block"><div class="code-header"><span>pay-verify/index.ts: Migration</span></div><pre><code class="language-typescript">export const migrate = (db: Database.Database): void =&gt; {
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS payment_requests (
+      id TEXT PRIMARY KEY,
+      memo TEXT NOT NULL,
+      amount_ton REAL NOT NULL,
+      requester_chat_id TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'pending',
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      verified_at TEXT,
+      tx_hash TEXT
+    );
+
+    CREATE TABLE IF NOT EXISTS used_transactions (
+      tx_hash TEXT NOT NULL,
+      game_type TEXT NOT NULL,
+      used_at TEXT NOT NULL DEFAULT (datetime('now')),
+      PRIMARY KEY (tx_hash, game_type)
+    );
+  `);
+};</code></pre></div>
+                <p>The <code>used_transactions</code> table is required by <code>sdk.ton.verifyPayment()</code>. It uses <code>INSERT OR IGNORE</code> internally to prevent the same blockchain transaction from being claimed more than once. The <code>game_type</code> column lets you separate different payment flows (e.g., "subscription" vs "purchase") so a transaction used for one flow cannot be replayed against another.</p>
+            </section>
+
+            <section class="section" id="step-3">
+                <h2>Step 3: Tool: generate_payment_request</h2>
+                <p>This tool creates a payment request with a unique memo. The user sends TON to the bot's wallet with this memo, and the verification tool can then match it.</p>
+                <div class="code-block"><div class="code-header"><span>generate_payment_request tool</span></div><pre><code class="language-typescript">{
+  name: "pay_generate_request",
+  description: "Generate a TON payment request with a unique memo for tracking",
+  parameters: {
+    type: "object",
+    properties: {
+      amount: { type: "number", description: "Amount in TON (e.g. 1.5)" },
+      description: { type: "string", description: "What the payment is for" },
+    },
+    required: ["amount"],
+  },
+  async execute(params, context) {
+    const walletAddress = sdk.ton.getAddress();
+    if (!walletAddress) {
+      return { error: "Bot wallet not initialized. Configure TON wallet first." };
+    }
+
+    // Generate a unique memo using a short random ID
+    const id = Math.random().toString(36).substring(2, 10);
+    const memo = `pay-${id}`;
+    const amount = params.amount;
+
+    // Store the request in the database
+    sdk.db!.prepare(`
+      INSERT INTO payment_requests (id, memo, amount_ton, requester_chat_id)
+      VALUES (?, ?, ?, ?)
+    `).run(id, memo, amount, context.chatId);
+
+    const description = params.description || "Payment";
+
+    return {
+      success: true,
+      paymentRequest: {
+        id,
+        walletAddress,
+        amount: `${amount} TON`,
+        memo,
+        description,
+        instructions: [
+          `Send exactly ${amount} TON to:`,
+          walletAddress,
+          `Include this memo in the transaction comment: ${memo}`,
+          "Then use the verify_payment tool to confirm.",
+        ].join("\n"),
+      },
+    };
+  },
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="step-4">
+                <h2>Step 4: Tool: verify_payment</h2>
+                <p>This tool uses <code>sdk.ton.verifyPayment()</code> to check the blockchain for a matching transaction. The SDK handles amount tolerance (1%), memo matching, time windowing, and replay protection internally.</p>
+                <div class="code-block"><div class="code-header"><span>verify_payment tool</span></div><pre><code class="language-typescript">{
+  name: "pay_verify_payment",
+  description: "Verify a TON payment was received on-chain using the payment request memo",
+  parameters: {
+    type: "object",
+    properties: {
+      request_id: { type: "string", description: "Payment request ID to verify" },
+    },
+    required: ["request_id"],
+  },
+  async execute(params, context) {
+    // Look up the payment request
+    const request = sdk.db!.prepare(
+      "SELECT * FROM payment_requests WHERE id = ?"
+    ).get(params.request_id) as any;
+
+    if (!request) {
+      return { error: `Payment request "${params.request_id}" not found.` };
+    }
+
+    if (request.status === "verified") {
+      return {
+        alreadyVerified: true,
+        txHash: request.tx_hash,
+        message: "This payment was already verified.",
+      };
+    }
+
+    // Verify the payment on-chain
+    const result = await sdk.ton.verifyPayment({
+      amount: request.amount_ton,
+      memo: request.memo,
+      gameType: "pay-verify",  // Replay protection namespace
+      maxAgeMinutes: 30,       // Look back 30 minutes
+    });
+
+    if (result.verified) {
+      // Mark the request as verified
+      sdk.db!.prepare(`
+        UPDATE payment_requests
+        SET status = 'verified', verified_at = datetime('now'), tx_hash = ?
+        WHERE id = ?
+      `).run(result.txHash, params.request_id);
+
+      return {
+        verified: true,
+        txHash: result.txHash,
+        amount: `${result.amount} TON`,
+        senderWallet: result.playerWallet,
+        date: result.date,
+        secondsAgo: result.secondsAgo,
+        message: "Payment verified successfully!",
+      };
+    }
+
+    return {
+      verified: false,
+      error: result.error || "No matching payment found.",
+      hint: "Make sure you sent the correct amount with the exact memo. Payments are valid for 30 minutes.",
+    };
+  },
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="step-5">
+                <h2>Step 5: Tool: check_balance</h2>
+                <p>A convenience tool that shows the bot's wallet balance and recent incoming transactions.</p>
+                <div class="code-block"><div class="code-header"><span>check_balance tool</span></div><pre><code class="language-typescript">{
+  name: "pay_check_balance",
+  description: "Show the bot wallet balance and recent incoming transactions",
+  parameters: { type: "object", properties: {} },
+  async execute() {
+    const address = sdk.ton.getAddress();
+    if (!address) {
+      return { error: "Bot wallet not initialized." };
+    }
+
+    const [balance, price, transactions] = await Promise.all([
+      sdk.ton.getBalance(),
+      sdk.ton.getPrice(),
+      sdk.ton.getTransactions(address, 10),
+    ]);
+
+    const incoming = transactions.filter(
+      (tx) =&gt; tx.type === "ton_received"
+    );
+
+    return {
+      address,
+      balance: balance?.balance ?? "unknown",
+      balanceNano: balance?.balanceNano ?? "unknown",
+      usdValue: balance &amp;&amp; price
+        ? `$${(parseFloat(balance.balance) * price.usd).toFixed(2)}`
+        : "unknown",
+      tonPrice: price ? `$${price.usd.toFixed(2)}` : "unknown",
+      recentIncoming: incoming.map((tx) =&gt; ({
+        hash: tx.hash,
+        amount: tx.amount,
+        from: tx.from,
+        comment: tx.comment,
+        date: tx.date,
+      })),
+    };
+  },
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="step-6">
+                <h2>Step 6: Putting It All Together</h2>
+                <p>Here is the complete plugin file, ready to copy into your plugins directory:</p>
+                <div class="code-block"><div class="code-header"><span>pay-verify/index.ts: Complete Plugin</span></div><pre><code class="language-typescript">import type { PluginSDK, SimpleToolDef, PluginManifest } from "@teleton-agent/sdk";
+import type Database from "better-sqlite3";
+
+export const manifest: PluginManifest = {
+  name: "pay-verify",
+  version: "1.0.0",
+  description: "Payment verification bot, generate requests, verify TON transfers on-chain",
+};
+
+export const migrate = (db: Database.Database): void =&gt; {
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS payment_requests (
+      id TEXT PRIMARY KEY,
+      memo TEXT NOT NULL,
+      amount_ton REAL NOT NULL,
+      requester_chat_id TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'pending',
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      verified_at TEXT,
+      tx_hash TEXT
+    );
+
+    CREATE TABLE IF NOT EXISTS used_transactions (
+      tx_hash TEXT NOT NULL,
+      game_type TEXT NOT NULL,
+      used_at TEXT NOT NULL DEFAULT (datetime('now')),
+      PRIMARY KEY (tx_hash, game_type)
+    );
+  `);
+};
+
+export const tools = (sdk: PluginSDK): SimpleToolDef[] =&gt; [
+  {
+    name: "pay_generate_request",
+    description: "Generate a TON payment request with a unique memo for tracking",
+    parameters: {
+      type: "object",
+      properties: {
+        amount: { type: "number", description: "Amount in TON (e.g. 1.5)" },
+        description: { type: "string", description: "What the payment is for" },
+      },
+      required: ["amount"],
+    },
+    async execute(params, context) {
+      const walletAddress = sdk.ton.getAddress();
+      if (!walletAddress) {
+        return { error: "Bot wallet not initialized. Configure TON wallet first." };
+      }
+
+      const id = Math.random().toString(36).substring(2, 10);
+      const memo = `pay-${id}`;
+      const amount = params.amount;
+
+      sdk.db!.prepare(`
+        INSERT INTO payment_requests (id, memo, amount_ton, requester_chat_id)
+        VALUES (?, ?, ?, ?)
+      `).run(id, memo, amount, context.chatId);
+
+      const description = params.description || "Payment";
+
+      return {
+        success: true,
+        paymentRequest: {
+          id,
+          walletAddress,
+          amount: `${amount} TON`,
+          memo,
+          description,
+          instructions: [
+            `Send exactly ${amount} TON to:`,
+            walletAddress,
+            `Include this memo in the transaction comment: ${memo}`,
+            "Then use the verify_payment tool to confirm.",
+          ].join("\n"),
+        },
+      };
+    },
+  },
+  {
+    name: "pay_verify_payment",
+    description: "Verify a TON payment was received on-chain using the payment request memo",
+    parameters: {
+      type: "object",
+      properties: {
+        request_id: { type: "string", description: "Payment request ID to verify" },
+      },
+      required: ["request_id"],
+    },
+    async execute(params, context) {
+      const request = sdk.db!.prepare(
+        "SELECT * FROM payment_requests WHERE id = ?"
+      ).get(params.request_id) as any;
+
+      if (!request) {
+        return { error: `Payment request "${params.request_id}" not found.` };
+      }
+
+      if (request.status === "verified") {
+        return {
+          alreadyVerified: true,
+          txHash: request.tx_hash,
+          message: "This payment was already verified.",
+        };
+      }
+
+      const result = await sdk.ton.verifyPayment({
+        amount: request.amount_ton,
+        memo: request.memo,
+        gameType: "pay-verify",
+        maxAgeMinutes: 30,
+      });
+
+      if (result.verified) {
+        sdk.db!.prepare(`
+          UPDATE payment_requests
+          SET status = 'verified', verified_at = datetime('now'), tx_hash = ?
+          WHERE id = ?
+        `).run(result.txHash, params.request_id);
+
+        return {
+          verified: true,
+          txHash: result.txHash,
+          amount: `${result.amount} TON`,
+          senderWallet: result.playerWallet,
+          date: result.date,
+          secondsAgo: result.secondsAgo,
+          message: "Payment verified successfully!",
+        };
+      }
+
+      return {
+        verified: false,
+        error: result.error || "No matching payment found.",
+        hint: "Make sure you sent the correct amount with the exact memo. Payments are valid for 30 minutes.",
+      };
+    },
+  },
+  {
+    name: "pay_check_balance",
+    description: "Show the bot wallet balance and recent incoming transactions",
+    parameters: { type: "object", properties: {} },
+    async execute() {
+      const address = sdk.ton.getAddress();
+      if (!address) {
+        return { error: "Bot wallet not initialized." };
+      }
+
+      const [balance, price, transactions] = await Promise.all([
+        sdk.ton.getBalance(),
+        sdk.ton.getPrice(),
+        sdk.ton.getTransactions(address, 10),
+      ]);
+
+      const incoming = transactions.filter(
+        (tx) =&gt; tx.type === "ton_received"
+      );
+
+      return {
+        address,
+        balance: balance?.balance ?? "unknown",
+        balanceNano: balance?.balanceNano ?? "unknown",
+        usdValue: balance &amp;&amp; price
+          ? `$${(parseFloat(balance.balance) * price.usd).toFixed(2)}`
+          : "unknown",
+        tonPrice: price ? `$${price.usd.toFixed(2)}` : "unknown",
+        recentIncoming: incoming.map((tx) =&gt; ({
+          hash: tx.hash,
+          amount: tx.amount,
+          from: tx.from,
+          comment: tx.comment,
+          date: tx.date,
+        })),
+      };
+    },
+  },
+];</code></pre></div>
+            </section>
+
+            <section class="section" id="testing">
+                <h2>Testing</h2>
+                <ol>
+                    <li>Place the plugin in your <code>plugins/pay-verify/</code> directory and restart the agent.</li>
+                    <li>In Telegram, ask the agent: <em>"Generate a payment request for 0.1 TON"</em></li>
+                    <li>The agent will return a wallet address and memo. Send the TON from another wallet with that memo.</li>
+                    <li>Wait for the transaction to confirm on-chain (usually 5-15 seconds).</li>
+                    <li>Ask the agent: <em>"Verify payment request [id]"</em></li>
+                    <li>The agent should confirm the payment with the transaction hash and sender address.</li>
+                    <li>Try verifying the same request again: it should report "already verified" (replay protection).</li>
+                </ol>
+            </section>
+
+            <section class="section" id="pitfalls">
+                <h2>Common Pitfalls</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Pitfall</th><th>Solution</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td>Missing <code>used_transactions</code> table</td>
+                            <td>Always create it in <code>migrate()</code>. Without it, <code>verifyPayment()</code> throws <code>OPERATION_FAILED</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>Amount mismatch due to fees</td>
+                            <td>The SDK uses a 1% tolerance by default. If your amounts are very small (under 0.01 TON), the tolerance may still cause false negatives. Use amounts above 0.05 TON.</td>
+                        </tr>
+                        <tr>
+                            <td>Payment not found</td>
+                            <td>Set <code>maxAgeMinutes</code> appropriately. The default is 10 minutes. For e-commerce flows, use 30 or 60 minutes.</td>
+                        </tr>
+                        <tr>
+                            <td>Float precision errors</td>
+                            <td>Always pass amounts as human-readable numbers (e.g. <code>1.5</code>), not nanoTON. The SDK handles string-based decimal conversion internally to avoid floating-point errors.</td>
+                        </tr>
+                        <tr>
+                            <td>Memo case sensitivity</td>
+                            <td>Memo matching is case-insensitive. <code>"pay-abc123"</code> matches <code>"PAY-ABC123"</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>Wallet not initialized</td>
+                            <td>Always check <code>sdk.ton.getAddress()</code> before calling payment methods. Return a clear error if null.</td>
+                        </tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

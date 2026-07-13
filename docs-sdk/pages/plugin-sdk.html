@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plugin SDK - Teleton Agent Documentation</title>
+    <meta name="description" content="Build, test, and distribute plugins for Teleton Agent. Plugin structure, lifecycle, SDK namespaces, event hooks, and best practices.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="plugin-sdk">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link active">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>Plugin Development Guide</h1>
+            <p class="lead">Extend the agent with custom tools, event hooks, and background tasks. Plugins are ESM JavaScript modules placed in <code>~/.teleton/plugins/</code>.</p>
+
+            <section class="section" id="overview">
+                <h2>Overview</h2>
+                <p>Key facts about plugins:</p>
+                <ul>
+                    <li>Plugins receive a <strong>frozen SDK</strong> object: they cannot modify or extend it</li>
+                    <li>Each plugin gets an <strong>isolated SQLite database</strong>; <code>migrate</code> is optional</li>
+                    <li>Plugins see a <strong>sanitized config</strong> with no API keys or secrets</li>
+                    <li>The official SDK package is <code>@teleton-agent/sdk</code> on npm</li>
+                    <li>Plugins are loaded at startup, no rebuild needed</li>
+                </ul>
+            </section>
+
+            <section class="section" id="plugin-structure">
+                <h2>Plugin Structure</h2>
+                <p>Plugins can be a single file or a directory:</p>
+                <div class="code-block"><div class="code-header"><span>Single file</span></div><pre><code class="language-bash">~/.teleton/plugins/
+  my-plugin.js          # Self-contained plugin</code></pre></div>
+                <div class="code-block"><div class="code-header"><span>Directory (recommended for plugins with dependencies)</span></div><pre><code class="language-bash">~/.teleton/plugins/
+  my-plugin/
+    index.js            # Entry point (required)
+    package.json        # npm dependencies (optional)
+    package-lock.json   # Lockfile (required if package.json exists)
+    node_modules/       # Auto-installed by the platform</code></pre></div>
+                <p>When a plugin has a <code>package.json</code> and <code>package-lock.json</code>, the platform automatically runs <code>npm ci --ignore-scripts</code> to install dependencies before loading.</p>
+            </section>
+
+            <section class="section" id="hello-world">
+                <h2>Minimal Plugin (Hello World)</h2>
+                <div class="code-block"><div class="code-header"><span>~/.teleton/plugins/hello.js</span></div><pre><code class="language-javascript">export const tools = [
+  {
+    name: "hello_greet",
+    description: "Greet a user by name",
+    parameters: {
+      type: "object",
+      properties: {
+        name: { type: "string", description: "The person's name" },
+      },
+      required: ["name"],
+    },
+    async execute(params) {
+      return {
+        success: true,
+        data: { message: `Hello, ${params.name}!` },
+      };
+    },
+  },
+];</code></pre></div>
+                <p>Restart the agent (or enable hot-reload) and the <code>hello_greet</code> tool will be available to the LLM.</p>
+            </section>
+
+            <section class="section" id="lifecycle">
+                <h2>Plugin Lifecycle</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Export</th><th>Signature</th><th>When Called</th><th>Purpose</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>manifest</code></td><td><code>PluginManifest</code></td><td>Load time</td><td>Declare name, version, dependencies, default config, secrets</td></tr>
+                        <tr><td><code>migrate</code></td><td><code>(db: Database) =&gt; void</code></td><td>Before <code>tools</code>, once</td><td>Create/alter tables in the plugin's isolated SQLite DB</td></tr>
+                        <tr><td><code>tools</code></td><td><code>SimpleToolDef[]</code> or <code>(sdk) =&gt; SimpleToolDef[]</code></td><td>After <code>migrate</code></td><td>Register tools the LLM can invoke</td></tr>
+                        <tr><td><code>start</code></td><td><code>(ctx) =&gt; Promise&lt;void&gt;</code></td><td>After Telegram bridge connects</td><td>Run background tasks, set up intervals</td></tr>
+                        <tr><td><code>stop</code></td><td><code>() =&gt; Promise&lt;void&gt;</code></td><td>On shutdown or hot-reload</td><td>Clean up timers, close connections</td></tr>
+                        <tr><td><code>onMessage</code></td><td><code>(event) =&gt; Promise&lt;void&gt;</code></td><td>Every incoming message</td><td>React to messages without LLM involvement</td></tr>
+                        <tr><td><code>onCallbackQuery</code></td><td><code>(event) =&gt; Promise&lt;void&gt;</code></td><td>Inline button press</td><td>Handle callback queries from inline keyboards</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="manifest">
+                <h2>Manifest</h2>
+                <div class="code-block"><div class="code-header"><span>manifest example</span></div><pre><code class="language-javascript">export const manifest = {
+  name: "my-plugin",           // Required: lowercase, alphanumeric + hyphens
+  version: "1.0.0",            // Required: semver
+  author: "Your Name",
+  description: "What it does", // Max 256 chars
+  dependencies: ["ton-proxy"], // Required built-in modules
+  sdkVersion: ">=2.0.0",
+  defaultConfig: {
+    max_results: 10,
+    cooldown_ms: 5000,
+  },
+  secrets: {
+    api_key: {
+      required: true,
+      description: "External API key for the service",
+    },
+  },
+};</code></pre></div>
+                <p>Plugin config is resolved by merging <code>manifest.defaultConfig</code> with the user's config under <code>plugins.&lt;plugin_name&gt;</code> in <code>config.yaml</code> (hyphens replaced by underscores).</p>
+            </section>
+
+            <section class="section" id="sdk-namespaces">
+                <h2>SDK Namespaces</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Namespace</th><th>Key Methods</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>sdk.ton</code></td><td><code>getAddress()</code>, <code>getBalance()</code>, <code>getPrice()</code>, <code>sendTON()</code>, <code>getTransactions()</code>, <code>verifyPayment()</code>, <code>getJettonBalances()</code>, <code>sendJetton()</code>, <code>getNftItems()</code></td></tr>
+                        <tr><td><code>sdk.ton.dex</code></td><td><code>quote()</code>, <code>swap()</code>, <code>quoteSTONfi()</code>, <code>quoteDeDust()</code>, <code>swapSTONfi()</code>, <code>swapDeDust()</code></td></tr>
+                        <tr><td><code>sdk.ton.dns</code></td><td><code>check()</code>, <code>resolve()</code>, <code>getAuctions()</code>, <code>startAuction()</code>, <code>bid()</code>, <code>link()</code>, <code>setSiteRecord()</code></td></tr>
+                        <tr><td><code>sdk.telegram</code></td><td><code>sendMessage()</code>, <code>editMessage()</code>, <code>deleteMessage()</code>, <code>sendPhoto()</code>, <code>sendVideo()</code>, <code>sendVoice()</code>, <code>sendGift()</code>, <code>getStarsBalance()</code>, <code>createPoll()</code>, <code>banUser()</code></td></tr>
+                        <tr><td><code>sdk.bot</code></td><td><code>onInlineQuery()</code>, <code>onCallback()</code>, <code>editInlineMessage()</code>, <code>keyboard()</code></td></tr>
+                        <tr><td><code>sdk.secrets</code></td><td><code>get()</code>, <code>require()</code>, <code>has()</code></td></tr>
+                        <tr><td><code>sdk.storage</code></td><td><code>get()</code>, <code>set()</code>, <code>delete()</code>, <code>has()</code>, <code>clear()</code> (KV with TTL)</td></tr>
+                        <tr><td><code>sdk.db</code></td><td>Raw <code>better-sqlite3</code> database, isolated per plugin</td></tr>
+                        <tr><td><code>sdk.log</code></td><td><code>info()</code>, <code>warn()</code>, <code>error()</code>, <code>debug()</code></td></tr>
+                        <tr><td><code>sdk.on()</code></td><td>Register hooks: <code>tool:before</code>, <code>tool:after</code>, <code>prompt:before</code>, <code>session:start</code>, <code>message:receive</code>, <code>agent:start</code>, etc.</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="full-example">
+                <h2>Full Plugin Example</h2>
+                <div class="code-block"><div class="code-header"><span>~/.teleton/plugins/weather.js</span></div><pre><code class="language-javascript">export const manifest = {
+  name: "weather",
+  version: "1.0.0",
+  sdkVersion: "^2.0.0",
+};
+
+// Creates isolated database at ~/.teleton/plugins/data/weather.db
+export function migrate(db) {
+  db.exec(`CREATE TABLE IF NOT EXISTS weather_cache (
+    city TEXT PRIMARY KEY, data TEXT, cached_at INTEGER
+  )`);
+}
+
+// Required: tools as a function receiving the Plugin SDK
+export const tools = (sdk) =&gt; [
+  {
+    name: "weather_get",
+    description: "Get current weather for a city",
+    parameters: {
+      type: "object",
+      properties: { city: { type: "string", description: "City name" } },
+      required: ["city"],
+    },
+    execute: async (params) =&gt; {
+      sdk.log.info(`Fetching weather for ${params.city}`);
+      const res = await fetch(`https://wttr.in/${params.city}?format=j1`);
+      if (!res.ok) return { success: false, error: "City not found" };
+      const data = await res.json();
+      return { success: true, data: { temp: data.current_condition[0].temp_C } };
+    },
+  },
+];</code></pre></div>
+            </section>
+
+            <section class="section" id="hot-reload">
+                <h2>Hot-Reload During Development</h2>
+                <p>Enable hot-reload in <code>config.yaml</code> so the platform watches <code>~/.teleton/plugins/</code> for file changes and automatically reloads modified plugins without restarting:</p>
+                <div class="code-block"><div class="code-header"><span>config.yaml</span></div><pre><code class="language-yaml">dev:
+  hot_reload: true</code></pre></div>
+            </section>
+
+            <section class="section" id="managing-secrets">
+                <h2>Managing Plugin Secrets</h2>
+                <p>Plugin API keys and tokens should NOT be stored in <code>config.yaml</code>. Use the <code>/plugin</code> admin command instead:</p>
+                <div class="code-block"><div class="code-header"><span>Telegram</span></div><pre><code class="language-bash">/plugin set weather API_KEY your-api-key-here
+/plugin keys weather        # List configured secret keys</code></pre></div>
+                <p>Secrets are stored in <code>~/.teleton/plugins/data/&lt;plugin&gt;.secrets.json</code> with <code>0600</code> permissions. Access them in your plugin via <code>sdk.secrets.get("API_KEY")</code>.</p>
+            </section>
+
+            <section class="section" id="next-steps">
+                <h2>Next Steps</h2>
+                <ul>
+                    <li><a href="create-plugin.html"><strong>Create a Plugin</strong></a>: Step-by-step tutorial</li>
+                    <li><a href="api-events.html"><strong>Plugin Lifecycle</strong></a>: Full event hook reference</li>
+                    <li><a href="sdk-overview.html"><strong>SDK Overview</strong></a>: Complete SDK namespace reference</li>
+                    <li><a href="mcp-servers.html"><strong>MCP Servers</strong></a>: Connect external tool servers</li>
+                </ul>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

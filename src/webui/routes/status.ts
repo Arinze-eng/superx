@@ -1,0 +1,40 @@
+import { Hono } from "hono";
+import type { WebUIServerDeps, StatusResponse, APIResponse } from "../types.js";
+import { apiError } from "../http.js";
+import { getTokenUsage } from "../../agent/token-usage.js";
+
+export function createStatusRoutes(deps: WebUIServerDeps) {
+  const app = new Hono();
+
+  app.get("/", (c) => {
+    try {
+      const config = deps.agent.getConfig();
+
+      // Count active sessions from memory DB
+      const sessionCountRow = deps.memory.db
+        .prepare("SELECT COUNT(*) as count FROM sessions")
+        .get() as { count: number } | undefined;
+
+      const data: StatusResponse = {
+        uptime: process.uptime(),
+        model: config.agent.model,
+        provider: config.agent.provider,
+        sessionCount: sessionCountRow?.count ?? 0,
+        toolCount: deps.toolRegistry.getAll().length,
+        tokenUsage: getTokenUsage(),
+        platform: process.platform,
+      };
+
+      const response: APIResponse<StatusResponse> = {
+        success: true,
+        data,
+      };
+
+      return c.json(response);
+    } catch (error) {
+      return apiError(c, error, 500);
+    }
+  });
+
+  return app;
+}

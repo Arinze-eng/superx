@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sdk.ton.dex, DEX Trading - Teleton Agent Documentation</title>
+    <meta name="description" content="Decentralized exchange operations via STON.fi and DeDust aggregators in the Teleton Plugin SDK.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="sdk-dex">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link active">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>sdk.ton.dex, DEX Trading</h1>
+            <p class="lead">Decentralized exchange operations via STON.fi and DeDust aggregators. Access via <code>sdk.ton.dex</code> in your plugin.</p>
+
+            <section class="section" id="quick-example">
+                <h2>Quick Example</h2>
+                <div class="code-block"><div class="code-header"><span>Get a quote and execute a swap</span></div><pre><code class="language-typescript">import type { PluginSDK } from "@teleton-agent/sdk";
+
+const USDT = "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs";
+
+// Compare quotes from both DEXes
+const quote = await sdk.ton.dex.quote({
+  fromAsset: "ton",
+  toAsset: USDT,
+  amount: 10,
+  slippage: 0.01, // 1%
+});
+
+console.log(`Recommended: ${quote.recommended}`);
+console.log(`Savings: ${quote.savings}`);
+
+if (quote.stonfi) {
+  console.log(`STON.fi: ${quote.stonfi.expectedOutput} USDT (fee: ${quote.stonfi.fee})`);
+}
+if (quote.dedust) {
+  console.log(`DeDust: ${quote.dedust.expectedOutput} USDT (fee: ${quote.dedust.fee})`);
+}
+
+// Execute swap on the recommended DEX
+const result = await sdk.ton.dex.swap({
+  fromAsset: "ton",
+  toAsset: USDT,
+  amount: 10,
+  slippage: 0.01,
+});
+console.log(`Swapped on ${result.dex}: ${result.amountIn} TON -> ~${result.expectedOutput} USDT`);</code></pre></div>
+            </section>
+
+            <section class="section" id="overview">
+                <h2>Overview</h2>
+                <p>The DEX SDK provides a dual-aggregator interface to the two largest decentralized exchanges on TON: <strong>STON.fi</strong> and <strong>DeDust</strong>. The <code>quote()</code> method queries both and recommends the best rate. The <code>swap()</code> method executes the trade, either auto-selecting the best DEX or using a specific one via the <code>dex</code> parameter.</p>
+                <p>All DEX operations are accessed through <code>sdk.ton.dex</code>, a sub-namespace of the TON SDK.</p>
+                <ul>
+                    <li>Use <code>"ton"</code> as the asset identifier for native TON</li>
+                    <li>Use the jetton master contract address for any other token</li>
+                    <li>Amounts are in human-readable units (e.g., <code>10</code> for 10 TON, not nanoTON)</li>
+                    <li>Slippage is a decimal (e.g., <code>0.01</code> = 1%), range: 0.001 to 0.5</li>
+                </ul>
+            </section>
+
+            <section class="section" id="methods">
+                <h2>Methods</h2>
+
+                <h3 id="quote">quote(params)</h3>
+                <p>Compare quotes from both STON.fi and DeDust, and get a recommendation for the best rate.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>quote(params: DexQuoteParams)</code></td><td><code>Promise&lt;DexQuoteResult&gt;</code></td><td>Aggregated quote comparing both DEXes with a recommendation.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Aggregated quote</span></div><pre><code class="language-typescript">const SCALE = "EQBlqsm144Dq6SjbPI4jjZvlmHDqumGs1SfAW3IqjvnBqSZ8";
+
+const quote = await sdk.ton.dex.quote({
+  fromAsset: "ton",
+  toAsset: SCALE,
+  amount: 5,
+  slippage: 0.02, // 2% slippage tolerance
+});
+
+// quote.recommended is "stonfi" or "dedust"
+// quote.savings tells you the difference (e.g. "0.5%")
+if (quote.recommended === "stonfi" &amp;&amp; quote.stonfi) {
+  console.log(`Best rate on STON.fi: ${quote.stonfi.rate}`);
+  console.log(`Expected: ${quote.stonfi.expectedOutput} SCALE`);
+  console.log(`Min output: ${quote.stonfi.minOutput} (after slippage)`);
+}</code></pre></div>
+
+                <h3 id="quote-single">quoteSTONfi(params) / quoteDeDust(params)</h3>
+                <p>Get a quote from a specific DEX only. Returns <code>null</code> if the DEX has no liquidity for the pair.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>quoteSTONfi(params: DexQuoteParams)</code></td><td><code>Promise&lt;DexSingleQuote | null&gt;</code></td><td>Quote from STON.fi only. Null if no liquidity.</td></tr>
+                        <tr><td><code>quoteDeDust(params: DexQuoteParams)</code></td><td><code>Promise&lt;DexSingleQuote | null&gt;</code></td><td>Quote from DeDust only. Null if no liquidity.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Single DEX quotes</span></div><pre><code class="language-typescript">const params = { fromAsset: "ton", toAsset: USDT, amount: 100 };
+
+const stonfi = await sdk.ton.dex.quoteSTONfi(params);
+const dedust = await sdk.ton.dex.quoteDeDust(params);
+
+if (stonfi) {
+  console.log(`STON.fi rate: ${stonfi.rate}, fee: ${stonfi.fee}`);
+  if (stonfi.priceImpact) console.log(`Price impact: ${stonfi.priceImpact}`);
+}
+
+if (dedust) {
+  console.log(`DeDust rate: ${dedust.rate}, fee: ${dedust.fee}`);
+  console.log(`Pool type: ${dedust.poolType}`); // "volatile" or "stable"
+}</code></pre></div>
+
+                <h3 id="swap">swap(params)</h3>
+                <p>Execute a swap. By default, auto-selects the best DEX. Use <code>params.dex</code> to force a specific one.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>swap(params: DexSwapParams)</code></td><td><code>Promise&lt;DexSwapResult&gt;</code></td><td>Execute swap via recommended DEX (or forced via <code>params.dex</code>).</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Auto-selected swap</span></div><pre><code class="language-typescript">// Auto-select best DEX
+const result = await sdk.ton.dex.swap({
+  fromAsset: "ton",
+  toAsset: USDT,
+  amount: 10,
+  slippage: 0.01,
+});
+
+console.log(`Swapped on ${result.dex}`);
+console.log(`Sent: ${result.amountIn} TON`);
+console.log(`Expected: ${result.expectedOutput} USDT`);
+console.log(`Min output: ${result.minOutput} USDT`);
+console.log(`Slippage: ${result.slippage}`);</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Force a specific DEX</span></div><pre><code class="language-typescript">// Force STON.fi
+const stonfiResult = await sdk.ton.dex.swap({
+  fromAsset: USDT,
+  toAsset: "ton",
+  amount: 50,
+  slippage: 0.01,
+  dex: "stonfi",
+});
+
+// Force DeDust
+const dedustResult = await sdk.ton.dex.swap({
+  fromAsset: USDT,
+  toAsset: "ton",
+  amount: 50,
+  slippage: 0.01,
+  dex: "dedust",
+});</code></pre></div>
+
+                <h3 id="swap-single">swapSTONfi(params) / swapDeDust(params)</h3>
+                <p>Execute a swap on a specific DEX directly. Same as calling <code>swap()</code> with the <code>dex</code> parameter.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>swapSTONfi(params: DexSwapParams)</code></td><td><code>Promise&lt;DexSwapResult&gt;</code></td><td>Execute swap on STON.fi specifically.</td></tr>
+                        <tr><td><code>swapDeDust(params: DexSwapParams)</code></td><td><code>Promise&lt;DexSwapResult&gt;</code></td><td>Execute swap on DeDust specifically.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Direct DEX swap</span></div><pre><code class="language-typescript">const result = await sdk.ton.dex.swapSTONfi({
+  fromAsset: "ton",
+  toAsset: USDT,
+  amount: 5,
+  slippage: 0.01,
+});
+console.log(`STON.fi swap: ${result.amountIn} -> ${result.expectedOutput}`);</code></pre></div>
+            </section>
+
+            <section class="section" id="type-definitions">
+                <h2>Type Definitions</h2>
+
+                <div class="code-block"><div class="code-header"><span>DexQuoteParams</span></div><pre><code class="language-typescript">interface DexQuoteParams {
+  fromAsset: string;   // "ton" or jetton master address
+  toAsset: string;     // "ton" or jetton master address
+  amount: number;      // Human-readable units
+  slippage?: number;   // 0.01 = 1% (default: 0.01, range: 0.001-0.5)
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>DexQuoteResult</span></div><pre><code class="language-typescript">interface DexQuoteResult {
+  stonfi: DexSingleQuote | null;          // STON.fi quote (null if no liquidity)
+  dedust: DexSingleQuote | null;          // DeDust quote (null if no liquidity)
+  recommended: "stonfi" | "dedust";       // Best DEX for this trade
+  savings: string;                         // Savings vs other DEX (e.g. "0.5%")
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>DexSingleQuote</span></div><pre><code class="language-typescript">interface DexSingleQuote {
+  dex: "stonfi" | "dedust";   // DEX name
+  expectedOutput: string;      // Expected output amount
+  minOutput: string;           // Minimum after slippage
+  rate: string;                // Exchange rate
+  priceImpact?: string;        // Price impact percentage
+  fee: string;                 // Fee amount
+  poolType?: string;           // DeDust: "volatile" | "stable"
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>DexSwapParams</span></div><pre><code class="language-typescript">interface DexSwapParams extends DexQuoteParams {
+  dex?: "stonfi" | "dedust";  // Force a specific DEX (omit for auto)
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>DexSwapResult</span></div><pre><code class="language-typescript">interface DexSwapResult {
+  dex: "stonfi" | "dedust";   // DEX used
+  fromAsset: string;           // Source asset address
+  toAsset: string;             // Destination asset address
+  amountIn: string;            // Amount sent
+  expectedOutput: string;      // Expected output
+  minOutput: string;           // Minimum after slippage
+  slippage: string;            // Slippage used
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="comparison">
+                <h2>STON.fi vs DeDust</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Feature</th><th>STON.fi</th><th>DeDust</th></tr></thead>
+                    <tbody>
+                        <tr><td>Pool types</td><td>Constant product (v1/v2)</td><td>Volatile + Stable pools</td></tr>
+                        <tr><td>Stablecoin pairs</td><td>Standard AMM</td><td>Optimized stable curve</td></tr>
+                        <tr><td>Liquidity</td><td>Generally higher for major pairs</td><td>Growing, strong on stables</td></tr>
+                        <tr><td>Pool type info</td><td>Not exposed</td><td>Available via <code>poolType</code></td></tr>
+                        <tr><td>Price impact</td><td>Available via <code>priceImpact</code></td><td>Available via <code>priceImpact</code></td></tr>
+                        <tr><td>Best for</td><td>Major TON/jetton pairs</td><td>Stablecoin swaps, newer tokens</td></tr>
+                    </tbody>
+                </table></div>
+                <p>Use the aggregated <code>quote()</code> method to automatically find the best rate. The <code>recommended</code> field and <code>savings</code> percentage make it easy to present the comparison to users.</p>
+            </section>
+
+            <section class="section" id="risk-warnings">
+                <h2>Risk Warnings</h2>
+                <ul>
+                    <li><strong>Swaps are irreversible</strong>, once a swap transaction is sent to the blockchain, it cannot be undone. Always confirm with the user before executing.</li>
+                    <li><strong>Slippage tolerance</strong>, setting slippage too low may cause the swap to fail. Setting it too high may result in unfavorable rates. The default 1% is suitable for most trades.</li>
+                    <li><strong>Price impact</strong>, large trades relative to pool liquidity will move the price. Check <code>priceImpact</code> in the quote before executing. Warn users if impact exceeds 3-5%.</li>
+                    <li><strong>MEV / frontrunning</strong>, on-chain swaps on TON are less susceptible to MEV than Ethereum, but large trades can still be sandwiched. Consider splitting large trades.</li>
+                    <li><strong>Token verification</strong>, always verify the jetton address before swapping. Use <code>sdk.ton.getJettonInfo()</code> to check the <code>verified</code> field and confirm the token is legitimate.</li>
+                    <li><strong>Liquidity</strong>, a quote returning <code>null</code> means the DEX has no liquidity for the pair. Both DEXes returning null means the token is not tradable.</li>
+                </ul>
+            </section>
+
+            <section class="section" id="complete-example">
+                <h2>Complete Example: Quote, Compare, Swap</h2>
+                <div class="code-block"><div class="code-header"><span>Full DEX trading flow</span></div><pre><code class="language-typescript">import type { PluginSDK, DexQuoteResult, DexSwapResult } from "@teleton-agent/sdk";
+
+const USDT = "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs";
+
+export default {
+  name: "dex-trader",
+  version: "1.0.0",
+  tools: [
+    {
+      name: "swap_ton_to_usdt",
+      description: "Swap TON for USDT via the best DEX",
+      parameters: {
+        type: "object",
+        properties: {
+          amount: { type: "number", description: "TON amount to swap" },
+          maxSlippage: { type: "number", description: "Max slippage (default 0.01)" },
+        },
+        required: ["amount"],
+      },
+      execute: async (args: { amount: number; maxSlippage?: number }, sdk: PluginSDK) =&gt; {
+        const slippage = args.maxSlippage ?? 0.01;
+
+        // Step 1: Verify the token
+        const info = await sdk.ton.getJettonInfo(USDT);
+        if (!info?.verified) {
+          return { error: "USDT token not verified" };
+        }
+
+        // Step 2: Check balance
+        const balance = await sdk.ton.getBalance();
+        if (!balance || parseFloat(balance.balance) &lt; args.amount + 0.5) {
+          return { error: "Insufficient balance (need amount + ~0.5 TON for gas)" };
+        }
+
+        // Step 3: Get quotes from both DEXes
+        const quote = await sdk.ton.dex.quote({
+          fromAsset: "ton",
+          toAsset: USDT,
+          amount: args.amount,
+          slippage,
+        });
+
+        // Step 4: Check for liquidity
+        if (!quote.stonfi &amp;&amp; !quote.dedust) {
+          return { error: "No liquidity on either DEX" };
+        }
+
+        // Step 5: Check price impact
+        const best = quote.recommended === "stonfi" ? quote.stonfi! : quote.dedust!;
+        if (best.priceImpact &amp;&amp; parseFloat(best.priceImpact) &gt; 5) {
+          return {
+            warning: `High price impact: ${best.priceImpact}%. Consider a smaller trade.`,
+            quote: {
+              dex: quote.recommended,
+              output: best.expectedOutput,
+              minOutput: best.minOutput,
+              rate: best.rate,
+            },
+          };
+        }
+
+        // Step 6: Execute the swap
+        const result = await sdk.ton.dex.swap({
+          fromAsset: "ton",
+          toAsset: USDT,
+          amount: args.amount,
+          slippage,
+        });
+
+        return {
+          success: true,
+          dex: result.dex,
+          sent: `${result.amountIn} TON`,
+          expected: `${result.expectedOutput} USDT`,
+          minOutput: `${result.minOutput} USDT`,
+          slippage: result.slippage,
+          savings: quote.savings,
+        };
+      },
+    },
+  ],
+};</code></pre></div>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

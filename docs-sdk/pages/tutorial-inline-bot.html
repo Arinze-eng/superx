@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial: Build an Inline Bot - Teleton Agent Documentation</title>
+    <meta name="description" content="Create an inline bot plugin with styled colored buttons, callback handlers, and inline query responses for Teleton Agent.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="tutorial-inline-bot">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link active">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>Tutorial: Build an Inline Bot</h1>
+            <p class="lead">Create an inline bot plugin with styled colored buttons, callback handlers, and inline query responses.</p>
+
+            <section class="section" id="goal">
+                <h2>Goal</h2>
+                <p>By the end of this tutorial, you will have a fully functional inline bot plugin that:</p>
+                <ul>
+                    <li>Responds to inline queries with searchable results</li>
+                    <li>Displays styled colored buttons (green, red, blue) via GramJS Layer 222</li>
+                    <li>Handles callback button presses with glob patterns</li>
+                    <li>Tracks chosen inline results for analytics</li>
+                </ul>
+                <p>We will build a <strong>TON Price Ticker</strong>: an inline bot that lets users search for token prices and share them in any chat with interactive buttons.</p>
+            </section>
+
+            <section class="section" id="prerequisites">
+                <h2>Prerequisites</h2>
+                <ul>
+                    <li>Teleton Agent running with a Telegram bot connected</li>
+                    <li>Inline mode enabled for your bot via <a href="https://t.me/BotFather" target="_blank" rel="noopener">@BotFather</a> (<code>/setinline</code>)</li>
+                    <li>Inline feedback enabled via @BotFather (<code>/setinlinefeedback</code>) if you want <code>onChosenResult</code></li>
+                    <li>TON wallet configured (for price data)</li>
+                </ul>
+            </section>
+
+            <section class="section" id="step-1">
+                <h2>Step 1: Manifest with BotManifest</h2>
+                <p>The manifest must declare <code>bot</code> capabilities. Without this, <code>sdk.bot</code> will be <code>null</code> at runtime.</p>
+                <div class="code-block"><div class="code-header"><span>ton-ticker/index.ts: Manifest</span></div><pre><code class="language-typescript">import type {
+  PluginSDK,
+  SimpleToolDef,
+  PluginManifest,
+  InlineResult,
+  InlineQueryContext,
+  CallbackContext,
+  ChosenResultContext,
+} from "@teleton-agent/sdk";
+
+export const manifest: PluginManifest = {
+  name: "ton-ticker",
+  version: "1.0.0",
+  description: "Inline TON price ticker, search tokens and share prices in any chat",
+  bot: {
+    inline: true,      // Enable inline query handling
+    callbacks: true,   // Enable callback query handling
+    rateLimits: {
+      inlinePerMinute: 60,   // Higher limit for a price bot
+      callbackPerMinute: 120,
+    },
+  },
+};</code></pre></div>
+            </section>
+
+            <section class="section" id="step-2">
+                <h2>Step 2: Inline Query Handler</h2>
+                <p>The inline query handler is called whenever a user types <code>@yourbot query</code> in any Telegram chat. We will search for tokens and return price results.</p>
+                <div class="code-block"><div class="code-header"><span>Inline query handler</span></div><pre><code class="language-typescript">// Token database for lookup
+const TOKENS: { symbol: string; name: string; address: string }[] = [
+  { symbol: "TON", name: "Toncoin", address: "ton" },
+  { symbol: "USDT", name: "Tether USD", address: "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs" },
+  { symbol: "STON", name: "STON.fi", address: "EQA2kCVNwVsil2EM2mB0SkXytxCqQjS4mttjDpnXmwG9T6bO" },
+  { symbol: "SCALE", name: "Scaleton", address: "EQBlqsm144Dq6SjbPI4jjZvlSHrzpwJKnL7MhRuRg1hIl-eH" },
+];
+
+sdk.bot.onInlineQuery(async (ctx: InlineQueryContext): Promise&lt;InlineResult[]&gt; =&gt; {
+  const query = ctx.query.toLowerCase().trim();
+
+  // Filter tokens matching the query
+  const matches = query
+    ? TOKENS.filter(
+        (t) =&gt;
+          t.symbol.toLowerCase().includes(query) ||
+          t.name.toLowerCase().includes(query)
+      )
+    : TOKENS; // Show all if empty query
+
+  // Fetch prices for matching tokens
+  const results: InlineResult[] = [];
+
+  for (const token of matches.slice(0, 10)) {
+    let priceText: string;
+    let description: string;
+
+    if (token.address === "ton") {
+      const price = await sdk.ton.getPrice();
+      priceText = price ? `$${price.usd.toFixed(2)}` : "Price unavailable";
+      description = `Toncoin: ${priceText}`;
+    } else {
+      const price = await sdk.ton.getJettonPrice(token.address);
+      priceText = price ? `$${price.usd.toFixed(6)}` : "Price unavailable";
+      description = `${token.name}: ${priceText}`;
+    }
+
+    results.push({
+      id: token.symbol.toLowerCase(),
+      type: "article",
+      title: `${token.symbol} ${priceText}`,
+      description,
+      content: {
+        text: `<b>${token.symbol}</b> (${token.name})\nPrice: <b>${priceText}</b>`,
+        parseMode: "HTML",
+      },
+      keyboard: [
+        [
+          { text: "Refresh Price", callback: `refresh:${token.symbol}`, style: "primary" },
+          { text: "View Chart", url: `https://tonviewer.com/${token.address}` },
+        ],
+        [
+          { text: "Copy Address", copy: token.address },
+        ],
+      ],
+    });
+  }
+
+  return results;
+});</code></pre></div>
+            </section>
+
+            <section class="section" id="step-3">
+                <h2>Step 3: Styled Keyboard</h2>
+                <p>The Bot SDK supports three button colors via GramJS Layer 222. Colors are specified with the <code>style</code> property and render natively in Telegram clients that support Layer 222.</p>
+                <div class="code-block"><div class="code-header"><span>Building styled keyboards</span></div><pre><code class="language-typescript">// You can also build keyboards outside of inline results
+// using sdk.bot.keyboard() for reuse
+
+const priceKeyboard = sdk.bot.keyboard([
+  [
+    { text: "Refresh", callback: "refresh:TON", style: "primary" },   // Blue
+    { text: "Buy", callback: "buy:TON", style: "success" },           // Green
+    { text: "Sell", callback: "sell:TON", style: "danger" },           // Red
+  ],
+  [
+    { text: "View on Tonviewer", url: "https://tonviewer.com" },
+  ],
+]);
+
+// .toTL() returns GramJS MTProto markup (colored buttons)
+const tlMarkup = priceKeyboard.toTL();
+
+// .toGrammy() returns standard Bot API markup (no colors, graceful fallback)
+const grammyMarkup = priceKeyboard.toGrammy();
+
+// .rows gives you the raw ButtonDef[][] with prefixed callbacks
+// e.g. "ton-ticker:refresh:TON" instead of "refresh:TON"
+const rawRows = priceKeyboard.rows;</code></pre></div>
+                <p>When you specify <code>keyboard</code> inside an <code>InlineResult</code> object, the platform automatically builds the keyboard for you: you pass raw <code>ButtonDef[][]</code> and it handles the rendering. The <code>sdk.bot.keyboard()</code> method is useful when you need to build keyboards outside of inline results, for example when editing messages via <code>editInlineMessage()</code>.</p>
+            </section>
+
+            <section class="section" id="step-4">
+                <h2>Step 4: Callback Handlers</h2>
+                <p>Register callback handlers with glob patterns. The plugin namespace prefix is automatically stripped, so your patterns match against your raw callback data.</p>
+                <div class="code-block"><div class="code-header"><span>Callback handlers with glob patterns</span></div><pre><code class="language-typescript">// Handle "Refresh Price" button, matches "refresh:TON", "refresh:USDT", etc.
+sdk.bot.onCallback("refresh:*", async (ctx: CallbackContext) =&gt; {
+  const symbol = ctx.data.split(":")[1];
+  const token = TOKENS.find((t) =&gt; t.symbol === symbol);
+
+  if (!token) {
+    await ctx.answer("Token not found", true); // true = show as alert
+    return;
+  }
+
+  let priceText: string;
+  if (token.address === "ton") {
+    const price = await sdk.ton.getPrice();
+    priceText = price ? `$${price.usd.toFixed(2)}` : "Price unavailable";
+  } else {
+    const price = await sdk.ton.getJettonPrice(token.address);
+    priceText = price ? `$${price.usd.toFixed(6)}` : "Price unavailable";
+  }
+
+  const now = new Date().toLocaleTimeString("en-US", { hour12: false });
+
+  // Edit the inline message with updated price
+  await ctx.editMessage(
+    `<b>${token.symbol}</b> (${token.name})\nPrice: <b>${priceText}</b>\n<i>Updated at ${now}</i>`,
+    {
+      parseMode: "HTML",
+      keyboard: [
+        [
+          { text: "Refresh Price", callback: `refresh:${token.symbol}`, style: "primary" },
+          { text: "View Chart", url: `https://tonviewer.com/${token.address}` },
+        ],
+        [
+          { text: "Copy Address", copy: token.address },
+        ],
+      ],
+    }
+  );
+
+  await ctx.answer(`${token.symbol}: ${priceText}`);
+});
+
+// Handle buy/sell actions (example, these would trigger your trading logic)
+sdk.bot.onCallback("buy:*", async (ctx: CallbackContext) =&gt; {
+  const symbol = ctx.data.split(":")[1];
+  await ctx.answer(`Buy ${symbol}, use /buy command in a direct chat with the bot`, true);
+});
+
+sdk.bot.onCallback("sell:*", async (ctx: CallbackContext) =&gt; {
+  const symbol = ctx.data.split(":")[1];
+  await ctx.answer(`Sell ${symbol}, use /sell command in a direct chat with the bot`, true);
+});</code></pre></div>
+            </section>
+
+            <section class="section" id="step-5">
+                <h2>Step 5: Chosen Result Handler</h2>
+                <p>Track when users select an inline result. This is useful for analytics and for updating the message after the user sends it.</p>
+                <div class="code-block"><div class="code-header"><span>Chosen result tracking</span></div><pre><code class="language-typescript">sdk.bot.onChosenResult(async (ctx: ChosenResultContext) =&gt; {
+  sdk.log.info(
+    `User chose "${ctx.resultId}" from query "${ctx.query}" ` +
+    `(inline msg: ${ctx.inlineMessageId ?? "N/A"})`
+  );
+
+  // Optionally update the message immediately after selection
+  // to add a "Shared by @username" footer
+  if (ctx.inlineMessageId) {
+    const token = TOKENS.find((t) =&gt; t.symbol.toLowerCase() === ctx.resultId);
+    if (token) {
+      let priceText: string;
+      if (token.address === "ton") {
+        const price = await sdk.ton.getPrice();
+        priceText = price ? `$${price.usd.toFixed(2)}` : "N/A";
+      } else {
+        const price = await sdk.ton.getJettonPrice(token.address);
+        priceText = price ? `$${price.usd.toFixed(6)}` : "N/A";
+      }
+
+      await sdk.bot.editInlineMessage(
+        ctx.inlineMessageId,
+        `<b>${token.symbol}</b> (${token.name})\nPrice: <b>${priceText}</b>\n\n<i>Shared via @${sdk.bot.username}</i>`,
+        {
+          parseMode: "HTML",
+          keyboard: [
+            [
+              { text: "Refresh", callback: `refresh:${token.symbol}`, style: "primary" },
+              { text: "View Chart", url: `https://tonviewer.com/${token.address}` },
+            ],
+          ],
+        }
+      );
+    }
+  }
+});</code></pre></div>
+            </section>
+
+            <section class="section" id="step-6">
+                <h2>Step 6: Complete Plugin Code</h2>
+                <p>Here is the entire plugin in one file, ready to copy into your plugins directory:</p>
+                <div class="code-block"><div class="code-header"><span>ton-ticker/index.ts: Complete Plugin</span></div><pre><code class="language-typescript">import type {
+  PluginSDK,
+  SimpleToolDef,
+  PluginManifest,
+  InlineResult,
+  InlineQueryContext,
+  CallbackContext,
+  ChosenResultContext,
+} from "@teleton-agent/sdk";
+
+export const manifest: PluginManifest = {
+  name: "ton-ticker",
+  version: "1.0.0",
+  description: "Inline TON price ticker, search tokens and share prices in any chat",
+  bot: {
+    inline: true,
+    callbacks: true,
+    rateLimits: {
+      inlinePerMinute: 60,
+      callbackPerMinute: 120,
+    },
+  },
+};
+
+const TOKENS: { symbol: string; name: string; address: string }[] = [
+  { symbol: "TON", name: "Toncoin", address: "ton" },
+  { symbol: "USDT", name: "Tether USD", address: "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs" },
+  { symbol: "STON", name: "STON.fi", address: "EQA2kCVNwVsil2EM2mB0SkXytxCqQjS4mttjDpnXmwG9T6bO" },
+  { symbol: "SCALE", name: "Scaleton", address: "EQBlqsm144Dq6SjbPI4jjZvlSHrzpwJKnL7MhRuRg1hIl-eH" },
+  { symbol: "BOLT", name: "Huebel Bolt", address: "EQD0vdSA_NedR9uvbgN9EikRX-suesDxGeFg69XQMavfLqIw" },
+  { symbol: "GRAM", name: "Gram", address: "EQC47093oX5Xhb2xiBSdRGOEpANw3G7YDE0Fys6EoSDq9J1Y" },
+];
+
+async function getTokenPrice(
+  sdk: PluginSDK,
+  token: { symbol: string; address: string }
+): Promise&lt;string&gt; {
+  if (token.address === "ton") {
+    const price = await sdk.ton.getPrice();
+    return price ? `$${price.usd.toFixed(2)}` : "Price unavailable";
+  }
+  const price = await sdk.ton.getJettonPrice(token.address);
+  return price ? `$${price.usd.toFixed(6)}` : "Price unavailable";
+}
+
+export const start = async (sdk: PluginSDK) =&gt; {
+  if (!sdk.bot) {
+    sdk.log.warn("Bot SDK not available, skipping inline setup");
+    return;
+  }
+
+  // ── Inline Query Handler ───────────────────────────────────────
+  sdk.bot.onInlineQuery(async (ctx: InlineQueryContext): Promise&lt;InlineResult[]&gt; =&gt; {
+    const query = ctx.query.toLowerCase().trim();
+
+    const matches = query
+      ? TOKENS.filter(
+          (t) =&gt;
+            t.symbol.toLowerCase().includes(query) ||
+            t.name.toLowerCase().includes(query)
+        )
+      : TOKENS;
+
+    const results: InlineResult[] = [];
+
+    for (const token of matches.slice(0, 10)) {
+      const priceText = await getTokenPrice(sdk, token);
+
+      results.push({
+        id: token.symbol.toLowerCase(),
+        type: "article",
+        title: `${token.symbol} ${priceText}`,
+        description: `${token.name}: ${priceText}`,
+        content: {
+          text: `<b>${token.symbol}</b> (${token.name})\nPrice: <b>${priceText}</b>`,
+          parseMode: "HTML",
+        },
+        keyboard: [
+          [
+            { text: "Refresh Price", callback: `refresh:${token.symbol}`, style: "primary" },
+            { text: "View Chart", url: `https://tonviewer.com/${token.address}` },
+          ],
+          [
+            { text: "Copy Address", copy: token.address },
+          ],
+        ],
+      });
+    }
+
+    return results;
+  });
+
+  // ── Callback Handlers ──────────────────────────────────────────
+
+  // Refresh price button
+  sdk.bot.onCallback("refresh:*", async (ctx: CallbackContext) =&gt; {
+    const symbol = ctx.data.split(":")[1];
+    const token = TOKENS.find((t) =&gt; t.symbol === symbol);
+
+    if (!token) {
+      await ctx.answer("Token not found", true);
+      return;
+    }
+
+    const priceText = await getTokenPrice(sdk, token);
+    const now = new Date().toLocaleTimeString("en-US", { hour12: false });
+
+    await ctx.editMessage(
+      `<b>${token.symbol}</b> (${token.name})\nPrice: <b>${priceText}</b>\n<i>Updated at ${now}</i>`,
+      {
+        parseMode: "HTML",
+        keyboard: [
+          [
+            { text: "Refresh Price", callback: `refresh:${token.symbol}`, style: "primary" },
+            { text: "View Chart", url: `https://tonviewer.com/${token.address}` },
+          ],
+          [
+            { text: "Copy Address", copy: token.address },
+          ],
+        ],
+      }
+    );
+
+    await ctx.answer(`${token.symbol}: ${priceText}`);
+  });
+
+  // ── Chosen Result Handler ──────────────────────────────────────
+  sdk.bot.onChosenResult(async (ctx: ChosenResultContext) =&gt; {
+    sdk.log.info(
+      `User chose "${ctx.resultId}" from query "${ctx.query}" ` +
+      `(inline msg: ${ctx.inlineMessageId ?? "N/A"})`
+    );
+
+    if (ctx.inlineMessageId) {
+      const token = TOKENS.find((t) =&gt; t.symbol.toLowerCase() === ctx.resultId);
+      if (token) {
+        const priceText = await getTokenPrice(sdk, token);
+
+        await sdk.bot.editInlineMessage(
+          ctx.inlineMessageId,
+          `<b>${token.symbol}</b> (${token.name})\nPrice: <b>${priceText}</b>\n\n<i>Shared via @${sdk.bot.username}</i>`,
+          {
+            parseMode: "HTML",
+            keyboard: [
+              [
+                { text: "Refresh", callback: `refresh:${token.symbol}`, style: "primary" },
+                { text: "Chart", url: `https://tonviewer.com/${token.address}` },
+              ],
+            ],
+          }
+        );
+      }
+    }
+  });
+
+  sdk.log.info(`TON Ticker inline bot ready: @${sdk.bot.username}`);
+};
+
+// Optional: expose a tool for direct chat usage
+export const tools = (sdk: PluginSDK): SimpleToolDef[] =&gt; [
+  {
+    name: "ticker_price",
+    description: "Get current price for a TON token",
+    parameters: {
+      type: "object",
+      properties: {
+        symbol: { type: "string", description: "Token symbol (e.g. TON, USDT, STON)" },
+      },
+      required: ["symbol"],
+    },
+    async execute(params) {
+      const token = TOKENS.find(
+        (t) =&gt; t.symbol.toLowerCase() === params.symbol.toLowerCase()
+      );
+      if (!token) {
+        return { error: `Unknown token: ${params.symbol}. Available: ${TOKENS.map((t) =&gt; t.symbol).join(", ")}` };
+      }
+
+      const priceText = await getTokenPrice(sdk, token);
+      return {
+        symbol: token.symbol,
+        name: token.name,
+        price: priceText,
+        address: token.address,
+        inlineUsage: `Type @${sdk.bot?.username ?? "yourbot"} ${token.symbol.toLowerCase()} in any chat`,
+      };
+    },
+  },
+];</code></pre></div>
+            </section>
+
+            <section class="section" id="testing">
+                <h2>Testing</h2>
+                <ol>
+                    <li>Place the plugin in <code>plugins/ton-ticker/</code> and restart the agent.</li>
+                    <li>Open any Telegram chat and type <code>@yourbot</code> followed by a space.</li>
+                    <li>You should see a list of all supported tokens with their current prices.</li>
+                    <li>Type <code>@yourbot ton</code> to filter results to Toncoin.</li>
+                    <li>Select a result to share it in the chat.</li>
+                    <li>Press the blue "Refresh Price" button to update the price in place.</li>
+                    <li>Press "Copy Address" to copy the token contract address to your clipboard.</li>
+                    <li>In a direct message to the bot, try asking: <em>"What's the price of STON?"</em> to test the agent tool.</li>
+                </ol>
+            </section>
+
+            <section class="section" id="gotchas">
+                <h2>Gotchas</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Issue</th><th>Explanation</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td><code>sdk.bot</code> is <code>null</code></td>
+                            <td>Your manifest must declare <code>bot: { inline: true }</code>. Without this, the platform does not initialize the Bot SDK for your plugin.</td>
+                        </tr>
+                        <tr>
+                            <td>Callback data auto-prefixed</td>
+                            <td>If your plugin is <code>"ton-ticker"</code> and you set <code>callback: "refresh:TON"</code>, the actual data sent to Telegram is <code>"ton-ticker:refresh:TON"</code>. This is stripped back before your handler sees it, so match against <code>"refresh:*"</code>, not <code>"ton-ticker:refresh:*"</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>Colored buttons only with <code>.toTL()</code></td>
+                            <td>Button styles (<code>"success"</code>, <code>"danger"</code>, <code>"primary"</code>) only render on Telegram clients that support GramJS Layer 222 (MTProto). When using <code>.toGrammy()</code> (Bot API), colors are silently ignored and buttons appear in the default style.</td>
+                        </tr>
+                        <tr>
+                            <td>Rate limits exceeded</td>
+                            <td>If your bot gets rate-limited, handlers are silently skipped. The user sees no inline results or no callback response. Increase <code>rateLimits</code> in the manifest or add caching to reduce API calls.</td>
+                        </tr>
+                        <tr>
+                            <td><code>onChosenResult</code> never fires</td>
+                            <td>You must enable inline feedback via @BotFather (<code>/setinlinefeedback</code>). Without this, Telegram does not send chosen result updates.</td>
+                        </tr>
+                        <tr>
+                            <td>Register handlers in <code>start()</code>, not <code>tools()</code></td>
+                            <td>The <code>tools()</code> function is called to register agent tools. Bot event handlers must be registered in the <code>start()</code> lifecycle hook, which runs once when the plugin starts.</td>
+                        </tr>
+                        <tr>
+                            <td><code>editInlineMessage</code> fails</td>
+                            <td>You can only edit inline messages that were sent via your bot. The <code>inlineMessageId</code> comes from <code>CallbackContext</code> or <code>ChosenResultContext</code>.</td>
+                        </tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

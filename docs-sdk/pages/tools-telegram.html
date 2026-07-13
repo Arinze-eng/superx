@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Tools - Teleton Agent Documentation</title>
+    <meta name="description" content="Complete reference for all 76 Telegram tools: messaging, chats, contacts, groups, media, interactive, folders, profile, stickers, Stars, and gifts.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="tools-telegram">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link active">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>Telegram Tools</h1>
+            <p class="lead">83 tools covering messaging, chats, contacts, groups, media, interactive features, folders, profile, stickers, Stars, and gifts. Tools marked <strong>user</strong> require userbot mode; <strong>bot</strong> requires bot mode.</p>
+
+            <section class="section" id="messaging">
+                <h2>Messaging (14)</h2>
+
+                <h3 id="telegram_send_message"><code>telegram_send_message</code></h3>
+                <p>Send a text message to a Telegram chat. For custom keyboards use <code>telegram_reply_keyboard</code>; for media use <code>telegram_send_photo</code>/<code>gif</code>/<code>sticker</code>.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID to send to (e.g. <code>-1001234567890</code>, <code>@username</code>)</td></tr>
+                        <tr><td><code>text</code></td><td>string</td><td>Message text (max 4096 characters)</td></tr>
+                        <tr><td><code>replyToId</code></td><td>number?</td><td>Message ID to reply to</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_edit_message"><code>telegram_edit_message</code></h3>
+                <p>Modify a previously sent message in-place. Only your own messages, within 48h. Supports Markdown formatting.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID where the message was sent</td></tr>
+                        <tr><td><code>messageId</code></td><td>number</td><td>ID of the message to edit</td></tr>
+                        <tr><td><code>text</code></td><td>string</td><td>New text content (max 4096 characters)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_delete_message"><code>telegram_delete_message</code></h3>
+                <p>Delete messages from a chat. Own messages in any chat, or any message with admin rights. Deletion is permanent.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID where the messages are located</td></tr>
+                        <tr><td><code>messageIds</code></td><td>number[]</td><td>Array of message IDs to delete</td></tr>
+                        <tr><td><code>revoke</code></td><td>boolean?</td><td>Delete for everyone (default: true)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_forward_message"><code>telegram_forward_message</code></h3>
+                <p>Forward one or more messages from one chat to another. Shows original sender attribution.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>fromChatId</code></td><td>string</td><td>Source chat ID</td></tr>
+                        <tr><td><code>toChatId</code></td><td>string</td><td>Destination chat ID</td></tr>
+                        <tr><td><code>messageIds</code></td><td>number[]</td><td>Message IDs to forward</td></tr>
+                        <tr><td><code>silent</code></td><td>boolean?</td><td>Send without notification (default: false)</td></tr>
+                        <tr><td><code>background</code></td><td>boolean?</td><td>Forward in background (default: false)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_quote_reply"><code>telegram_quote_reply</code> <small>user</small></h3>
+                <p>Reply to a specific excerpt within a message, quoting a portion of the original text.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>messageId</code></td><td>number</td><td>Message to reply to</td></tr>
+                        <tr><td><code>text</code></td><td>string</td><td>Reply text</td></tr>
+                        <tr><td><code>quote</code></td><td>string?</td><td>Excerpt to quote from the original message</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_get_replies"><code>telegram_get_replies</code> <small>user</small></h3>
+                <p>Fetch all replies in a message thread.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID containing the thread</td></tr>
+                        <tr><td><code>messageId</code></td><td>number</td><td>Root message ID of the thread</td></tr>
+                        <tr><td><code>limit</code></td><td>number?</td><td>Max replies to return (default: 50)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_search_messages"><code>telegram_search_messages</code> <small>user</small></h3>
+                <p>Search messages by text query in a chat or globally.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>query</code></td><td>string</td><td>Search query string</td></tr>
+                        <tr><td><code>chatId</code></td><td>string?</td><td>Limit search to this chat (omit for global)</td></tr>
+                        <tr><td><code>limit</code></td><td>number?</td><td>Max results (default: 20)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_schedule_message"><code>telegram_schedule_message</code> <small>user</small></h3>
+                <p>Queue a message for delayed delivery at a specified time.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>text</code></td><td>string</td><td>Message text</td></tr>
+                        <tr><td><code>date</code></td><td>number</td><td>Unix timestamp to send at</td></tr>
+                        <tr><td><code>replyToId</code></td><td>number?</td><td>Message ID to reply to</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_get_scheduled_messages"><code>telegram_get_scheduled_messages</code> <small>user</small></h3>
+                <p>List pending scheduled messages in a chat.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID to list scheduled messages for</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_delete_scheduled_message"><code>telegram_delete_scheduled_message</code> <small>user</small></h3>
+                <p>Cancel a scheduled message before it is sent.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>messageId</code></td><td>number</td><td>Scheduled message ID to cancel</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_send_scheduled_now"><code>telegram_send_scheduled_now</code> <small>user</small></h3>
+                <p>Send a scheduled message immediately instead of waiting for its delivery time.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>messageId</code></td><td>number</td><td>Scheduled message ID to send now</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_pin_message"><code>telegram_pin_message</code></h3>
+                <p>Pin a message in a chat. Requires admin rights in groups/channels.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chat_id</code></td><td>string</td><td>Chat ID or username</td></tr>
+                        <tr><td><code>message_id</code></td><td>number</td><td>ID of the message to pin</td></tr>
+                        <tr><td><code>silent</code></td><td>boolean?</td><td>Pin without notification (default: false)</td></tr>
+                        <tr><td><code>both_sides</code></td><td>boolean?</td><td>Pin for both sides in private chats (default: true)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_unpin_message"><code>telegram_unpin_message</code> <small>user</small></h3>
+                <p>Unpin a message or all messages in a chat. Requires admin rights in groups/channels.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chat_id</code></td><td>string</td><td>Chat ID or username</td></tr>
+                        <tr><td><code>message_id</code></td><td>number?</td><td>Message ID to unpin (omit to unpin latest)</td></tr>
+                        <tr><td><code>unpin_all</code></td><td>boolean?</td><td>Unpin all pinned messages (default: false)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="bot_inline_send"><code>bot_inline_send</code> <small>user</small></h3>
+                <p>Send a plugin-generated inline card into the current chat through the configured bot.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>plugin</code></td><td>string</td><td>Plugin name that handles the inline query</td></tr>
+                        <tr><td><code>query</code></td><td>string</td><td>Query passed to the plugin inline handler</td></tr>
+                        <tr><td><code>resultIndex</code></td><td>number?</td><td>Result to send (zero-based, default: 0)</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="chats">
+                <h2>Chats (12)</h2>
+
+                <h3 id="telegram_get_dialogs"><code>telegram_get_dialogs</code> <small>user</small></h3>
+                <p>List all conversations with unread counts, sorted by activity.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>limit</code></td><td>number?</td><td>Max dialogs to return (default: 20)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_get_history"><code>telegram_get_history</code> <small>user</small></h3>
+                <p>Retrieve message history from a chat.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>limit</code></td><td>number?</td><td>Max messages (default: 20, max: 100)</td></tr>
+                        <tr><td><code>offsetId</code></td><td>number?</td><td>Start from this message ID (for pagination)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_get_chat_info"><code>telegram_get_chat_info</code></h3>
+                <p>Get detailed info about a chat, group, channel, or user. Returns title, description, member count, and metadata.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID or username (e.g. <code>-1001234567890</code>, <code>@channelname</code>)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_mark_as_read"><code>telegram_mark_as_read</code> <small>user</small></h3>
+                <p>Mark messages in a chat as read.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID to mark as read</td></tr>
+                        <tr><td><code>maxId</code></td><td>number?</td><td>Mark up to this message ID (default: all)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_join_channel"><code>telegram_join_channel</code> <small>user · dm-only</small></h3>
+                <p>Join a channel or group by username or invite link.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>channel</code></td><td>string</td><td>Channel username or invite link</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_leave_channel"><code>telegram_leave_channel</code> <small>user · dm-only</small></h3>
+                <p>Leave a channel or group.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>channel</code></td><td>string</td><td>Channel ID or username</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_create_channel"><code>telegram_create_channel</code> <small>user · dm-only</small></h3>
+                <p>Create a new channel or megagroup.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>title</code></td><td>string</td><td>Channel title</td></tr>
+                        <tr><td><code>about</code></td><td>string?</td><td>Channel description</td></tr>
+                        <tr><td><code>megagroup</code></td><td>boolean?</td><td>Create as supergroup instead of channel (default: false)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_edit_channel_info"><code>telegram_edit_channel_info</code> <small>user · dm-only</small></h3>
+                <p>Edit channel or group title and description.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>channelId</code></td><td>string</td><td>Channel ID or username</td></tr>
+                        <tr><td><code>title</code></td><td>string?</td><td>New title</td></tr>
+                        <tr><td><code>about</code></td><td>string?</td><td>New description</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_invite_to_channel"><code>telegram_invite_to_channel</code> <small>user · dm-only</small></h3>
+                <p>Invite one or more users to a channel or group.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>channelId</code></td><td>string</td><td>Channel ID or username</td></tr>
+                        <tr><td><code>users</code></td><td>string[]</td><td>Array of user IDs or usernames to invite</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_get_admined_channels"><code>telegram_get_admined_channels</code> <small>user · dm-only</small></h3>
+                <p>List channels where you have admin rights.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td colspan="3"><em>No parameters.</em></td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_check_channel_username"><code>telegram_check_channel_username</code> <small>user · dm-only</small></h3>
+                <p>Check if a username is available for a channel.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>channelId</code></td><td>string</td><td>Channel ID</td></tr>
+                        <tr><td><code>username</code></td><td>string</td><td>Username to check (without @)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_set_channel_username"><code>telegram_set_channel_username</code> <small>user · dm-only</small></h3>
+                <p>Set or remove a channel's public username.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>channelId</code></td><td>string</td><td>Channel ID</td></tr>
+                        <tr><td><code>username</code></td><td>string</td><td>New username (without @). Empty string to remove.</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="contacts">
+                <h2>Contacts (5)</h2>
+
+                <h3 id="telegram_get_user_info"><code>telegram_get_user_info</code> <small>user</small></h3>
+                <p>Inspect a user profile by username or ID. Returns name, username, bio, and mutual contact status.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>userId</code></td><td>string</td><td>User ID or @username</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_check_username"><code>telegram_check_username</code> <small>user</small></h3>
+                <p>Resolve @username to entity and check availability.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>username</code></td><td>string</td><td>Username to resolve/check (with or without @)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_get_common_chats"><code>telegram_get_common_chats</code> <small>user</small></h3>
+                <p>Find shared groups and channels with a user.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>userId</code></td><td>string</td><td>User ID or @username</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_block_user"><code>telegram_block_user</code> <small>user · dm-only</small></h3>
+                <p>Block a user from contacting you.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>userId</code></td><td>string</td><td>User ID or @username to block</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_get_blocked"><code>telegram_get_blocked</code> <small>user · dm-only</small></h3>
+                <p>List blocked users.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>limit</code></td><td>number?</td><td>Max results (default: 20)</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="groups">
+                <h2>Groups (7)</h2>
+
+                <h3 id="telegram_get_me"><code>telegram_get_me</code></h3>
+                <p>Fetch your own account profile (user ID, username, name, phone, premium status).</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody><tr><td colspan="3"><em>No parameters.</em></td></tr></tbody>
+                </table></div>
+
+                <h3 id="telegram_get_participants"><code>telegram_get_participants</code> <small>user</small></h3>
+                <p>List participants of a group or channel.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Group or channel ID</td></tr>
+                        <tr><td><code>limit</code></td><td>number?</td><td>Max participants to return (default: 100)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_kick_user"><code>telegram_kick_user</code> <small>user · group-only</small></h3>
+                <p>Kick a user from a group (they can rejoin via invite).</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Group ID</td></tr>
+                        <tr><td><code>userId</code></td><td>string</td><td>User ID or @username to kick</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_ban_user"><code>telegram_ban_user</code> <small>user · group-only</small></h3>
+                <p>Ban a user from a group.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Group ID</td></tr>
+                        <tr><td><code>userId</code></td><td>string</td><td>User ID or @username to ban</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_unban_user"><code>telegram_unban_user</code> <small>user · group-only</small></h3>
+                <p>Unban a user from a group, restoring their ability to join.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Group ID</td></tr>
+                        <tr><td><code>userId</code></td><td>string</td><td>User ID or @username to unban</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_create_group"><code>telegram_create_group</code> <small>user · dm-only</small></h3>
+                <p>Create a new group chat with specified members.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>title</code></td><td>string</td><td>Group title</td></tr>
+                        <tr><td><code>users</code></td><td>string[]</td><td>User IDs or usernames to add</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_set_chat_photo"><code>telegram_set_chat_photo</code> <small>user · group-only</small></h3>
+                <p>Set or delete a group/channel photo. Requires admin rights.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Group or channel ID</td></tr>
+                        <tr><td><code>photoPath</code></td><td>string?</td><td>Local path to photo file. Omit to delete current photo.</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="media">
+                <h2>Media (7)</h2>
+
+                <h3 id="telegram_send_photo"><code>telegram_send_photo</code></h3>
+                <p>Send a photo from a local workspace file. Supports JPG, PNG, WEBP.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>photoPath</code></td><td>string</td><td>Local file path (must be in workspace downloads/ or uploads/)</td></tr>
+                        <tr><td><code>caption</code></td><td>string?</td><td>Optional caption text</td></tr>
+                        <tr><td><code>replyToId</code></td><td>number?</td><td>Message ID to reply to</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_send_voice"><code>telegram_send_voice</code> <small>user</small></h3>
+                <p>Send a voice message from a file or via text-to-speech.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>filePath</code></td><td>string?</td><td>Local audio file path (OGG/MP3)</td></tr>
+                        <tr><td><code>text</code></td><td>string?</td><td>Text to convert to speech (if no filePath)</td></tr>
+                        <tr><td><code>replyToId</code></td><td>number?</td><td>Message ID to reply to</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_send_sticker"><code>telegram_send_sticker</code> <small>user</small></h3>
+                <p>Send a sticker via pack name or local file.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>stickerPack</code></td><td>string?</td><td>Sticker pack short name (e.g. <code>Animals</code>)</td></tr>
+                        <tr><td><code>filePath</code></td><td>string?</td><td>Local .webp sticker file path</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_send_gif"><code>telegram_send_gif</code> <small>user</small></h3>
+                <p>Send a GIF via search query or local file.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>query</code></td><td>string?</td><td>GIF search query</td></tr>
+                        <tr><td><code>filePath</code></td><td>string?</td><td>Local GIF file path</td></tr>
+                        <tr><td><code>caption</code></td><td>string?</td><td>Optional caption</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_download_media"><code>telegram_download_media</code> <small>user</small></h3>
+                <p>Download media from a message to the workspace.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID containing the message</td></tr>
+                        <tr><td><code>messageId</code></td><td>number</td><td>Message ID with media</td></tr>
+                        <tr><td><code>outputPath</code></td><td>string?</td><td>Workspace-relative output path (auto-named if omitted)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="vision_analyze"><code>vision_analyze</code> <small>user</small></h3>
+                <p>Analyze an image using the vision LLM and return a description or answer.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>imagePath</code></td><td>string</td><td>Local file path to the image</td></tr>
+                        <tr><td><code>prompt</code></td><td>string?</td><td>Question or instruction for the vision model</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_transcribe_audio"><code>telegram_transcribe_audio</code> <small>user</small></h3>
+                <p>Transcribe voice or audio from a message to text using speech recognition.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID containing the audio message</td></tr>
+                        <tr><td><code>messageId</code></td><td>number</td><td>Message ID with audio/voice</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="memory">
+                <h2>Memory (4)</h2>
+
+                <h3 id="memory_write"><code>memory_write</code> <small>dm-only</small></h3>
+                <p>Save information to agent memory. Persists across conversations.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>section</code></td><td>string</td><td>Memory section: <code>core</code>, <code>persistent</code>, or <code>daily</code></td></tr>
+                        <tr><td><code>content</code></td><td>string</td><td>Content to store</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="memory_read"><code>memory_read</code></h3>
+                <p>Read agent memory contents.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>section</code></td><td>string?</td><td>Section to read (omit for all)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="memory_search"><code>memory_search</code> <small>dm-only</small></h3>
+                <p>Search memory and knowledge base by keyword.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>query</code></td><td>string</td><td>Search query</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="session_search"><code>session_search</code> <small>dm-only</small></h3>
+                <p>Search past messages in the current chat session.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>query</code></td><td>string</td><td>Search query</td></tr>
+                        <tr><td><code>limit</code></td><td>number?</td><td>Max results (default: 10)</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="interactive">
+                <h2>Interactive (5)</h2>
+
+                <h3 id="telegram_create_poll"><code>telegram_create_poll</code> <small>user</small></h3>
+                <p>Create a poll in a chat.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>question</code></td><td>string</td><td>Poll question</td></tr>
+                        <tr><td><code>options</code></td><td>string[]</td><td>Answer options (2–10 items)</td></tr>
+                        <tr><td><code>multipleChoice</code></td><td>boolean?</td><td>Allow multiple answers (default: false)</td></tr>
+                        <tr><td><code>anonymous</code></td><td>boolean?</td><td>Anonymous voting (default: true)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_create_quiz"><code>telegram_create_quiz</code> <small>user</small></h3>
+                <p>Create a quiz poll with a correct answer.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>question</code></td><td>string</td><td>Quiz question</td></tr>
+                        <tr><td><code>options</code></td><td>string[]</td><td>Answer choices</td></tr>
+                        <tr><td><code>correctOptionIndex</code></td><td>number</td><td>Zero-based index of the correct answer</td></tr>
+                        <tr><td><code>explanation</code></td><td>string?</td><td>Explanation shown after answer</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_reply_keyboard"><code>telegram_reply_keyboard</code> <small>user</small></h3>
+                <p>Send a message with a custom reply keyboard for quick replies.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>text</code></td><td>string</td><td>Message text above the keyboard</td></tr>
+                        <tr><td><code>buttons</code></td><td>string[][]</td><td>2D array of button labels (rows × columns)</td></tr>
+                        <tr><td><code>oneTime</code></td><td>boolean?</td><td>Hide keyboard after first use (default: false)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_react"><code>telegram_react</code></h3>
+                <p>Attach an emoji reaction to a message.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>messageId</code></td><td>number</td><td>Message ID to react to</td></tr>
+                        <tr><td><code>emoji</code></td><td>string</td><td>Reaction emoji (e.g. <code>👍</code>, <code>❤️</code>, <code>🔥</code>)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_send_dice"><code>telegram_send_dice</code></h3>
+                <p>Roll an animated dice or game object in a chat.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID</td></tr>
+                        <tr><td><code>emoji</code></td><td>string?</td><td>Dice type: <code>🎲</code> (default), <code>🎯</code>, <code>🎰</code>, <code>⚽</code>, <code>🏀</code>, <code>🎳</code></td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="folders">
+                <h2>Folders (3)</h2>
+
+                <h3 id="telegram_get_folders"><code>telegram_get_folders</code> <small>user</small></h3>
+                <p>List all chat folders.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody><tr><td colspan="3"><em>No parameters.</em></td></tr></tbody>
+                </table></div>
+
+                <h3 id="telegram_create_folder"><code>telegram_create_folder</code> <small>user</small></h3>
+                <p>Create a new chat folder.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>title</code></td><td>string</td><td>Folder name</td></tr>
+                        <tr><td><code>emoji</code></td><td>string?</td><td>Folder icon emoji</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_add_chat_to_folder"><code>telegram_add_chat_to_folder</code> <small>user</small></h3>
+                <p>Add a chat to an existing folder.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>folderId</code></td><td>number</td><td>Folder ID (from <code>telegram_get_folders</code>)</td></tr>
+                        <tr><td><code>chatId</code></td><td>string</td><td>Chat ID to add</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="profile">
+                <h2>Profile (4)</h2>
+
+                <h3 id="telegram_update_profile"><code>telegram_update_profile</code> <small>user · dm-only</small></h3>
+                <p>Update your display name.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>firstName</code></td><td>string?</td><td>New first name</td></tr>
+                        <tr><td><code>lastName</code></td><td>string?</td><td>New last name</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_set_bio"><code>telegram_set_bio</code> <small>user · dm-only</small></h3>
+                <p>Set your bio (max 70 characters).</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>bio</code></td><td>string</td><td>Bio text (max 70 chars)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_set_username"><code>telegram_set_username</code> <small>user · dm-only</small></h3>
+                <p>Set your @username.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>username</code></td><td>string</td><td>New username (without @). Empty string to remove.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_set_personal_channel"><code>telegram_set_personal_channel</code> <small>user · dm-only</small></h3>
+                <p>Link a personal channel to your profile.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>channelId</code></td><td>string</td><td>Channel ID or username to link</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="stickers">
+                <h2>Stickers (4)</h2>
+
+                <h3 id="telegram_search_stickers"><code>telegram_search_stickers</code> <small>user</small></h3>
+                <p>Search sticker packs by keyword or emoji.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>query</code></td><td>string</td><td>Keyword or emoji to search</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_search_gifs"><code>telegram_search_gifs</code> <small>user</small></h3>
+                <p>Search GIFs via @gif bot.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>query</code></td><td>string</td><td>Search query</td></tr>
+                        <tr><td><code>limit</code></td><td>number?</td><td>Max results (default: 10)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_get_my_stickers"><code>telegram_get_my_stickers</code> <small>user</small></h3>
+                <p>List installed sticker packs.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody><tr><td colspan="3"><em>No parameters.</em></td></tr></tbody>
+                </table></div>
+
+                <h3 id="telegram_add_sticker_set"><code>telegram_add_sticker_set</code> <small>user</small></h3>
+                <p>Install a sticker pack by its short name.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>shortName</code></td><td>string</td><td>Sticker pack short name (e.g. <code>Animals</code>)</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="stars">
+                <h2>Stars (2)</h2>
+
+                <h3 id="telegram_get_stars_balance"><code>telegram_get_stars_balance</code> <small>user · dm-only</small></h3>
+                <p>Get your Telegram Stars balance.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody><tr><td colspan="3"><em>No parameters.</em></td></tr></tbody>
+                </table></div>
+
+                <h3 id="telegram_get_stars_transactions"><code>telegram_get_stars_transactions</code> <small>user · dm-only</small></h3>
+                <p>Get Stars transaction history.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>limit</code></td><td>number?</td><td>Max transactions (default: 20)</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="gifts">
+                <h2>Gifts (13)</h2>
+
+                <h3 id="telegram_get_available_gifts"><code>telegram_get_available_gifts</code></h3>
+                <p>Browse the Star Gift catalog with prices and availability.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody><tr><td colspan="3"><em>No parameters.</em></td></tr></tbody>
+                </table></div>
+
+                <h3 id="telegram_get_available_gifts_bot"><code>telegram_get_available_gifts_bot</code> <small>bot</small></h3>
+                <p>List Star Gifts available through the Bot API.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody><tr><td colspan="3"><em>No parameters.</em></td></tr></tbody>
+                </table></div>
+
+                <h3 id="telegram_get_my_gifts"><code>telegram_get_my_gifts</code></h3>
+                <p>Get received Star Gifts in your collection.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>limit</code></td><td>number?</td><td>Max gifts to return (default: 50)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_get_user_gifts"><code>telegram_get_user_gifts</code> <small>bot</small></h3>
+                <p>Get the gifts publicly displayed on a user's Telegram profile through the Bot API.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>user_id</code></td><td>number</td><td>Telegram user ID to inspect</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_set_collectible_price"><code>telegram_set_collectible_price</code></h3>
+                <p>Set a price on a collectible for the resale marketplace.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>giftId</code></td><td>string</td><td>Collectible gift message ID</td></tr>
+                        <tr><td><code>price</code></td><td>number</td><td>Resale price in Stars (0 to delist)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_get_resale_gifts"><code>telegram_get_resale_gifts</code></h3>
+                <p>Browse collectibles listed for resale on the marketplace.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>giftId</code></td><td>string?</td><td>Filter by gift type ID</td></tr>
+                        <tr><td><code>limit</code></td><td>number?</td><td>Max listings (default: 20)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_buy_resale_gift"><code>telegram_buy_resale_gift</code></h3>
+                <p>Buy a collectible from the resale marketplace.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>giftId</code></td><td>string</td><td>Listing ID from <code>telegram_get_resale_gifts</code></td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_set_gift_status"><code>telegram_set_gift_status</code></h3>
+                <p>Set a collectible as your emoji status.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>giftId</code></td><td>string</td><td>Collectible gift ID</td></tr>
+                        <tr><td><code>enable</code></td><td>boolean</td><td>Enable as status (true) or remove (false)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_get_collectible_info"><code>telegram_get_collectible_info</code></h3>
+                <p>Get Fragment collectible info and current market data.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>giftId</code></td><td>string</td><td>Collectible gift ID</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_get_unique_gift"><code>telegram_get_unique_gift</code></h3>
+                <p>Look up a unique NFT gift by its slug.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>slug</code></td><td>string</td><td>Gift slug (e.g. <code>LolPop-425402</code>)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_get_unique_gift_value"><code>telegram_get_unique_gift_value</code></h3>
+                <p>Appraise a unique NFT gift and estimate its market value.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>slug</code></td><td>string</td><td>Gift slug (e.g. <code>LolPop-425402</code>)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_send_gift_offer"><code>telegram_send_gift_offer</code></h3>
+                <p>Send a buy offer on a unique NFT gift to its owner.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>slug</code></td><td>string</td><td>Gift slug</td></tr>
+                        <tr><td><code>price</code></td><td>number</td><td>Offer price in Stars</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_resolve_gift_offer"><code>telegram_resolve_gift_offer</code></h3>
+                <p>Accept or decline a received gift offer.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>offerId</code></td><td>string</td><td>Offer ID to resolve</td></tr>
+                        <tr><td><code>accept</code></td><td>boolean</td><td><code>true</code> to accept, <code>false</code> to decline</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="stories-tasks">
+                <h2>Stories &amp; Tasks (2)</h2>
+
+                <h3 id="telegram_send_story"><code>telegram_send_story</code></h3>
+                <p>Post a disappearing story (photo or video).</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>mediaPath</code></td><td>string</td><td>Local path to photo or video file</td></tr>
+                        <tr><td><code>caption</code></td><td>string?</td><td>Story caption text</td></tr>
+                        <tr><td><code>period</code></td><td>number?</td><td>Story duration in seconds (default: 86400)</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3 id="telegram_create_scheduled_task"><code>telegram_create_scheduled_task</code></h3>
+                <p>Schedule a task for future execution by the agent.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>task</code></td><td>string</td><td>Task description/instruction for the agent</td></tr>
+                        <tr><td><code>timestamp</code></td><td>number</td><td>Unix timestamp for execution</td></tr>
+                        <tr><td><code>chatId</code></td><td>string?</td><td>Chat context for the task</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="bot">
+                <h2>Bot (1)</h2>
+
+                <h3 id="telegram_send_buttons"><code>telegram_send_buttons</code> <small>bot</small></h3>
+                <p>Send a message with interactive inline keyboard buttons. Use for confirmations, pagination, or quick actions.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>text</code></td><td>string</td><td>Message text above the buttons</td></tr>
+                        <tr><td><code>buttons</code></td><td>Array&lt;{label: string}&gt;</td><td>Buttons to display</td></tr>
+                        <tr><td><code>columns</code></td><td>number?</td><td>Buttons per row (default: 2, max: 8)</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

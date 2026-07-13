@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "workspaces": {
+    ".": {
+      "project": ["src/**/*.ts"]
+    },
+    "packages/sdk": {
+      "project": ["src/**/*.ts"]
+    },
+    "web": {
+      "project": ["src/**/*.{ts,tsx}"]
+    }
+  },
+  "ignoreDependencies": ["@grammyjs/types"],
+  "ignoreExportsUsedInFile": true
+}

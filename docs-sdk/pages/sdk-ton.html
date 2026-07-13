@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sdk.ton, TON Blockchain - Teleton Agent Documentation</title>
+    <meta name="description" content="Complete reference for TON wallet, transfers, jettons, NFTs, and payment verification via the Teleton Plugin SDK.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="sdk-ton">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link active">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>sdk.ton, TON Blockchain</h1>
+            <p class="lead">Complete reference for TON wallet, transfers, jettons, NFTs, and payment verification. Access via <code>sdk.ton</code> in your plugin.</p>
+
+            <section class="section" id="quick-example">
+                <h2>Quick Example</h2>
+                <div class="code-block"><div class="code-header"><span>Balance check, price lookup, and transfer</span></div><pre><code class="language-typescript">import type { PluginSDK } from "@teleton-agent/sdk";
+
+export default {
+  name: "ton-demo",
+  version: "1.0.0",
+  tools: [
+    {
+      name: "wallet_overview",
+      description: "Show wallet balance and TON price",
+      parameters: {},
+      execute: async (_args: unknown, sdk: PluginSDK) =&gt; {
+        const address = sdk.ton.getAddress();
+        if (!address) return { error: "Wallet not initialized" };
+
+        const [balance, price] = await Promise.all([
+          sdk.ton.getBalance(),
+          sdk.ton.getPrice(),
+        ]);
+
+        return {
+          address,
+          balance: balance?.balance ?? "unknown",
+          balanceNano: balance?.balanceNano ?? "unknown",
+          priceUSD: price?.usd ?? "unavailable",
+          source: price?.source ?? "none",
+        };
+      },
+    },
+    {
+      name: "send_payment",
+      description: "Send TON to recipient",
+      parameters: {
+        type: "object",
+        properties: {
+          to: { type: "string", description: "Recipient TON address" },
+          amount: { type: "number", description: "Amount in TON" },
+          comment: { type: "string", description: "Transaction memo" },
+        },
+        required: ["to", "amount"],
+      },
+      execute: async (args: { to: string; amount: number; comment?: string }, sdk: PluginSDK) =&gt; {
+        if (!sdk.ton.validateAddress(args.to)) {
+          return { error: "Invalid TON address" };
+        }
+        const result = await sdk.ton.sendTON(args.to, args.amount, args.comment);
+        return { txRef: result.txRef, amount: result.amount };
+      },
+    },
+  ],
+};</code></pre></div>
+            </section>
+
+            <section class="section" id="wallet-methods">
+                <h2>Wallet Methods</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>getAddress()</code></td><td><code>string | null</code></td><td>Get the bot's own TON wallet address. Returns <code>null</code> if the wallet is not initialized.</td></tr>
+                        <tr><td><code>getBalance(address?)</code></td><td><code>Promise&lt;TonBalance | null&gt;</code></td><td>Get balance for a TON address. Defaults to the bot's own wallet if no address is provided.</td></tr>
+                        <tr><td><code>validateAddress(address)</code></td><td><code>boolean</code></td><td>Validate a TON address format. Accepts EQ... and UQ... formats.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Wallet methods</span></div><pre><code class="language-typescript">// Get bot's own address
+const myAddress = sdk.ton.getAddress();
+// e.g. "EQBvW8Z5huBkMJYdnfAEM5JqTNkuWX3diqYENkWsIL0XggGG"
+
+// Get own balance (no argument)
+const myBalance = await sdk.ton.getBalance();
+console.log(myBalance?.balance);     // "12.50"
+console.log(myBalance?.balanceNano); // "12500000000"
+
+// Get another address's balance
+const otherBalance = await sdk.ton.getBalance(
+  "UQDtFpEwcFAEcRe5mLVh2N6C0x-_hJEM7W61_JLnSF74p4q2"
+);
+
+// Validate before sending
+if (!sdk.ton.validateAddress(userInput)) {
+  return { error: "Invalid address format" };
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="price">
+                <h2>Price</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>getPrice()</code></td><td><code>Promise&lt;TonPrice | null&gt;</code></td><td>Get current TON/USD price. Uses TonAPI with CoinGecko fallback. Cached for 30 seconds internally.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Price lookup</span></div><pre><code class="language-typescript">const price = await sdk.ton.getPrice();
+if (price) {
+  console.log(`TON = $${price.usd}`);       // "TON = $3.42"
+  console.log(`Source: ${price.source}`);     // "TonAPI" or "CoinGecko"
+  console.log(`Fetched: ${new Date(price.timestamp).toISOString()}`);
+}
+
+// Compute portfolio value
+const balance = await sdk.ton.getBalance();
+if (balance &amp;&amp; price) {
+  const value = parseFloat(balance.balance) * price.usd;
+  console.log(`Portfolio: $${value.toFixed(2)}`);
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="transfers">
+                <h2>Transfers</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>sendTON(to, amount, comment?)</code></td><td><code>Promise&lt;TonSendResult&gt;</code></td><td>Send TON to a recipient address. <strong>Irreversible.</strong> Uses <code>PAY_GAS_SEPARATELY</code> so the amount sent is exact.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                    <li><code>to</code> (<code>string</code>), Recipient TON address (EQ... or UQ...)</li>
+                    <li><code>amount</code> (<code>number</code>), Amount in TON (e.g. 1.5)</li>
+                    <li><code>comment</code> (<code>string</code>, optional), Transaction comment/memo</li>
+                </ul>
+                <p><strong>Throws:</strong> <code>PluginSDKError</code> with code <code>WALLET_NOT_INITIALIZED</code>, <code>INVALID_ADDRESS</code>, or <code>OPERATION_FAILED</code>.</p>
+
+                <div class="code-block"><div class="code-header"><span>Send TON</span></div><pre><code class="language-typescript">try {
+  const result = await sdk.ton.sendTON(
+    "UQDtFpEwcFAEcRe5mLVh2N6C0x-_hJEM7W61_JLnSF74p4q2",
+    2.5,
+    "Payment for services"
+  );
+  console.log(`Sent! txRef: ${result.txRef}, amount: ${result.amount}`);
+  // txRef format: "seqno_timestamp_amount" e.g. "42_1709312400_2.5"
+} catch (err) {
+  if (err.code === "WALLET_NOT_INITIALIZED") {
+    return { error: "Bot wallet not configured" };
+  }
+  if (err.code === "INVALID_ADDRESS") {
+    return { error: "Bad recipient address" };
+  }
+  throw err;
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="transactions">
+                <h2>Transactions</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>getTransactions(address, limit?)</code></td><td><code>Promise&lt;TonTransaction[]&gt;</code></td><td>Get transaction history for a TON address. Default limit: 10, max: 50.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Transaction history</span></div><pre><code class="language-typescript">const address = sdk.ton.getAddress()!;
+const txs = await sdk.ton.getTransactions(address, 20);
+
+for (const tx of txs) {
+  console.log(`${tx.type}: ${tx.amount ?? "N/A"}`);
+  console.log(`  Hash: ${tx.hash}`);
+  console.log(`  From: ${tx.from ?? "unknown"}`);
+  console.log(`  To: ${tx.to ?? "unknown"}`);
+  console.log(`  Date: ${tx.date}`);
+  console.log(`  Explorer: ${tx.explorer}`);
+  if (tx.comment) console.log(`  Comment: ${tx.comment}`);
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="jetton-core">
+                <h2>Jetton Core</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>getJettonBalances(ownerAddress?)</code></td><td><code>Promise&lt;JettonBalance[]&gt;</code></td><td>Get jetton (token) balances. Defaults to bot's wallet.</td></tr>
+                        <tr><td><code>getJettonInfo(jettonAddress)</code></td><td><code>Promise&lt;JettonInfo | null&gt;</code></td><td>Get jetton metadata: name, symbol, decimals, supply, holders, verification.</td></tr>
+                        <tr><td><code>sendJetton(jettonAddress, to, amount, opts?)</code></td><td><code>Promise&lt;JettonSendResult&gt;</code></td><td>Transfer jetton tokens. <strong>Irreversible.</strong> Amount in human-readable units.</td></tr>
+                        <tr><td><code>getJettonWalletAddress(owner, jettonAddress)</code></td><td><code>Promise&lt;string | null&gt;</code></td><td>Get the jetton wallet address for a specific owner and jetton.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Jetton operations</span></div><pre><code class="language-typescript">// List all jetton balances
+const jettons = await sdk.ton.getJettonBalances();
+for (const j of jettons) {
+  console.log(`${j.symbol}: ${j.balanceFormatted} (verified: ${j.verified})`);
+  if (j.usdPrice) console.log(`  Value: $${(parseFloat(j.balanceFormatted) * j.usdPrice).toFixed(2)}`);
+}
+
+// Get info about a specific jetton
+const USDT = "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs";
+const info = await sdk.ton.getJettonInfo(USDT);
+if (info) {
+  console.log(`${info.name} (${info.symbol})`);
+  console.log(`Decimals: ${info.decimals}, Holders: ${info.holdersCount}`);
+  console.log(`Total supply: ${info.totalSupply}`);
+}
+
+// Send 50 USDT
+const result = await sdk.ton.sendJetton(
+  USDT,
+  "UQDtFpEwcFAEcRe5mLVh2N6C0x-_hJEM7W61_JLnSF74p4q2",
+  50,
+  { comment: "Invoice #1234" }
+);
+console.log(`Success: ${result.success}, Seqno: ${result.seqno}`);
+
+// Get jetton wallet address
+const jettonWallet = await sdk.ton.getJettonWalletAddress(
+  "EQBvW8Z5huBkMJYdnfAEM5JqTNkuWX3diqYENkWsIL0XggGG",
+  USDT
+);</code></pre></div>
+            </section>
+
+            <section class="section" id="jetton-analytics">
+                <h2>Jetton Analytics</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>getJettonPrice(jettonAddress)</code></td><td><code>Promise&lt;JettonPrice | null&gt;</code></td><td>Current price in USD and TON with 24h/7d/30d change percentages.</td></tr>
+                        <tr><td><code>getJettonHolders(jettonAddress, limit?)</code></td><td><code>Promise&lt;JettonHolder[]&gt;</code></td><td>Top holders ranked by balance. Default limit: 10, max: 100.</td></tr>
+                        <tr><td><code>getJettonHistory(jettonAddress)</code></td><td><code>Promise&lt;JettonHistory | null&gt;</code></td><td>Market analytics: price changes, 24h volume, FDV, market cap, holder count.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Jetton analytics</span></div><pre><code class="language-typescript">const SCALE = "EQBlqsm144Dq6SjbPI4jjZvlmHDqumGs1SfAW3IqjvnBqSZ8";
+
+// Price check
+const price = await sdk.ton.getJettonPrice(SCALE);
+if (price) {
+  console.log(`Price: $${price.priceUSD} / ${price.priceTON} TON`);
+  console.log(`24h: ${price.change24h}, 7d: ${price.change7d}, 30d: ${price.change30d}`);
+}
+
+// Top holders
+const holders = await sdk.ton.getJettonHolders(SCALE, 5);
+for (const h of holders) {
+  console.log(`#${h.rank} ${h.name ?? h.address}: ${h.balance}`);
+}
+
+// Full market data
+const history = await sdk.ton.getJettonHistory(SCALE);
+if (history) {
+  console.log(`${history.name} (${history.symbol})`);
+  console.log(`Price: $${history.currentPrice} / ${history.currentPriceTON} TON`);
+  console.log(`Volume 24h: $${history.volume24h}`);
+  console.log(`FDV: $${history.fdv}, MCap: $${history.marketCap}`);
+  console.log(`Holders: ${history.holders}`);
+  console.log(`Changes: 24h=${history.changes["24h"]}, 7d=${history.changes["7d"]}, 30d=${history.changes["30d"]}`);
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="nfts">
+                <h2>NFTs</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>getNftItems(ownerAddress?)</code></td><td><code>Promise&lt;NftItem[]&gt;</code></td><td>Get NFT items owned by an address. Defaults to bot's wallet.</td></tr>
+                        <tr><td><code>getNftInfo(nftAddress)</code></td><td><code>Promise&lt;NftItem | null&gt;</code></td><td>Get NFT item information by contract address.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>NFT operations</span></div><pre><code class="language-typescript">// List owned NFTs
+const nfts = await sdk.ton.getNftItems();
+for (const nft of nfts) {
+  console.log(`${nft.name ?? "Unnamed"} (#${nft.index})`);
+  console.log(`  Collection: ${nft.collectionName ?? "none"}`);
+  console.log(`  Address: ${nft.address}`);
+  console.log(`  Verified: ${nft.verified}`);
+}
+
+// Get specific NFT info
+const nft = await sdk.ton.getNftInfo("EQAbcDeFgHiJkLmNoPqRsTuVwXyZ...");
+if (nft) {
+  console.log(`Owner: ${nft.ownerAddress}`);
+  console.log(`Image: ${nft.image}`);
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="payment-verification">
+                <h2>Payment Verification</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>verifyPayment(params)</code></td><td><code>Promise&lt;SDKPaymentVerification&gt;</code></td><td>Verify a TON payment with memo matching, amount tolerance (1%), time window, and replay protection.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <p><strong>Parameters</strong> (<code>SDKVerifyPaymentParams</code>):</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>amount</code></td><td><code>number</code></td><td>Expected payment amount in TON.</td></tr>
+                        <tr><td><code>memo</code></td><td><code>string</code></td><td>Expected memo/comment (e.g. username, dealId). Case-insensitive match.</td></tr>
+                        <tr><td><code>gameType</code></td><td><code>string</code></td><td>Game/operation type for replay protection grouping.</td></tr>
+                        <tr><td><code>maxAgeMinutes</code></td><td><code>number</code></td><td>Maximum age of valid payments in minutes. Default: 10.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <p><strong>Returns</strong> (<code>SDKPaymentVerification</code>):</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>verified</code></td><td><code>boolean</code></td><td>Whether a valid payment was found.</td></tr>
+                        <tr><td><code>txHash</code></td><td><code>string</code></td><td>Blockchain transaction hash (for replay protection).</td></tr>
+                        <tr><td><code>amount</code></td><td><code>number</code></td><td>Verified amount in TON.</td></tr>
+                        <tr><td><code>playerWallet</code></td><td><code>string</code></td><td>Sender's wallet address (useful for auto-payout).</td></tr>
+                        <tr><td><code>date</code></td><td><code>string</code></td><td>ISO 8601 date string of the transaction.</td></tr>
+                        <tr><td><code>secondsAgo</code></td><td><code>number</code></td><td>Seconds since the transaction.</td></tr>
+                        <tr><td><code>error</code></td><td><code>string</code></td><td>Error message if verification failed.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Payment verification with replay protection</span></div><pre><code class="language-typescript">// IMPORTANT: Your plugin must export a migrate() function
+// that creates the used_transactions table for replay protection.
+export function migrate(db: Database) {
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS used_transactions (
+      tx_hash TEXT NOT NULL,
+      game_type TEXT NOT NULL,
+      used_at TEXT DEFAULT (datetime('now')),
+      PRIMARY KEY (tx_hash, game_type)
+    )
+  `);
+}
+
+// In your tool:
+const verification = await sdk.ton.verifyPayment({
+  amount: 1.0,
+  memo: "user_alice_bet",
+  gameType: "coinflip",
+  maxAgeMinutes: 5,
+});
+
+if (verification.verified) {
+  console.log(`Payment confirmed: ${verification.amount} TON`);
+  console.log(`From: ${verification.playerWallet}`);
+  console.log(`TX: ${verification.txHash}`);
+  // The transaction hash is automatically marked as used
+  // Subsequent calls with the same tx will NOT verify
+} else {
+  console.log(`Payment not found: ${verification.error}`);
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="utilities">
+                <h2>Utilities</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>toNano(amount)</code></td><td><code>bigint</code></td><td>Convert TON amount to nanoTON. Accepts <code>number | string</code>.</td></tr>
+                        <tr><td><code>fromNano(nano)</code></td><td><code>string</code></td><td>Convert nanoTON to human-readable TON string. Accepts <code>bigint | string</code>.</td></tr>
+                        <tr><td><code>validateAddress(address)</code></td><td><code>boolean</code></td><td>Validate a TON address format.</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Unit conversion</span></div><pre><code class="language-typescript">// TON to nanoTON
+const nano = sdk.ton.toNano(1.5);
+console.log(nano); // 1500000000n
+
+// nanoTON to TON
+const ton = sdk.ton.fromNano(1500000000n);
+console.log(ton); // "1.5"
+
+// Also accepts strings (recommended for precision)
+const precise = sdk.ton.toNano("0.123456789");
+console.log(precise); // 123456789n
+
+const back = sdk.ton.fromNano("123456789");
+console.log(back); // "0.123456789"</code></pre></div>
+            </section>
+
+            <section class="section" id="type-definitions">
+                <h2>Type Definitions</h2>
+
+                <div class="code-block"><div class="code-header"><span>TransactionType</span></div><pre><code class="language-typescript">type TransactionType =
+  | "ton_received"
+  | "ton_sent"
+  | "jetton_received"
+  | "jetton_sent"
+  | "nft_received"
+  | "nft_sent"
+  | "gas_refund"
+  | "bounce"
+  | "contract_call"
+  | "multi_send";</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>TonBalance</span></div><pre><code class="language-typescript">interface TonBalance {
+  balance: string;      // Human-readable (e.g. "12.50")
+  balanceNano: string;  // In nanoTON as string
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>TonPrice</span></div><pre><code class="language-typescript">interface TonPrice {
+  usd: number;        // Price in USD
+  source: string;     // "TonAPI" or "CoinGecko"
+  timestamp: number;  // ms since epoch
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>TonSendResult</span></div><pre><code class="language-typescript">interface TonSendResult {
+  txRef: string;  // Format: "seqno_timestamp_amount"
+  amount: number; // Amount sent in TON
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>TonTransaction</span></div><pre><code class="language-typescript">interface TonTransaction {
+  type: TransactionType;
+  hash: string;                    // Blockchain tx hash (hex)
+  amount?: string;                 // e.g. "1.5 TON"
+  from?: string;                   // Sender address
+  to?: string;                     // Recipient address
+  comment?: string | null;         // Transaction memo
+  date: string;                    // ISO 8601
+  secondsAgo: number;              // Seconds elapsed
+  explorer: string;                // Tonviewer link
+  jettonAmount?: string;           // Raw jetton amount
+  jettonWallet?: string;           // Jetton wallet address
+  nftAddress?: string;             // NFT address
+  transfers?: TonTransaction[];    // For multi_send
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>JettonBalance</span></div><pre><code class="language-typescript">interface JettonBalance {
+  jettonAddress: string;     // Jetton master contract address
+  walletAddress: string;     // Owner's jetton wallet address
+  balance: string;           // Raw units (avoids precision loss)
+  balanceFormatted: string;  // Human-readable (e.g. "100.50")
+  symbol: string;            // e.g. "USDT"
+  name: string;              // e.g. "Tether USD"
+  decimals: number;          // e.g. 6 for USDT, 9 for TON
+  verified: boolean;         // Verified on TonAPI
+  usdPrice?: number;         // USD price per token
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>JettonInfo</span></div><pre><code class="language-typescript">interface JettonInfo {
+  address: string;       // Jetton master contract address
+  name: string;          // Token name
+  symbol: string;        // Token ticker
+  decimals: number;      // Token decimals
+  totalSupply: string;   // Total supply in raw units
+  holdersCount: number;  // Unique holders
+  verified: boolean;     // Verified on TonAPI
+  description?: string;  // Token description
+  image?: string;        // Token image URL
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>JettonSendResult</span></div><pre><code class="language-typescript">interface JettonSendResult {
+  success: boolean;  // Whether tx was sent
+  seqno: number;     // Wallet sequence number
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>NftItem</span></div><pre><code class="language-typescript">interface NftItem {
+  address: string;            // NFT contract address
+  index: number;              // Index within collection
+  ownerAddress?: string;      // Current owner
+  collectionAddress?: string; // Collection contract
+  collectionName?: string;    // Collection name
+  name?: string;              // NFT name
+  description?: string;       // NFT description
+  image?: string;             // NFT image URL
+  verified: boolean;          // Whether verified
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>JettonPrice</span></div><pre><code class="language-typescript">interface JettonPrice {
+  priceUSD: number | null;    // Price in USD
+  priceTON: number | null;    // Price in TON
+  change24h: string | null;   // e.g. "-2.5%"
+  change7d: string | null;    // 7-day change
+  change30d: string | null;   // 30-day change
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>JettonHolder</span></div><pre><code class="language-typescript">interface JettonHolder {
+  rank: number;           // 1 = top holder
+  address: string;        // Holder's TON address
+  name: string | null;    // Known name (e.g. "Binance")
+  balance: string;        // Formatted (e.g. "1,234.56")
+  balanceRaw: string;     // Raw smallest units
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>JettonHistory</span></div><pre><code class="language-typescript">interface JettonHistory {
+  symbol: string;
+  name: string;
+  currentPrice: string;      // USD
+  currentPriceTON: string;   // TON
+  changes: { "24h": string; "7d": string; "30d": string };
+  volume24h: string;         // 24h trading volume (USD)
+  fdv: string;               // Fully diluted valuation
+  marketCap: string;
+  holders: number;
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>SDKVerifyPaymentParams &amp; SDKPaymentVerification</span></div><pre><code class="language-typescript">interface SDKVerifyPaymentParams {
+  amount: number;           // Expected payment in TON
+  memo: string;             // Expected memo (case-insensitive)
+  gameType: string;         // Replay protection grouping
+  maxAgeMinutes?: number;   // Time window (default: 10)
+}
+
+interface SDKPaymentVerification {
+  verified: boolean;
+  txHash?: string;          // For replay protection
+  amount?: number;          // Verified amount in TON
+  playerWallet?: string;    // Sender address (for auto-payout)
+  date?: string;            // ISO 8601
+  secondsAgo?: number;
+  error?: string;           // Error message if failed
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="error-codes">
+                <h2>Error Codes</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Code</th><th>Thrown By</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>WALLET_NOT_INITIALIZED</code></td><td><code>sendTON</code>, <code>sendJetton</code>, <code>verifyPayment</code></td><td>The bot's TON wallet is not configured. Set up wallet via CLI or config.</td></tr>
+                        <tr><td><code>INVALID_ADDRESS</code></td><td><code>sendTON</code>, <code>sendJetton</code></td><td>The provided TON address is not valid. Use <code>validateAddress()</code> before sending.</td></tr>
+                        <tr><td><code>OPERATION_FAILED</code></td><td>All mutating methods</td><td>Blockchain operation failed (network error, insufficient balance, contract error).</td></tr>
+                    </tbody>
+                </table></div>
+
+                <div class="code-block"><div class="code-header"><span>Error handling pattern</span></div><pre><code class="language-typescript">import type { PluginSDKError } from "@teleton-agent/sdk";
+
+try {
+  await sdk.ton.sendTON(recipient, amount);
+} catch (err) {
+  const sdkErr = err as PluginSDKError;
+  switch (sdkErr.code) {
+    case "WALLET_NOT_INITIALIZED":
+      return { error: "Wallet not set up. Run /wallet init first." };
+    case "INVALID_ADDRESS":
+      return { error: `Invalid address: ${recipient}` };
+    case "OPERATION_FAILED":
+      return { error: `Transfer failed: ${sdkErr.message}` };
+    default:
+      throw err;
+  }
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="gotchas">
+                <h2>Gotchas</h2>
+                <ul>
+                    <li><strong><code>sendTON</code> uses <code>PAY_GAS_SEPARATELY</code></strong>, the amount you specify is the exact amount the recipient receives. Gas fees are deducted from the sender's remaining balance, not from the sent amount.</li>
+                    <li><strong>Float precision</strong>, The SDK uses string-based decimal conversion internally, NOT <code>Math.floor(amount * 10**decimals)</code>. This avoids floating-point precision errors like <code>1.1 * 10**9 = 1099999999</code>. Always use <code>toNano()</code>/<code>fromNano()</code> for conversions.</li>
+                    <li><strong><code>getPrice()</code> is cached for 30 seconds</strong>, multiple calls within 30 seconds return the same result without hitting the API. This is intentional to avoid rate limiting.</li>
+                    <li><strong><code>verifyPayment()</code> requires <code>used_transactions</code> table</strong>, your plugin must export a <code>migrate()</code> function that creates this table. Without it, replay protection will not work and the same transaction could be verified multiple times.</li>
+                    <li><strong>All send operations are irreversible</strong>, there is no undo on the blockchain. Always validate addresses with <code>validateAddress()</code> and confirm amounts before calling <code>sendTON()</code> or <code>sendJetton()</code>.</li>
+                </ul>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

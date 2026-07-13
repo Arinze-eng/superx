@@ -1,0 +1,24 @@
+# Teleton Plugin SDK
+
+> TypeScript SDK for building plugins that extend Teleton Agent with custom tools, inline bots, and blockchain operations.
+
+## Documentation
+
+- [SDK Overview](https://docs.teletonagent.dev/pages/sdk-overview.html): Architecture, installation, plugin manifest, tool definitions, and getting started guide.
+- [TON Blockchain](https://docs.teletonagent.dev/pages/sdk-ton.html): Wallet management, TON transfers, jetton operations, NFTs, payment verification. 26 methods.
+- [DEX Trading](https://docs.teletonagent.dev/pages/sdk-dex.html): Decentralized exchange quotes and swaps via STON.fi and DeDust. 6 methods.
+- [DNS & Domains](https://docs.teletonagent.dev/pages/sdk-dns.html): .ton domain management — check, resolve, auction, bid, link. 8 methods.
+- [Telegram](https://docs.teletonagent.dev/pages/sdk-telegram.html): Messaging, media, moderation, stars, gifts, collectibles, stories. 52 methods.
+- [Bot SDK](https://docs.teletonagent.dev/pages/sdk-bot.html): Inline bot mode with styled colored buttons, callback handlers, rate limiting. 7 methods.
+- [Utilities](https://docs.teletonagent.dev/pages/sdk-utilities.html): Secrets management, key-value storage with TTL, structured logging, SQLite database. 15 methods.
+- [Error Handling](https://docs.teletonagent.dev/pages/sdk-errors.html): PluginSDKError class, 5 error codes, debugging patterns.
+- [Tutorial: Payment Bot](https://docs.teletonagent.dev/pages/tutorial-payment-bot.html): Build a payment verification plugin with on-chain validation.
+- [Tutorial: DEX Bot](https://docs.teletonagent.dev/pages/tutorial-dex-bot.html): Build a DEX trading plugin with quote comparison and swaps.
+- [Tutorial: Inline Bot](https://docs.teletonagent.dev/pages/tutorial-inline-bot.html): Build an inline bot with styled buttons and callback handlers.
+- [Plugin SDK Reference](https://docs.teletonagent.dev/pages/plugin-sdk.html): Single-page reference for all SDK namespaces.
+- [Create a Plugin](https://docs.teletonagent.dev/pages/create-plugin.html): Step-by-step guide to building your first plugin.
+- [Plugin Lifecycle](https://docs.teletonagent.dev/pages/api-events.html): Lifecycle hooks — configure, migrate, tools, start, stop.
+
+## Optional
+
+- [Full SDK Reference](https://docs.teletonagent.dev/llms-full.txt): Complete method signatures and type definitions for all 103 SDK methods.

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory System - Teleton Agent Documentation</title>
+    <meta name="description" content="Teleton Agent's hybrid RAG memory system: SQLite database schema, vector search, embedding providers, knowledge indexer, and context retrieval.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="memory-system">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link active">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            
+
+            <h1>Memory System</h1>
+            <p class="lead">Teleton Agent stores all persistent state in a single SQLite database at <code>~/.teleton/memory.db</code> (schema v1.18.0). The database combines FTS5 full-text search, <code>sqlite-vec</code> cosine-similarity vector tables, and a structured knowledge layer to implement a hybrid RAG retrieval pipeline.</p>
+
+            <section class="section" id="four-layers">
+                <h2>Four Memory Layers</h2>
+                <p>The agent is aware of four distinct memory layers, each with different lifetime and capacity characteristics:</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Layer</th><th>Write target</th><th>Capacity</th><th>Lifetime</th><th>Loaded in prompt</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Core Memory</strong></td><td><code>memory_write target=core</code></td><td>~3 000 chars total across structured blocks (identity, preferences, lessons, goals, contacts)</td><td>Permanent</td><td>Yes, every session</td></tr>
+                        <tr><td><strong>Persistent Memory</strong> (MEMORY.md)</td><td><code>memory_write target=persistent</code></td><td>Soft limit 80 lines, hard truncation at 150 lines</td><td>Permanent</td><td>Yes, every session (fallback if no core blocks)</td></tr>
+                        <tr><td><strong>Daily Logs</strong></td><td><code>memory_write target=daily</code></td><td>Unbounded on disk</td><td>Session notes; yesterday + today loaded</td><td>Yes, yesterday and today</td></tr>
+                        <tr><td><strong>Session Search</strong> (feed)</td><td>Automatic (all messages stored)</td><td>Unbounded</td><td>Permanent</td><td>No, retrieved on demand via <code>session_search</code> tool or RAG</td></tr>
+                    </tbody>
+                </table></div>
+                <p>The agent is instructed to write to memory only when it learns something that changes future behaviour: new contacts, lessons from mistakes, user preferences. Price snapshots, task progress, and heartbeat logs are not stored persistently.</p>
+            </section>
+
+            <section class="section" id="prompt-injection">
+                <h2>Memory in the System Prompt</h2>
+                <p><code>loadMemoryContext()</code> in <code>src/soul/loader.ts</code> assembles the memory block injected into every system prompt:</p>
+                <ol>
+                    <li>Calls <code>getCoreMemoryForPrompt()</code> to retrieve structured core blocks (identity, preferences, lessons, goals, contacts). If any blocks exist, they form the <code>## Core Memory</code> section.</li>
+                    <li>If no core blocks exist, falls back to raw <code>MEMORY.md</code> content (max 150 lines, truncated with a warning if exceeded).</li>
+                    <li>Appends yesterday's and today's daily log entries as a separate section.</li>
+                </ol>
+                <p>This context is <strong>frozen into a snapshot</strong> at the start of each session via <code>captureMemorySnapshot()</code>. Mid-session <code>memory_write</code> calls update the disk file but the snapshot remains unchanged for the session's lifetime, preserving the Anthropic prefix cache across all turns. The snapshot is cleared when a session resets, so the next session picks up any writes.</p>
+            </section>
+
+            <section class="section" id="database-schema">
+                <h2>Database Schema</h2>
+                <p>The schema is defined in <code>src/memory/schema.ts</code> and applied via <code>ensureSchema()</code> at startup. Migrations are run forward-only in version order up to the current version.</p>
+
+                <h3>knowledge</h3>
+                <p>The central table for agent memory. Each row is a text chunk with an optional embedding vector.</p>
+                <div class="code-block"><div class="code-header"><span>knowledge table</span></div><pre><code class="language-sql">CREATE TABLE knowledge (
+  id          TEXT PRIMARY KEY,
+  source      TEXT NOT NULL CHECK(source IN ('memory', 'session', 'learned')),
+  path        TEXT,            -- file path for memory/session sources
+  text        TEXT NOT NULL,   -- chunk content
+  embedding   TEXT,            -- stored embedding (legacy JSON; vec stored in knowledge_vec)
+  start_line  INTEGER,
+  end_line    INTEGER,
+  hash        TEXT NOT NULL,   -- SHA of text, used for change detection
+  created_at  INTEGER NOT NULL DEFAULT (unixepoch()),
+  updated_at  INTEGER NOT NULL DEFAULT (unixepoch()),
+  -- added in v1.17.0:
+  importance  REAL DEFAULT 0.5,
+  access_count INTEGER DEFAULT 0,
+  last_accessed_at INTEGER,
+  status      TEXT DEFAULT 'active',
+  memory_type TEXT DEFAULT 'semantic'
+);</code></pre></div>
+                <p>FTS5 full-text search is provided by the <code>knowledge_fts</code> virtual table, kept in sync via INSERT/DELETE/UPDATE triggers. When vector search is enabled, embedding vectors are stored separately in the <code>knowledge_vec</code> <code>vec0</code> virtual table (cosine distance metric, dimension count matches the configured embedding model).</p>
+
+                <h3>tg_messages, tg_chats, tg_users</h3>
+                <p>The Telegram feed. Every message seen by the agent is stored here regardless of whether it responds. This feed is the source for the <code>session_search</code> tool and for feed history retrieval in <code>ContextBuilder</code>.</p>
+                <div class="code-block"><div class="code-header"><span>tg_messages table (key columns)</span></div><pre><code class="language-sql">CREATE TABLE tg_messages (
+  id           TEXT PRIMARY KEY,
+  chat_id      TEXT NOT NULL REFERENCES tg_chats(id) ON DELETE CASCADE,
+  sender_id    TEXT REFERENCES tg_users(id) ON DELETE SET NULL,
+  text         TEXT,
+  embedding    TEXT,           -- legacy; vectors in tg_messages_vec
+  reply_to_id  TEXT,
+  is_from_agent INTEGER DEFAULT 0,
+  has_media    INTEGER DEFAULT 0,
+  media_type   TEXT,
+  timestamp    INTEGER NOT NULL
+);</code></pre></div>
+                <p><code>tg_messages_fts</code> provides full-text search. FTS triggers skip rows where <code>text IS NULL</code> (media-only messages). <code>tg_messages_vec</code> provides cosine-similarity vector search on message embeddings when an embedding provider is configured.</p>
+
+                <h3>sessions</h3>
+                <p>One row per conversation session (keyed by <code>chat_id</code>). Tracks the session UUID, message count, token usage, the LLM model and provider in use, daily reset date, and a compressed summary generated on session expiry.</p>
+                <p>Conversation transcripts are stored as separate files (not in SQLite) under <code>~/.teleton/sessions/</code>.</p>
+
+                <h3>tool_index</h3>
+                <p>Used by the Tool RAG system. One row per registered tool, containing the tool's name, description, and a concatenated <code>search_text</code> field. The <code>tool_index_fts</code> virtual table provides keyword search over tool descriptions. When vector search is enabled, tool embeddings are stored in a <code>tool_index_vec</code> table.</p>
+                <div class="code-block"><div class="code-header"><span>tool_index table</span></div><pre><code class="language-sql">CREATE TABLE tool_index (
+  name        TEXT PRIMARY KEY,
+  description TEXT NOT NULL,
+  search_text TEXT NOT NULL,   -- concatenation of name, description, parameters
+  updated_at  INTEGER NOT NULL DEFAULT (unixepoch())
+);</code></pre></div>
+
+                <h3>Other tables</h3>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Table</th><th>Purpose</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>embedding_cache</code></td><td>Caches embedding vectors by text hash + model + provider. Avoids redundant API calls. Stores embeddings as raw BLOBs since v1.9.0.</td></tr>
+                        <tr><td><code>exec_audit</code></td><td>Immutable audit log for all <code>exec_run</code>, <code>exec_install</code>, <code>exec_service</code> tool calls: who ran what, stdout/stderr, exit code, duration.</td></tr>
+                        <tr><td><code>tool_config</code></td><td>Runtime overrides for tool enabled state and scope, editable without restart.</td></tr>
+                        <tr><td><code>tasks</code> / <code>task_dependencies</code></td><td>Scheduled and chained tasks with priority ordering and dependency graph.</td></tr>
+                        <tr><td><code>plugin_config</code></td><td>Per-plugin priority ordering for load sequence.</td></tr>
+                        <tr><td><code>user_hook_config</code></td><td>Keyword blocklist rules and context injection triggers, editable at runtime.</td></tr>
+                        <tr><td><code>meta</code></td><td>Key-value store for internal metadata (schema version, etc.).</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="embeddings">
+                <h2>Embedding Providers</h2>
+                <p>The embedding system is configured via <code>config.embedding</code>. Three providers are supported:</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Provider</th><th>How it runs</th><th>Default model</th><th>Dimensions</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>local</code></td><td>In-process via <code>@xenova/transformers</code> (ONNX)</td><td><code>Xenova/all-MiniLM-L6-v2</code></td><td>384</td></tr>
+                        <tr><td><code>anthropic</code></td><td>Anthropic Embeddings API</td><td><code>voyage-3-lite</code></td><td>512</td></tr>
+                        <tr><td><code>none</code></td><td>No-op (vector tables disabled)</td><td>N/A</td><td>N/A</td></tr>
+                    </tbody>
+                </table></div>
+                <p>All providers are wrapped in <code>CachedEmbeddingProvider</code> (unless provider is <code>none</code>), which stores computed vectors in the <code>embedding_cache</code> SQLite table keyed by <code>(SHA256(text), model, provider)</code>. Cache hits are served from SQLite; misses call the underlying provider and are written back atomically.</p>
+                <p>When the embedding dimension changes (e.g., switching providers), the <code>ensureVectorTables()</code> function detects the mismatch, drops the old <code>knowledge_vec</code> and <code>tg_messages_vec</code> tables, and recreates them with the new dimension. Existing embeddings in <code>embedding_cache</code> for the old model remain but are no longer referenced.</p>
+            </section>
+
+            <section class="section" id="knowledge-indexer">
+                <h2>Knowledge Indexer</h2>
+                <p><code>KnowledgeIndexer</code> (<code>src/memory/agent/knowledge.ts</code>) ingests workspace files into the <code>knowledge</code> table. At startup it scans:</p>
+                <ul>
+                    <li><code>~/.teleton/workspace/MEMORY.md</code>: the agent's persistent fact store (source: <code>memory</code>)</li>
+                    <li><code>~/.teleton/workspace/memory/*.md</code>: daily log files (source: <code>session</code>)</li>
+                    <li>Any facts the agent has written via the <code>memory_write</code> tool (source: <code>learned</code>)</li>
+                </ul>
+                <p>Files are split into overlapping chunks. Each chunk is hashed; existing rows with the same hash are skipped. Changed or new chunks are embedded and inserted. Deleted lines cause the corresponding rows to be removed. This incremental approach avoids re-embedding the entire knowledge base on every restart.</p>
+            </section>
+
+            <section class="section" id="context-builder">
+                <h2>Context Builder (Hybrid RAG)</h2>
+                <p><code>ContextBuilder</code> (<code>src/memory/search/context.ts</code>) is called once per incoming message turn to retrieve the most relevant context to inject into the system prompt. It runs two searches in parallel:</p>
+
+                <h3>Knowledge search</h3>
+                <p>Searches the <code>knowledge</code> table for agent memory and indexed workspace files. When vector search is available and a query embedding exists, it uses cosine similarity on <code>knowledge_vec</code>. It falls back to FTS5 keyword search on <code>knowledge_fts</code> otherwise. Results are ranked and capped at <code>CONTEXT_MAX_RELEVANT_CHUNKS</code>.</p>
+
+                <h3>Feed history search</h3>
+                <p>Retrieves the most recent messages from <code>tg_messages</code> for the current chat (capped at <code>CONTEXT_MAX_RECENT_MESSAGES</code>). For DMs, a broader cross-chat semantic search is also run to surface relevant context from other conversations.</p>
+
+                <h3>Result injection</h3>
+                <p>Retrieved chunks are formatted and appended to the <code>## Context</code> section of the system prompt. This is the dynamic, non-cached portion of the prompt. It changes every turn and intentionally sits outside the prefix cache window.</p>
+            </section>
+
+            <section class="section" id="tool-rag">
+                <h2>Tool RAG</h2>
+                <p>With large numbers of tools, sending the full tool list to the LLM on every turn is expensive and may exceed provider limits. Tool RAG solves this by indexing all tool descriptions and selecting only the tools most relevant to the current message.</p>
+                <p><code>ToolIndex</code> (<code>src/agent/tools/tool-index.ts</code>) maintains the <code>tool_index</code> and <code>tool_index_fts</code> tables. The search path in <code>registry.getForContextWithRAG()</code>:</p>
+                <ol>
+                    <li>Apply scope and mode filters to get the candidate set.</li>
+                    <li>Add all tools marked as always-included (configured in <code>tool_rag.always_include</code>).</li>
+                    <li>Run FTS keyword search + optional vector similarity search on the query.</li>
+                    <li>Return the union of always-included and search results, capped at <code>tool_rag.top_k</code>.</li>
+                    <li>If search returns no results, fall back to the full scope-filtered list.</li>
+                </ol>
+                <p>The tool index is updated automatically when plugins are loaded or hot-reloaded via the <code>registry.onToolsChanged()</code> callback.</p>
+                <p>Providers with no tool limit (e.g., some OpenAI-compatible endpoints) can optionally skip Tool RAG entirely via <code>tool_rag.skip_unlimited_providers</code>, sending the full tool list directly.</p>
+            </section>
+
+            <section class="section" id="compaction">
+                <h2>Context Compaction</h2>
+                <p>Long conversations accumulate tokens. <code>CompactionManager</code> monitors context size after each LLM turn. It operates in two stages:</p>
+                <ol>
+                    <li><strong>Soft threshold:</strong> when context tokens exceed a configurable fraction of the model's context window, a <code>memoryFlushWarning</code> is added to the system prompt, prompting the agent to write important facts to memory before the window overflows.</li>
+                    <li><strong>Hard compaction:</strong> when the message count or token count exceeds hard limits, the runtime either truncates old messages from the context or requests an LLM-generated summary of the conversation so far, then replaces the old messages with the summary. The session transcript is archived and a new one starts.</li>
+                </ol>
+                <p>Old tool results in long contexts are progressively masked by <code>maskOldToolResults()</code>, replacing large result payloads with a brief size notice to reduce context pressure without losing the record that the tool was called.</p>
+            </section>
+
+            </div>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

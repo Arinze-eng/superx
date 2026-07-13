@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sdk.bot, Bot SDK - Teleton Agent Documentation</title>
+    <meta name="description" content="Build inline bots with styled buttons, callback handlers, and inline query responses using the Teleton Plugin Bot SDK.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="sdk-bot">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link active">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>sdk.bot: Bot SDK</h1>
+            <p class="lead">Build inline bots with styled buttons, callback handlers, and inline query responses using the Bot SDK.</p>
+
+            <section class="section" id="quick-example">
+                <h2>Quick Example</h2>
+                <p>Register an inline query handler that returns results with colored buttons:</p>
+                <div class="code-block"><div class="code-header"><span>Inline query with styled buttons</span></div><pre><code class="language-typescript">import type { PluginSDK, SimpleToolDef, PluginManifest } from "@teleton-agent/sdk";
+
+export const manifest: PluginManifest = {
+  name: "my-inline-bot",
+  version: "1.0.0",
+  description: "Demo inline bot with styled buttons",
+  bot: { inline: true, callbacks: true },
+};
+
+export const start = async (sdk: PluginSDK) =&gt; {
+  if (!sdk.bot) return;
+
+  sdk.bot.onInlineQuery(async (ctx) =&gt; {
+    return [{
+      id: "1",
+      type: "article",
+      title: "Hello World",
+      description: "Send a greeting",
+      content: { text: "Hello from the inline bot!" },
+      keyboard: [[
+        { text: "Like", callback: "like:1", style: "success" },
+        { text: "Dislike", callback: "dislike:1", style: "danger" },
+      ]],
+    }];
+  });
+
+  sdk.bot.onCallback("like:*", async (ctx) =&gt; {
+    await ctx.answer("Thanks for the like!");
+  });
+};</code></pre></div>
+            </section>
+
+            <section class="section" id="prerequisites">
+                <h2>Prerequisites</h2>
+                <p>The Bot SDK is only available to plugins that declare bot capabilities in their manifest. If your manifest does not include <code>bot: { inline: true }</code>, then <code>sdk.bot</code> will be <code>null</code>.</p>
+                <div class="code-block"><div class="code-header"><span>Required manifest declaration</span></div><pre><code class="language-typescript">export const manifest: PluginManifest = {
+  name: "my-plugin",
+  version: "1.0.0",
+  description: "Plugin with bot capabilities",
+  bot: {
+    inline: true,     // Enable inline query handling
+    callbacks: true,  // Enable callback query handling
+    rateLimits: {
+      inlinePerMinute: 30,   // Default: 30
+      callbackPerMinute: 60, // Default: 60
+    },
+  },
+};</code></pre></div>
+                <p>Register handlers in your <code>start()</code> hook, not in <code>tools()</code>. The bot handlers are event-driven and persist for the plugin's lifetime.</p>
+            </section>
+
+            <section class="section" id="properties">
+                <h2>Properties</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Property</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>isAvailable</code></td><td><code>boolean</code></td><td>Whether the bot client is connected and ready. Always check before using other methods.</td></tr>
+                        <tr><td><code>username</code></td><td><code>string</code></td><td>The bot's Telegram username (e.g. <code>"my_bot"</code>). Used to construct inline links like <code>@my_bot query</code>.</td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <section class="section" id="methods">
+                <h2>Methods</h2>
+
+                <h3 id="oninlinequery">onInlineQuery(handler)</h3>
+                <p>Register a handler for inline queries. When a user types <code>@yourbot query</code> in any chat, this handler is called with the query context. Return an array of <code>InlineResult</code> objects to display as results.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>handler</code></td><td><code>(ctx: InlineQueryContext) =&gt; Promise&lt;InlineResult[]&gt;</code></td><td>Async function that receives the query context and returns results.</td></tr>
+                    </tbody>
+                </table></div>
+                <div class="code-block"><div class="code-header"><span>Inline query handler</span></div><pre><code class="language-typescript">sdk.bot.onInlineQuery(async (ctx) =&gt; {
+  // ctx.query , the search text (prefix already stripped)
+  // ctx.queryId, Telegram query ID
+  // ctx.userId, user who triggered the query
+  // ctx.offset, pagination offset string
+
+  const results = await searchDatabase(ctx.query);
+
+  return results.map((item, i) =&gt; ({
+    id: String(i),
+    type: "article" as const,
+    title: item.name,
+    description: item.summary,
+    content: { text: item.fullText, parseMode: "HTML" as const },
+    keyboard: [[
+      { text: "View Details", callback: `view:${item.id}`, style: "primary" },
+    ]],
+  }));
+});</code></pre></div>
+
+                <h3 id="oncallback">onCallback(pattern, handler)</h3>
+                <p>Register a handler for callback queries matching a glob pattern. Patterns use <code>*</code> for wildcard matching. The callback data is automatically stripped of the plugin namespace prefix before matching.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>pattern</code></td><td><code>string</code></td><td>Glob pattern to match (e.g. <code>"vote:*"</code>, <code>"action:*:confirm"</code>).</td></tr>
+                        <tr><td><code>handler</code></td><td><code>(ctx: CallbackContext) =&gt; Promise&lt;void&gt;</code></td><td>Async function called when a matching callback is received.</td></tr>
+                    </tbody>
+                </table></div>
+                <div class="code-block"><div class="code-header"><span>Callback handler with glob pattern</span></div><pre><code class="language-typescript">sdk.bot.onCallback("vote:*", async (ctx) =&gt; {
+  // ctx.data , raw callback data (prefix stripped)
+  // ctx.match, regex match groups from the pattern
+  // ctx.userId, user who clicked
+  // ctx.username, optional username
+  // ctx.inlineMessageId, if from an inline message
+  // ctx.chatId, if from a regular message
+  // ctx.messageId, if from a regular message
+
+  const choice = ctx.data.split(":")[1]; // e.g. "yes" from "vote:yes"
+
+  await ctx.answer(`You voted: ${choice}`);
+  await ctx.editMessage(`Vote recorded: ${choice}`, {
+    keyboard: [[
+      { text: "Vote recorded", callback: "noop", style: "success" },
+    ]],
+  });
+});</code></pre></div>
+
+                <h3 id="onchosenresult">onChosenResult(handler)</h3>
+                <p>Register a handler for when a user selects an inline result. Requires inline feedback to be enabled via <a href="https://t.me/BotFather" target="_blank" rel="noopener">@BotFather</a> (<code>/setinlinefeedback</code>).</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>handler</code></td><td><code>(ctx: ChosenResultContext) =&gt; Promise&lt;void&gt;</code></td><td>Async function called when a user picks an inline result.</td></tr>
+                    </tbody>
+                </table></div>
+                <div class="code-block"><div class="code-header"><span>Chosen result tracking</span></div><pre><code class="language-typescript">sdk.bot.onChosenResult(async (ctx) =&gt; {
+  // ctx.resultId, the ID of the chosen result
+  // ctx.inlineMessageId, for editing the sent message later
+  // ctx.query, the original query text
+
+  sdk.log.info(`User chose result ${ctx.resultId} for query "${ctx.query}"`);
+
+  // You can edit the inline message after the user selects it
+  if (ctx.inlineMessageId) {
+    await sdk.bot.editInlineMessage(ctx.inlineMessageId, "Thanks for choosing this result!");
+  }
+});</code></pre></div>
+
+                <h3 id="editinlinemessage">editInlineMessage(inlineMessageId, text, opts?)</h3>
+                <p>Edit a message that was sent via inline mode. You need the <code>inlineMessageId</code> from a callback or chosen result context.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>inlineMessageId</code></td><td><code>string</code></td><td>The inline message ID to edit.</td></tr>
+                        <tr><td><code>text</code></td><td><code>string</code></td><td>New message text.</td></tr>
+                        <tr><td><code>opts</code></td><td><code>{ keyboard?: ButtonDef[][]; parseMode?: string }</code></td><td>Optional keyboard and parse mode.</td></tr>
+                    </tbody>
+                </table></div>
+                <div class="code-block"><div class="code-header"><span>Edit inline message</span></div><pre><code class="language-typescript">await sdk.bot.editInlineMessage(ctx.inlineMessageId, "Updated content!", {
+  parseMode: "HTML",
+  keyboard: [[
+    { text: "Refresh", callback: "refresh:123", style: "primary" },
+    { text: "Close", callback: "close:123", style: "danger" },
+  ]],
+});</code></pre></div>
+
+                <h3 id="keyboard">keyboard(rows)</h3>
+                <p>Build a keyboard object from button definitions. Returns a <code>BotKeyboard</code> with methods for both GramJS (MTProto, with colors) and Grammy (Bot API, no colors) formats. Callback data is automatically prefixed with the plugin name.</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>rows</code></td><td><code>ButtonDef[][]</code></td><td>Array of rows, each containing button definitions.</td></tr>
+                    </tbody>
+                </table></div>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>BotKeyboard</code></td><td>Object with <code>.toTL()</code>, <code>.toGrammy()</code>, and <code>.rows</code> properties.</td></tr>
+                    </tbody>
+                </table></div>
+                <div class="code-block"><div class="code-header"><span>Building a keyboard</span></div><pre><code class="language-typescript">const kb = sdk.bot.keyboard([
+  [
+    { text: "Confirm", callback: "confirm:42", style: "success" },
+    { text: "Cancel", callback: "cancel:42", style: "danger" },
+  ],
+  [
+    { text: "Visit Website", url: "https://example.com" },
+  ],
+]);
+
+// For GramJS (MTProto), supports colored buttons
+const tlMarkup = kb.toTL();
+
+// For Grammy (Bot API), standard buttons, no colors
+const grammyKeyboard = kb.toGrammy();
+
+// Access raw rows (callbacks already prefixed)
+console.log(kb.rows);</code></pre></div>
+            </section>
+
+            <section class="section" id="styled-buttons">
+                <h2>Styled Buttons</h2>
+                <p>The Bot SDK supports colored inline keyboard buttons via GramJS Layer 222. Buttons are defined using the <code>ButtonDef</code> interface:</p>
+
+                <h3>ButtonDef</h3>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Property</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>text</code></td><td><code>string</code></td><td>Yes</td><td>Button label text displayed to the user.</td></tr>
+                        <tr><td><code>callback</code></td><td><code>string</code></td><td>No</td><td>Callback data sent when pressed. Auto-prefixed with plugin name.</td></tr>
+                        <tr><td><code>url</code></td><td><code>string</code></td><td>No</td><td>URL to open when pressed.</td></tr>
+                        <tr><td><code>copy</code></td><td><code>string</code></td><td>No</td><td>Text to copy to clipboard when pressed.</td></tr>
+                        <tr><td><code>style</code></td><td><code>ButtonStyle</code></td><td>No</td><td>Button color: <code>"success"</code> (green), <code>"danger"</code> (red), or <code>"primary"</code> (blue).</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Button Styles</h3>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Style</th><th>Color</th><th>Use Case</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>"success"</code></td><td>Green</td><td>Confirmations, positive actions, "yes" votes</td></tr>
+                        <tr><td><code>"danger"</code></td><td>Red</td><td>Deletions, cancellations, "no" votes, warnings</td></tr>
+                        <tr><td><code>"primary"</code></td><td>Blue</td><td>Primary actions, navigation, neutral selections</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Rendering Formats</h3>
+                <p>Use <code>.toTL()</code> for GramJS Layer 222 (MTProto) which renders colored buttons natively. Use <code>.toGrammy()</code> for the standard Bot API fallback where colors are silently ignored.</p>
+                <div class="code-block"><div class="code-header"><span>Styled button examples</span></div><pre><code class="language-typescript">// Green confirmation + red cancel
+const confirmKeyboard = sdk.bot.keyboard([
+  [
+    { text: "Confirm Payment", callback: "pay:confirm", style: "success" },
+    { text: "Cancel", callback: "pay:cancel", style: "danger" },
+  ],
+]);
+
+// Blue navigation row + copy button
+const navKeyboard = sdk.bot.keyboard([
+  [
+    { text: "Previous", callback: "page:prev", style: "primary" },
+    { text: "Next", callback: "page:next", style: "primary" },
+  ],
+  [
+    { text: "Copy Address", copy: "EQDrjaLahLkMB-hMCmkzOyBuHJ186F-g..." },
+  ],
+]);</code></pre></div>
+
+                <p><strong>Gotcha:</strong> Callback data is automatically prefixed with the plugin name to prevent collisions between plugins. If your plugin is named <code>"dice-game"</code> and you set <code>callback: "roll:6"</code>, the actual callback data sent to Telegram is <code>"dice-game:roll:6"</code>. The prefix is stripped back before your handler receives it, so your handler always sees <code>"roll:6"</code>.</p>
+            </section>
+
+            <section class="section" id="type-definitions">
+                <h2>Type Definitions</h2>
+
+                <div class="code-block"><div class="code-header"><span>BotManifest</span></div><pre><code class="language-typescript">interface BotManifest {
+  /** Enable inline query handling */
+  inline?: boolean;
+  /** Enable callback query handling */
+  callbacks?: boolean;
+  /** Rate limits */
+  rateLimits?: {
+    /** Max inline answers per minute (default: 30) */
+    inlinePerMinute?: number;
+    /** Max callback answers per minute (default: 60) */
+    callbackPerMinute?: number;
+  };
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>ButtonDef &amp; ButtonStyle</span></div><pre><code class="language-typescript">type ButtonStyle = "success" | "danger" | "primary";
+
+interface ButtonDef {
+  text: string;
+  callback?: string;
+  url?: string;
+  copy?: string;
+  style?: ButtonStyle;
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>InlineResult &amp; InlineResultContent</span></div><pre><code class="language-typescript">type InlineResultContent =
+  | { text: string; parseMode?: "HTML" | "Markdown" }
+  | { photoUrl: string; thumbUrl?: string; caption?: string }
+  | { gifUrl: string; thumbUrl?: string; caption?: string };
+
+interface InlineResult {
+  id: string;
+  type: "article" | "photo" | "gif";
+  title: string;
+  description?: string;
+  thumbUrl?: string;
+  content: InlineResultContent;
+  keyboard?: ButtonDef[][];
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>InlineQueryContext</span></div><pre><code class="language-typescript">interface InlineQueryContext {
+  /** The query text (prefix already stripped) */
+  query: string;
+  /** Telegram query ID */
+  queryId: string;
+  /** User who triggered the query */
+  userId: number;
+  /** Pagination offset */
+  offset: string;
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>CallbackContext</span></div><pre><code class="language-typescript">interface CallbackContext {
+  /** Raw callback data (prefix already stripped) */
+  data: string;
+  /** Regex match groups (if pattern was used) */
+  match: string[];
+  /** User who clicked */
+  userId: number;
+  /** Username of the user */
+  username?: string;
+  /** Inline message ID (if from inline message) */
+  inlineMessageId?: string;
+  /** Chat ID (if from regular message) */
+  chatId?: string;
+  /** Message ID (if from regular message) */
+  messageId?: number;
+  /** Answer the callback query (toast/alert) */
+  answer(text?: string, alert?: boolean): Promise&lt;void&gt;;
+  /** Edit the message that contains the button */
+  editMessage(text: string, opts?: { keyboard?: ButtonDef[][]; parseMode?: string }): Promise&lt;void&gt;;
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>ChosenResultContext</span></div><pre><code class="language-typescript">interface ChosenResultContext {
+  /** The result ID that was chosen */
+  resultId: string;
+  /** Inline message ID (available if bot has inline feedback enabled) */
+  inlineMessageId?: string;
+  /** The query that was used */
+  query: string;
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>BotKeyboard</span></div><pre><code class="language-typescript">interface BotKeyboard {
+  /** Get Grammy InlineKeyboard (Bot API, no colors) */
+  toGrammy(): unknown;
+  /** Get GramJS TL ReplyInlineMarkup (MTProto, with colors) */
+  toTL(): unknown;
+  /** Raw button definitions (with prefixed callbacks) */
+  rows: ButtonDef[][];
+}</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>BotSDK</span></div><pre><code class="language-typescript">interface BotSDK {
+  readonly isAvailable: boolean;
+  readonly username: string;
+  onInlineQuery(handler: (ctx: InlineQueryContext) =&gt; Promise&lt;InlineResult[]&gt;): void;
+  onCallback(pattern: string, handler: (ctx: CallbackContext) =&gt; Promise&lt;void&gt;): void;
+  onChosenResult(handler: (ctx: ChosenResultContext) =&gt; Promise&lt;void&gt;): void;
+  editInlineMessage(
+    inlineMessageId: string,
+    text: string,
+    opts?: { keyboard?: ButtonDef[][]; parseMode?: string }
+  ): Promise&lt;void&gt;;
+  keyboard(rows: ButtonDef[][]): BotKeyboard;
+}</code></pre></div>
+            </section>
+
+            <section class="section" id="rate-limiting">
+                <h2>Rate Limiting</h2>
+                <p>The Bot SDK enforces per-plugin rate limits to prevent abuse. Configure limits in your manifest's <code>bot.rateLimits</code>:</p>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Limit</th><th>Default</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>inlinePerMinute</code></td><td>30</td><td>Maximum inline query responses per minute.</td></tr>
+                        <tr><td><code>callbackPerMinute</code></td><td>60</td><td>Maximum callback query responses per minute.</td></tr>
+                    </tbody>
+                </table></div>
+                <p>When a limit is exceeded, the handler is silently skipped. The user sees no response (inline results disappear, callback gets no answer). Set higher limits for high-traffic bots, but be mindful of Telegram's own API rate limits.</p>
+            </section>
+
+            <section class="section" id="complete-example">
+                <h2>Complete Example: Dice Game Bot</h2>
+                <p>A fully functional inline dice game where users roll dice via inline mode, see results with colored buttons, and can reroll.</p>
+                <div class="code-block"><div class="code-header"><span>dice-game/index.ts</span></div><pre><code class="language-typescript">import type { PluginSDK, SimpleToolDef, PluginManifest } from "@teleton-agent/sdk";
+
+export const manifest: PluginManifest = {
+  name: "dice-game",
+  version: "1.0.0",
+  description: "Inline dice game with styled buttons",
+  bot: {
+    inline: true,
+    callbacks: true,
+    rateLimits: { inlinePerMinute: 60, callbackPerMinute: 120 },
+  },
+};
+
+function rollDice(): number {
+  return Math.floor(Math.random() * 6) + 1;
+}
+
+function diceEmoji(n: number): string {
+  return ["\u2680", "\u2681", "\u2682", "\u2683", "\u2684", "\u2685"][n - 1];
+}
+
+export const start = async (sdk: PluginSDK) =&gt; {
+  if (!sdk.bot) {
+    sdk.log.warn("Bot SDK not available, skipping inline setup");
+    return;
+  }
+
+  // Handle inline queries, show a "Roll Dice" option
+  sdk.bot.onInlineQuery(async (ctx) =&gt; {
+    const sides = parseInt(ctx.query) || 6;
+    const clamped = Math.min(Math.max(sides, 2), 20);
+
+    return [{
+      id: `roll-${clamped}`,
+      type: "article",
+      title: `Roll a d${clamped}`,
+      description: `Roll a ${clamped}-sided die and see the result`,
+      content: { text: `Rolling a d${clamped}...` },
+      keyboard: [[
+        { text: `Roll d${clamped}`, callback: `roll:${clamped}`, style: "primary" },
+      ]],
+    }];
+  });
+
+  // Handle the Roll button press
+  sdk.bot.onCallback("roll:*", async (ctx) =&gt; {
+    const sides = parseInt(ctx.data.split(":")[1]) || 6;
+    const result = Math.floor(Math.random() * sides) + 1;
+    const emoji = sides === 6 ? ` ${diceEmoji(result)}` : "";
+
+    await ctx.editMessage(`You rolled a d${sides}: **${result}**${emoji}`, {
+      parseMode: "Markdown",
+      keyboard: [
+        [
+          { text: `Roll again (d${sides})`, callback: `roll:${sides}`, style: "success" },
+          { text: "Change dice", callback: "pick", style: "primary" },
+        ],
+        [
+          { text: `Share result: ${result}`, copy: `I rolled a ${result} on a d${sides}!` },
+        ],
+      ],
+    });
+
+    await ctx.answer(`You rolled ${result}!`);
+  });
+
+  // Handle dice picker
+  sdk.bot.onCallback("pick", async (ctx) =&gt; {
+    await ctx.editMessage("Choose your dice:", {
+      keyboard: [
+        [
+          { text: "d4", callback: "roll:4", style: "primary" },
+          { text: "d6", callback: "roll:6", style: "primary" },
+          { text: "d8", callback: "roll:8", style: "primary" },
+        ],
+        [
+          { text: "d10", callback: "roll:10", style: "primary" },
+          { text: "d12", callback: "roll:12", style: "primary" },
+          { text: "d20", callback: "roll:20", style: "success" },
+        ],
+      ],
+    });
+    await ctx.answer();
+  });
+
+  // Track which results users select
+  sdk.bot.onChosenResult(async (ctx) =&gt; {
+    sdk.log.info(`User chose "${ctx.resultId}" from query "${ctx.query}"`);
+  });
+
+  sdk.log.info(`Dice game inline bot ready: @${sdk.bot.username}`);
+};
+
+// Optionally export agent tools alongside the inline bot
+export const tools = (sdk: PluginSDK): SimpleToolDef[] =&gt; [
+  {
+    name: "dice_roll",
+    description: "Roll dice (for use in chat without inline mode)",
+    parameters: {
+      type: "object",
+      properties: {
+        sides: { type: "number", description: "Number of sides (default: 6)" },
+      },
+    },
+    async execute(params) {
+      const sides = params.sides || 6;
+      const result = Math.floor(Math.random() * sides) + 1;
+      return { result, sides, display: `Rolled d${sides}: ${result}` };
+    },
+  },
+];</code></pre></div>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>

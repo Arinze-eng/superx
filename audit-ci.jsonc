@@ -1,0 +1,6 @@
+{
+  "package-manager": "npm",
+  "report-type": "full",
+  "critical": true,
+  "allowlist": []
+}

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Handling Guide - Teleton Agent Documentation</title>
+    <meta name="description" content="Patterns for handling errors in Teleton plugins, including the PluginSDKError class, error codes, and debugging techniques.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <link rel="stylesheet" href="/css/style.css?v=5">
+</head>
+<body data-page="sdk-errors">
+    <div class="overlay" id="overlay"></div>
+    <header class="header"><div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="/index.html" class="logo"><svg viewBox="0 0 56 56" fill="none" width="28" height="28"><path d="M28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" fill="white"/></svg><span>Teleton Agent Docs</span></a>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span class="search-hint">Search...</span><kbd>Ctrl+K</kbd></button>
+            <button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+            <a href="https://github.com/TONresistor/teleton-agent" class="github-link" target="_blank" rel="noopener" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+    </div></header>
+    <div class="search-modal" id="searchModal"><div class="search-modal-content"><div class="search-input-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" id="searchInput" placeholder="Search documentation..." autocomplete="off"><kbd>ESC</kbd></div><div class="search-results" id="searchResults"><div class="search-empty">Start typing to search...</div></div></div></div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar"><nav class="sidebar-nav">
+            <div class="nav-section"><div class="nav-section-title">Start Here</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="/index.html" class="nav-link">Introduction</a></li><li><a href="installation.html" class="nav-link">Installation</a></li><li><a href="quickstart.html" class="nav-link">Quick Start</a></li><li><a href="configuration.html" class="nav-link">Configuration</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Understand</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="architecture.html" class="nav-link">Architecture</a></li><li><a href="agentic-loop.html" class="nav-link">Agentic Loop</a></li><li><a href="memory-system.html" class="nav-link">Memory System</a></li><li><a href="security.html" class="nav-link">Security</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Tools</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="tools-telegram.html" class="nav-link">Telegram (83)</a></li><li><a href="tools-ton.html" class="nav-link">TON Blockchain (15)</a></li><li><a href="tools-dex.html" class="nav-link">DEX Trading (10)</a></li><li><a href="tools-dns.html" class="nav-link">DNS &amp; Domains (8)</a></li><li><a href="tools-other.html" class="nav-link">Utilities</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Build Plugins</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="plugin-sdk.html" class="nav-link">Plugin SDK</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">SDK Reference</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="sdk-overview.html" class="nav-link">Overview</a></li><li><a href="sdk-ton.html" class="nav-link">TON Blockchain</a></li><li><a href="sdk-dex.html" class="nav-link">DEX Trading</a></li><li><a href="sdk-dns.html" class="nav-link">DNS &amp; Domains</a></li><li><a href="sdk-telegram.html" class="nav-link">Telegram</a></li><li><a href="sdk-bot.html" class="nav-link">Bot SDK</a></li><li><a href="sdk-utilities.html" class="nav-link">Utilities</a></li><li><a href="sdk-errors.html" class="nav-link active">Error Handling</a></li><li><a href="tutorial-payment-bot.html" class="nav-link">Tutorial: Payment Bot</a></li><li><a href="tutorial-dex-bot.html" class="nav-link">Tutorial: DEX Bot</a></li><li><a href="tutorial-inline-bot.html" class="nav-link">Tutorial: Inline Bot</a></li></div></ul></div>
+<div class="nav-section"><div class="nav-section-title">Deploy &amp; Manage</div><ul class="nav-list"><div class="nav-list-inner"><li><a href="deploy-docker.html" class="nav-link">Docker</a></li><li><a href="cli-reference.html" class="nav-link">CLI Reference</a></li></div></ul></div>
+        </nav></aside>
+        <main class="main"><article class="content">
+
+            <h1>Error Handling Guide</h1>
+            <p class="lead">Patterns for handling errors in Teleton plugins, including the <code>PluginSDKError</code> class and debugging techniques.</p>
+
+            <!-- ─── PluginSDKError ──────────────────────────────────── -->
+
+            <section class="section" id="plugin-sdk-error">
+                <h2>PluginSDKError Class</h2>
+                <p>All SDK methods throw <code>PluginSDKError</code> for known failure conditions. This class extends <code>Error</code> and adds a <code>code</code> property for programmatic handling:</p>
+                <div class="code-block"><div class="code-header"><span>PluginSDKError Definition</span></div><pre><code class="language-typescript">class PluginSDKError extends Error {
+  public readonly name = "PluginSDKError" as const;
+
+  constructor(
+    message: string,
+    public readonly code: SDKErrorCode
+  ) {
+    super(message);
+  }
+}
+
+type SDKErrorCode =
+  | "BRIDGE_NOT_CONNECTED"
+  | "WALLET_NOT_INITIALIZED"
+  | "INVALID_ADDRESS"
+  | "INVALID_INPUT"
+  | "NOT_AVAILABLE"
+  | "RATE_LIMITED"
+  | "TRANSACTION_FAILED"
+  | "PERMISSION_DENIED"
+  | "OPERATION_FAILED"
+  | "SECRET_NOT_FOUND";</code></pre></div>
+                <p>Import the error class and type from the SDK package:</p>
+                <div class="code-block"><div class="code-header"><span>Importing PluginSDKError</span></div><pre><code class="language-typescript">import { PluginSDKError } from "@teleton-agent/sdk";
+import type { SDKErrorCode } from "@teleton-agent/sdk";</code></pre></div>
+            </section>
+
+            <!-- ─── Error Codes ─────────────────────────────────────── -->
+
+            <section class="section" id="error-codes">
+                <h2>Error Codes</h2>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Code</th><th>Thrown By</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td><code>BRIDGE_NOT_CONNECTED</code></td>
+                            <td><code>sdk.telegram.*</code></td>
+                            <td>The Telegram client is not connected. This typically occurs during plugin startup before the GramJS bridge is ready, or if the agent loses its Telegram connection.</td>
+                        </tr>
+                        <tr>
+                            <td><code>WALLET_NOT_INITIALIZED</code></td>
+                            <td><code>sdk.ton.sendTON()</code>, <code>sdk.ton.sendJetton()</code>, <code>sdk.ton.verifyPayment()</code>, <code>sdk.ton.dex.swap*()</code></td>
+                            <td>The TON wallet is not configured on the agent. The admin must set up a wallet before blockchain write operations can be performed.</td>
+                        </tr>
+                        <tr>
+                            <td><code>INVALID_ADDRESS</code></td>
+                            <td><code>sdk.ton.sendTON()</code>, <code>sdk.ton.sendJetton()</code></td>
+                            <td>A malformed TON address was passed to a method. Valid addresses start with <code>EQ</code> or <code>UQ</code> followed by a base64-encoded string.</td>
+                        </tr>
+                        <tr>
+                            <td><code>INVALID_INPUT</code></td>
+                            <td>SDK parameter validation</td>
+                            <td>A required argument is empty, out of range, or otherwise invalid.</td>
+                        </tr>
+                        <tr>
+                            <td><code>NOT_AVAILABLE</code></td>
+                            <td>Mode-specific Telegram capabilities</td>
+                            <td>The requested capability is unavailable in the current bot or user runtime mode.</td>
+                        </tr>
+                        <tr>
+                            <td><code>RATE_LIMITED</code></td>
+                            <td>Rate-limited platform operations</td>
+                            <td>The operation exceeded its configured rate limit.</td>
+                        </tr>
+                        <tr>
+                            <td><code>TRANSACTION_FAILED</code></td>
+                            <td>TON write operations</td>
+                            <td>A blockchain transaction could not be completed or confirmed.</td>
+                        </tr>
+                        <tr>
+                            <td><code>PERMISSION_DENIED</code></td>
+                            <td>Protected platform operations</td>
+                            <td>The caller is not authorized to perform the operation.</td>
+                        </tr>
+                        <tr>
+                            <td><code>OPERATION_FAILED</code></td>
+                            <td>Any async SDK method</td>
+                            <td>A generic failure code for network errors, API timeouts, blockchain rejections, and other runtime failures. Check the <code>message</code> property for details.</td>
+                        </tr>
+                        <tr>
+                            <td><code>SECRET_NOT_FOUND</code></td>
+                            <td><code>sdk.secrets.require()</code></td>
+                            <td>The requested secret is not configured. None of the resolution sources (env var, secrets store, pluginConfig) returned a value.</td>
+                        </tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+            <!-- ─── Error Handling Patterns ─────────────────────────── -->
+
+            <section class="section" id="patterns">
+                <h2>Error Handling Patterns</h2>
+
+                <h3>Try/Catch with instanceof</h3>
+                <p>The most reliable way to catch SDK errors is using <code>instanceof</code>:</p>
+                <div class="code-block"><div class="code-header"><span>instanceof Check</span></div><pre><code class="language-typescript">import { PluginSDKError } from "@teleton-agent/sdk";
+
+async execute(params, context) {
+  try {
+    const result = await sdk.ton.sendTON(
+      params.address as string,
+      params.amount as number,
+      "Payment from plugin"
+    );
+    return { success: true, data: result };
+  } catch (err) {
+    if (err instanceof PluginSDKError) {
+      sdk.log.warn(`SDK error: [${err.code}] ${err.message}`);
+      return { success: false, error: err.message };
+    }
+    // Unexpected error (not from SDK)
+    sdk.log.error("Unexpected error during sendTON", err);
+    return { success: false, error: "An unexpected error occurred" };
+  }
+}</code></pre></div>
+
+                <h3>Checking Error Codes</h3>
+                <p>Switch on the <code>code</code> property to handle specific error conditions differently:</p>
+                <div class="code-block"><div class="code-header"><span>Error Code Branching</span></div><pre><code class="language-typescript">import { PluginSDKError } from "@teleton-agent/sdk";
+
+async execute(params, context) {
+  try {
+    await sdk.ton.sendTON(params.to as string, params.amount as number);
+    return { success: true, data: { sent: true } };
+  } catch (err) {
+    if (!(err instanceof PluginSDKError)) {
+      throw err; // Re-throw non-SDK errors
+    }
+
+    switch (err.code) {
+      case "WALLET_NOT_INITIALIZED":
+        await sdk.telegram.sendMessage(
+          context.chatId,
+          "The bot wallet is not configured. Ask the admin to set it up."
+        );
+        return { success: false, error: "Wallet not configured" };
+
+      case "INVALID_ADDRESS":
+        return {
+          success: false,
+          error: `Invalid address: ${params.to}. Use EQ... or UQ... format.`,
+        };
+
+      case "OPERATION_FAILED":
+        sdk.log.error("Transfer failed", { to: params.to, error: err.message });
+        return { success: false, error: `Transfer failed: ${err.message}` };
+
+      default:
+        return { success: false, error: err.message };
+    }
+  }
+}</code></pre></div>
+
+                <h3>Graceful Degradation</h3>
+                <p>Check availability before calling methods that may not be ready:</p>
+                <div class="code-block"><div class="code-header"><span>Availability Checks</span></div><pre><code class="language-typescript">async execute(params, context) {
+  // Check Telegram bridge before sending messages
+  if (!sdk.telegram.isAvailable()) {
+    sdk.log.warn("Telegram bridge not connected, skipping notification");
+    return { success: true, data: { notified: false } };
+  }
+
+  // Check wallet before TON operations
+  const address = sdk.ton.getAddress();
+  if (!address) {
+    return {
+      success: false,
+      error: "TON wallet not configured on this agent",
+    };
+  }
+
+  // Check storage before persistence
+  if (!sdk.storage) {
+    sdk.log.warn("Storage unavailable, results will not be cached");
+  }
+
+  // Check bot before inline operations
+  if (!sdk.bot) {
+    return {
+      success: false,
+      error: "Bot SDK not available. Add bot: { inline: true } to your manifest.",
+    };
+  }
+
+  // Check database before SQL queries
+  if (!sdk.db) {
+    return {
+      success: false,
+      error: "Database not available. Export a migrate() function.",
+    };
+  }
+
+  // All checks passed, proceed with operations
+  const balance = await sdk.ton.getBalance(address);
+  await sdk.telegram.sendMessage(
+    context.chatId,
+    `Current balance: ${balance?.balance ?? "unknown"} TON`
+  );
+
+  return { success: true };
+}</code></pre></div>
+
+                <h3>Wallet Availability Check Pattern</h3>
+                <p>A common pattern for plugins that interact with the TON blockchain:</p>
+                <div class="code-block"><div class="code-header"><span>Wallet Guard Pattern</span></div><pre><code class="language-typescript">function requireWallet(sdk: PluginSDK): string {
+  const address = sdk.ton.getAddress();
+  if (!address) {
+    throw new Error("Wallet not configured");
+  }
+  return address;
+}
+
+async execute(params, context) {
+  let walletAddress: string;
+  try {
+    walletAddress = requireWallet(sdk);
+  } catch {
+    return { success: false, error: "TON wallet not configured on this agent" };
+  }
+
+  const balance = await sdk.ton.getBalance(walletAddress);
+  return { success: true, data: { address: walletAddress, balance } };
+}</code></pre></div>
+            </section>
+
+            <!-- ─── Common Pitfalls ─────────────────────────────────── -->
+
+            <section class="section" id="pitfalls">
+                <h2>Common Pitfalls</h2>
+
+                <h3>Do Not Catch Errors Silently</h3>
+                <p>Swallowing errors makes debugging extremely difficult. Always log or return error information:</p>
+                <div class="code-block"><div class="code-header"><span>Bad vs Good Error Handling</span></div><pre><code class="language-typescript">// BAD: Silent catch hides the problem
+async execute(params) {
+  try {
+    await sdk.ton.sendTON(params.to as string, 1.0);
+    return { success: true };
+  } catch {
+    return { success: false }; // What went wrong? Nobody knows.
+  }
+}
+
+// GOOD: Log and return the error details
+async execute(params) {
+  try {
+    await sdk.ton.sendTON(params.to as string, 1.0);
+    return { success: true };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    sdk.log.error("sendTON failed", { to: params.to, error: message });
+    return { success: false, error: message };
+  }
+}</code></pre></div>
+
+                <h3>Check isAvailable() Before Telegram Methods</h3>
+                <p>During plugin startup, the Telegram bridge may not be connected yet. Calling <code>sdk.telegram.sendMessage()</code> during <code>start()</code> will throw <code>BRIDGE_NOT_CONNECTED</code>:</p>
+                <div class="code-block"><div class="code-header"><span>Bridge Readiness</span></div><pre><code class="language-typescript">// In start() hook - bridge may not be ready
+export async function start(ctx: StartContext) {
+  // DON'T: This might throw BRIDGE_NOT_CONNECTED
+  // await sdk.telegram.sendMessage(adminChatId, "Plugin started!");
+
+  // DO: Check availability first
+  if (sdk.telegram.isAvailable()) {
+    await sdk.telegram.sendMessage(adminChatId, "Plugin started!");
+  }
+}
+
+// In tool execute() - bridge is always ready
+async execute(params, context) {
+  // Tools are only called when the agent is running,
+  // so the bridge is guaranteed to be connected here.
+  await sdk.telegram.sendMessage(context.chatId, "Hello!");
+  return { success: true };
+}</code></pre></div>
+
+                <h3>Check getAddress() Before TON Write Operations</h3>
+                <p><code>sdk.ton.getAddress()</code> returns <code>null</code> if no wallet is configured. Calling <code>sendTON()</code> or <code>sendJetton()</code> without a wallet throws <code>WALLET_NOT_INITIALIZED</code>:</p>
+                <div class="code-block"><div class="code-header"><span>Wallet Pre-check</span></div><pre><code class="language-typescript">async execute(params, context) {
+  // Pre-check avoids a thrown error
+  if (!sdk.ton.getAddress()) {
+    return {
+      success: false,
+      error: "No wallet configured. Ask admin to set up a TON wallet.",
+    };
+  }
+
+  // Read operations work without a wallet (use any address)
+  const balance = await sdk.ton.getBalance(params.address as string);
+  return { success: true, data: balance };
+}</code></pre></div>
+
+                <h3>sdk.db Can Be null</h3>
+                <p>The platform creates a database for every plugin, but <code>sdk.db</code> can be <code>null</code> if initialization fails. Attempting to call methods on it will cause a runtime <code>TypeError</code>, not a <code>PluginSDKError</code>:</p>
+                <div class="code-block"><div class="code-header"><span>Null DB Guard</span></div><pre><code class="language-typescript">async execute(params) {
+  // This will throw TypeError: Cannot read properties of null
+  // sdk.db.prepare("SELECT * FROM scores");
+
+  // Always guard against null
+  if (!sdk.db) {
+    return { success: false, error: "Database not initialized" };
+  }
+
+  const rows = sdk.db.prepare("SELECT * FROM scores LIMIT 10").all();
+  return { success: true, data: rows };
+}</code></pre></div>
+
+                <h3>sdk.bot Can Be null</h3>
+                <p>The <code>BotSDK</code> is only available if your manifest declares <code>bot: { inline: true }</code> or <code>bot: { callbacks: true }</code>:</p>
+                <div class="code-block"><div class="code-header"><span>Null Bot Guard</span></div><pre><code class="language-typescript">// manifest.ts
+export const manifest: PluginManifest = {
+  name: "my-plugin",
+  version: "1.0.0",
+  // Without this, sdk.bot is null:
+  bot: { inline: true, callbacks: true },
+};
+
+// In your plugin code
+if (sdk.bot) {
+  sdk.bot.onInlineQuery(async (ctx) =&gt; {
+    return [{ id: "1", type: "article", title: "Result", content: { text: "Hello" } }];
+  });
+
+  sdk.bot.onCallback("action:confirm", async (ctx) =&gt; {
+    await ctx.answer("Confirmed!");
+    await ctx.editMessage("Action confirmed.");
+  });
+} else {
+  sdk.log.warn("Bot SDK not available - add bot manifest to enable");
+}</code></pre></div>
+            </section>
+
+            <!-- ─── Debugging ───────────────────────────────────────── -->
+
+            <section class="section" id="debugging">
+                <h2>Debugging Tips</h2>
+
+                <h3>Use sdk.log.debug() for Development</h3>
+                <p>Debug messages are hidden by default. Enable them by setting the <code>DEBUG</code> or <code>VERBOSE</code> environment variable:</p>
+                <div class="code-block"><div class="code-header"><span>Enable Debug Logging</span></div><pre><code class="language-bash"># Enable debug output
+DEBUG=1 node bin/teleton.js start
+
+# Or use VERBOSE for even more detail
+VERBOSE=1 node bin/teleton.js start</code></pre></div>
+
+                <div class="code-block"><div class="code-header"><span>Strategic Debug Logging</span></div><pre><code class="language-typescript">async execute(params, context) {
+  sdk.log.debug("Tool invoked", {
+    params,
+    chatId: context.chatId,
+    senderId: context.senderId,
+    isGroup: context.isGroup,
+  });
+
+  const address = params.address as string;
+  sdk.log.debug("Validating address", { address });
+
+  if (!sdk.ton.validateAddress(address)) {
+    sdk.log.debug("Address validation failed", { address });
+    return { success: false, error: "Invalid address" };
+  }
+
+  const balance = await sdk.ton.getBalance(address);
+  sdk.log.debug("Balance fetched", { address, balance });
+
+  return { success: true, data: balance };
+}</code></pre></div>
+
+                <h3>Check Agent Logs</h3>
+                <p>The Teleton agent uses Pino structured logging. Plugin log messages appear with the plugin prefix and can be filtered:</p>
+                <div class="code-block"><div class="code-header"><span>Filtering Plugin Logs</span></div><pre><code class="language-bash"># View all logs with pino-pretty
+node bin/teleton.js start 2&gt;&amp;1 | npx pino-pretty
+
+# Filter for a specific plugin
+node bin/teleton.js start 2&gt;&amp;1 | npx pino-pretty | grep "plugin:weather"
+
+# View only errors
+node bin/teleton.js start 2&gt;&amp;1 | npx pino-pretty --minimumLevel error</code></pre></div>
+
+                <h3>Common Error Scenarios</h3>
+                <div class="table-wrapper"><table>
+                    <thead><tr><th>Symptom</th><th>Likely Cause</th><th>Solution</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td><code>BRIDGE_NOT_CONNECTED</code> in <code>start()</code></td>
+                            <td>Calling Telegram methods before bridge is ready</td>
+                            <td>Use <code>sdk.telegram.isAvailable()</code> check, or move logic to tool <code>execute()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>WALLET_NOT_INITIALIZED</code></td>
+                            <td>No TON wallet configured on the agent</td>
+                            <td>Admin must run the setup wizard or set wallet config in <code>config.yaml</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>INVALID_ADDRESS</code></td>
+                            <td>User provided a wrong-format address</td>
+                            <td>Validate with <code>sdk.ton.validateAddress()</code> before sending</td>
+                        </tr>
+                        <tr>
+                            <td><code>SECRET_NOT_FOUND</code></td>
+                            <td>Missing environment variable or secrets store entry</td>
+                            <td>Set via <code>/plugin set &lt;name&gt; &lt;key&gt; &lt;value&gt;</code> or export the env var</td>
+                        </tr>
+                        <tr>
+                            <td><code>TypeError: Cannot read properties of null</code></td>
+                            <td>Accessing <code>sdk.db</code>, <code>sdk.storage</code>, or <code>sdk.bot</code> when they are null</td>
+                            <td>Add null checks; inspect database initialization logs; add <code>bot</code> manifest for bot SDK</td>
+                        </tr>
+                        <tr>
+                            <td><code>OPERATION_FAILED</code> on swap</td>
+                            <td>Insufficient balance, no liquidity, or slippage exceeded</td>
+                            <td>Check balance first, increase slippage tolerance, or try the other DEX</td>
+                        </tr>
+                        <tr>
+                            <td>Tool not appearing in agent</td>
+                            <td>Wrong scope for the chat context</td>
+                            <td>Verify the tool's <code>scope</code> matches where you are testing (DM vs group)</td>
+                        </tr>
+                    </tbody>
+                </table></div>
+            </section>
+
+        </article></main>
+    </div>
+    <footer class="footer"><div class="footer-inner"><div class="footer-left"><p>Teleton Agent &copy; 2026</p></div><div class="footer-links"><a href="https://t.me/teletonagents" target="_blank">Telegram</a><a href="https://github.com/TONresistor/teleton-agent" target="_blank">GitHub</a><a href="https://teletonagent.dev" target="_blank">Website</a></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="/js/main.js?v=5"></script>
+    <script src="/js/i18n.js?v=1"></script>
+</body>
+</html>
