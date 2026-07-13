@@ -3,7 +3,7 @@ set -e
 
 CONFIG_FILE="$TELETON_HOME/config.yaml"
 
-# Always generate config from env vars (fresh start)
+# Always generate config from env vars
 echo "Generating config.yaml from environment variables..."
 
 cat > "$CONFIG_FILE" << CONFIGEOF
@@ -13,7 +13,7 @@ agent:
   api_key: "${TELETON_API_KEY:-}"
   max_tokens: 4096
   temperature: 0.7
-  system_prompt: "You are PowerX, a powerful AI assistant running on Teleton. You have access to multiple AI brains via the powerx_ask tool (HotBot GPT-5, Gemini, Sakana, Novita DeepSeek, DeepSeek Free, StudentAI, eqing GPT-3.5, Unitool Vision). Use powerx_fusion for complex questions to get the best answer from all brains. Be helpful, concise, and direct."
+  system_prompt: "You are PowerX, an autonomous AI assistant running on Telegram. You have access to the full Teleton toolset including web search, file operations, and more. Be helpful, concise, and direct."
 
 telegram:
   mode: "bot"
@@ -45,7 +45,25 @@ CONFIGEOF
 
 echo "Config created at $CONFIG_FILE"
 echo "Starting PowerX Teleton Agent..."
-echo "Bot mode: ${TELETON_TELEGRAM_BOT_TOKEN:+configured}"
+echo "Bot token: ${TELETON_TELEGRAM_BOT_TOKEN:+configured (${TELETON_TELEGRAM_BOT_TOKEN%%:*})}"
+echo "Owner ID: ${TELETON_TELEGRAM_OWNER_ID:-not set}"
 echo "Provider: ${TELETON_AGENT_PROVIDER:-openai} / ${TELETON_AGENT_MODEL:-gpt-4o}"
 
-exec node /app/dist/cli/index.js start
+# Find the correct entrypoint
+if [ -f /app/dist/cli/index.js ]; then
+  exec node /app/dist/cli/index.js start
+elif [ -f /app/dist/index.js ]; then
+  exec node /app/dist/index.js start
+else
+  echo "Looking for entrypoint..."
+  find /app -name "index.js" -path "*/cli/*" 2>/dev/null | head -5
+  # Try common locations
+  for path in /app/cli/index.js /app/bin/cli.js /app/src/cli/index.ts; do
+    if [ -f "$path" ]; then
+      echo "Found: $path"
+      exec node "$path" start 2>/dev/null || true
+    fi
+  done
+  echo "ERROR: Could not find Teleton entrypoint"
+  exit 1
+fi
