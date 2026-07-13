@@ -4,7 +4,7 @@ services:
     runtime: docker
     repo: https://github.com/Arinze-eng/superx
     branch: master
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: ./Dockerfile.render
     envVars:
       - key: TELETON_ROOT
         value: /data
