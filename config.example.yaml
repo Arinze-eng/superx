@@ -111,3 +111,20 @@ webui:
 #   casino:
 #     min_bet: 0.1
 #     cooldown_seconds: 30
+
+# ── PowerX Brain Fusion (optional AI brains) ──────────────────────────────
+# These are extra AI brains the agent can call via powerx_ask/powerx_fusion tools.
+# The Teleton agent uses its own provider (openai/anthropic/google) as the main brain.
+# PowerX brains are ADDITIONAL — they can be queried directly for specific tasks.
+# 
+# Set env vars (not here) for keys:
+#   POWERX_HOTBOT_KEY     — HotBot (GPT-5) API key
+#   POWERX_GEMINI_KEY     — Google Gemini API key  
+#   POWERX_NOVITA_KEY     — Novita AI API key (DeepSeek V4)
+#   POWERX_DEEPSEEK_TOKEN — DeepSeek chat web token
+# 
+# Free brains (no key needed, enabled by default):
+#   POWERX_SAKANA_ENABLED=true    — Sakana (Namazu): text + files
+#   POWERX_STUDENTAI_ENABLED=true — StudentAI: text only
+#   POWERX_EQING_ENABLED=true     — eqing GPT-3.5: text only
+#   POWERX_UNITOOL_ENABLED=true   — Unitool: text + vision
