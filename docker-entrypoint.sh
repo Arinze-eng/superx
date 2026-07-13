@@ -32,6 +32,17 @@ logging:
   level: "${TELETON_LOG_LEVEL:-info}"
   pretty: false
 
+plugins:
+  powerx:
+    hotbot_key: "${POWERX_HOTBOT_KEY:-}"
+    gemini_key: "${POWERX_GEMINI_KEY:-}"
+    novita_key: "${POWERX_NOVITA_KEY:-}"
+    deepseek_token: "${POWERX_DEEPSEEK_TOKEN:-}"
+    sakana_enabled: ${POWERX_SAKANA_ENABLED:-true}
+    studentai_enabled: ${POWERX_STUDENTAI_ENABLED:-true}
+    eqing_enabled: ${POWERX_EQING_ENABLED:-true}
+    unitool_enabled: ${POWERX_UNITOOL_ENABLED:-true}
+
 capabilities:
   exec:
     mode: "off"

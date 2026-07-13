@@ -1,0 +1,21 @@
+{
+  "name": "powerx",
+  "version": "1.0.0",
+  "description": "PowerX Brain Fusion — Multi-brain AI service for Teleton Agent",
+  "author": "PowerX",
+  "license": "MIT",
+  "entrypoint": "index.js",
+  "tools": true,
+  "config": {
+    "properties": {
+      "hotbot_key": { "type": "string", "description": "HotBot (GPT-5) API key" },
+      "gemini_key": { "type": "string", "description": "Google Gemini API key" },
+      "novita_key": { "type": "string", "description": "Novita AI API key" },
+      "deepseek_token": { "type": "string", "description": "DeepSeek chat web token" },
+      "sakana_enabled": { "type": "boolean", "default": true },
+      "studentai_enabled": { "type": "boolean", "default": true },
+      "eqing_enabled": { "type": "boolean", "default": true },
+      "unitool_enabled": { "type": "boolean", "default": true }
+    }
+  }
+}
