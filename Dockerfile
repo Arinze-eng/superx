@@ -19,7 +19,7 @@ COPY src/ src/
 COPY packages/ packages/
 COPY bin/ bin/
 
-# Build SDK + backend (skip web UI to save build time/memory)
+# Build SDK + backend
 RUN npm run build:sdk && npm run build:backend
 
 # ---- Runtime stage ----
@@ -45,12 +45,19 @@ COPY --from=build /app/dist/ dist/
 COPY --from=build /app/bin/ bin/
 COPY --from=build /app/package.json ./
 
+# Create config directory and default config
+RUN mkdir -p /data
+
 ENV TELETON_HOME=/data
 VOLUME /data
 
-RUN chown -R node:node /app
+RUN chown -R node:node /app /data
 USER node
 
 EXPOSE 7777
-ENTRYPOINT ["node", "dist/cli/index.js"]
-CMD ["start"]
+
+# Use a startup script that checks for config
+COPY docker-entrypoint.sh /app/
+RUN chmod +x /app/docker-entrypoint.sh
+
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
