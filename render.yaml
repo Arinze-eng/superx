@@ -1,0 +1,24 @@
+services:
+  - type: web_service
+    name: powerx-teleton
+    runtime: docker
+    repo: https://github.com/Arinze-eng/superx
+    branch: master
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: TELETON_ROOT
+        value: /data
+      - key: TELETON_WEBUI_ENABLED
+        value: "true"
+      - key: TELETON_WEBUI_PORT
+        value: "7777"
+      - key: TELETON_WEBUI_HOST
+        value: "0.0.0.0"
+      - key: POWERX_SAKANA_ENABLED
+        value: "true"
+      - key: POWERX_STUDENTAI_ENABLED
+        value: "true"
+      - key: POWERX_EQING_ENABLED
+        value: "true"
+      - key: POWERX_UNITOOL_ENABLED
+        value: "true"
