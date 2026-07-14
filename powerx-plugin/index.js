@@ -1,12 +1,11 @@
 /**
  * PowerX Brain Fusion Plugin for Teleton Agent
  *
- * Adds multi-brain AI capabilities to the Teleton agent, including:
- * - HotBot (GPT-5), Gemini, Sakana (Namazu), Novita DeepSeek V4
- * - DeepSeek Free, StudentAI, eqing GPT-3.5, Unitool Vision
+ * Exports a `tools` array (the shape Teleton's plugin loader expects).
+ * Each tool: { name, description, parameters, execute(params, context) }.
  *
- * Each brain is a separate tool. Fusion mode runs all brains in parallel
- * and synthesises the best answer.
+ * Brains: HotBot (GPT-5), Gemini, Sakana (Namazu), Novita DeepSeek V4,
+ *         DeepSeek Free, StudentAI, eqing GPT-3.5, Unitool Vision.
  */
 
 const BRAIN_CAPABILITIES = {
@@ -20,26 +19,28 @@ const BRAIN_CAPABILITIES = {
   unitool:   { name: "Unitool Vision", vision: true, free: true, key: null },
 };
 
-const BRAIN_PRIORITY = ["hotbot", "gemini", "novita", "sakana", "deepseek", "unitool", "studentai", "eqing"];
+// Priority for `auto`/`fusion`: key-backed premium brains first (if keys are set),
+// then reliable free brains. `unitool` is excluded from auto/fusion because it is a
+// domain-restricted widget (only answers Unitool-platform questions); `sakana` is
+// excluded because its default session cookie expires — both remain available via
+// an explicit `powerx_ask` call with brain="unitool" / "sakana".
+const BRAIN_PRIORITY = ["hotbot", "gemini", "novita", "deepseek", "eqing", "studentai"];
 
-/**
- * Create a fetch function with timeout
- */
 function fetchWithTimeout(url, options = {}) {
   const { timeout = 30000, ...fetchOpts } = options;
   return new Promise((resolve, reject) => {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeout);
     fetch(url, { ...fetchOpts, signal: controller.signal })
-      .then(res => { clearTimeout(timer); resolve(res); })
-      .catch(err => { clearTimeout(timer); reject(err); });
+      .then((res) => { clearTimeout(timer); resolve(res); })
+      .catch((err) => { clearTimeout(timer); reject(err); });
   });
 }
 
 // ── Brain callers ──────────────────────────────────────────────────────────
 
-async function callHotBot(messages, config) {
-  const key = process.env.POWERX_HOTBOT_KEY || config?.hotbot_key;
+async function callHotBot(messages) {
+  const key = process.env.POWERX_HOTBOT_KEY;
   if (!key) throw new Error("HotBot: No API key (set POWERX_HOTBOT_KEY)");
   const resp = await fetchWithTimeout("https://api.hotbot.com/v1/chat/completions", {
     method: "POST",
@@ -52,8 +53,8 @@ async function callHotBot(messages, config) {
   return data.choices?.[0]?.message?.content?.trim() || "";
 }
 
-async function callGemini(messages, config) {
-  const key = process.env.POWERX_GEMINI_KEY || config?.gemini_key;
+async function callGemini(messages) {
+  const key = process.env.POWERX_GEMINI_KEY;
   if (!key) throw new Error("Gemini: No API key (set POWERX_GEMINI_KEY)");
   const contents = [];
   let system = "";
@@ -75,7 +76,7 @@ async function callGemini(messages, config) {
 async function callSakana(messages) {
   const session = process.env.POWERX_SAKANA_SESSION || "71cc2345-e7c8-4504-a351-e10c43779b4a";
   const base = "https://chat.sakana.ai";
-  const text = messages.map(m => m.content).join("\n");
+  const text = messages.map((m) => m.content).join("\n");
   const create = await fetchWithTimeout(`${base}/conversation`, {
     method: "POST", timeout: 20000,
     headers: { "Content-Type": "application/json", Cookie: `sakana-chat=${session}`, "User-Agent": "Mozilla/5.0" },
@@ -84,9 +85,8 @@ async function callSakana(messages) {
   if (!create.ok) throw new Error(`Sakana create ${create.status}`);
   const cd = await create.json();
   if (!cd.conversationId) throw new Error("Sakana: no conversationId");
-
   const boundary = `----FB${Math.random().toString(36).slice(2)}`;
-  const dp = JSON.stringify({ inputs: text, id: cd.systemMessageId, is_retry: false, is_continue: false, enableThinking: false, userMessageId: crypto.randomUUID() });
+  const dp = JSON.stringify({ inputs: text, id: cd.systemMessageId, is_retry: false, is_continue: false, enableThinking: false, userMessageId: (globalThis.crypto || require("crypto").webcrypto).randomUUID() });
   const body = `--${boundary}\r\nContent-Disposition: form-data; name="data"\r\n\r\n${dp}\r\n--${boundary}--\r\n`;
   const send = await fetchWithTimeout(`${base}/conversation/${cd.conversationId}`, {
     method: "POST", timeout: 40000,
@@ -102,7 +102,7 @@ async function callSakana(messages) {
         const m = p.text.match(/<answer>([\s\S]*?)<\/answer>/);
         return m ? m[1].trim() : p.text.trim();
       }
-    } catch {}
+    } catch { /* skip */ }
   }
   throw new Error("Sakana: no answer");
 }
@@ -153,7 +153,8 @@ async function callStudentAI(messages) {
   });
   if (!resp.ok) throw new Error(`StudentAI ${resp.status}`);
   const data = await resp.json();
-  return data.choices?.[0]?.message?.content?.trim() || data.text || "";
+  // StudentAI returns a top-level `content` field
+  return (data.content || data.choices?.[0]?.message?.content || data.text || "").trim();
 }
 
 async function callEqing(messages) {
@@ -180,7 +181,7 @@ async function callUnitool(messages) {
     if (line.startsWith("data: ")) {
       const d = line.slice(6);
       if (d === "[DONE]") break;
-      try { const p = JSON.parse(d); if (p.content) content += p.content; } catch {}
+      try { const p = JSON.parse(d); if (p.content) content += p.content; } catch { /* skip */ }
     }
   }
   return content.trim() || "";
@@ -192,133 +193,104 @@ const BRAIN_HANDLERS = {
   studentai: callStudentAI, eqing: callEqing, unitool: callUnitool,
 };
 
-// ── Plugin entrypoint ──────────────────────────────────────────────────────
+// ── Tool definitions (Teleton plugin contract) ──────────────────────────────
 
-module.exports = async function powerxPlugin(sdk) {
-  const log = sdk.logger;
-
-  /**
-   * Tool: powerx_ask — ask a specific brain
-   */
-  sdk.registerTool({
+const tools = [
+  {
     name: "powerx_ask",
-    description: "Ask a specific PowerX AI brain a question. Brains: hotbot (GPT-5), gemini, sakana, novita (DeepSeek V4), deepseek (free), studentai, eqing (GPT-3.5), unitool (vision). Use 'auto' for best available.",
+    description: "Ask a specific PowerX AI brain a question. Brains: hotbot (GPT-5), gemini, sakana, novita (DeepSeek V4), deepseek (free), studentai, eqing (GPT-3.5), unitool (vision). Use 'auto' for the best available brain.",
     parameters: {
       type: "object",
       properties: {
-        brain: { type: "string", enum: ["auto", "hotbot", "gemini", "sakana", "novita", "deepseek", "studentai", "eqing", "unitool"], default: "auto" },
+        brain: { type: "string", description: "auto | hotbot | gemini | sakana | novita | deepseek | studentai | eqing | unitool" },
         prompt: { type: "string", description: "The question or task" },
         system: { type: "string", description: "Optional system prompt" },
       },
       required: ["prompt"],
     },
-    handler: async (params) => {
-      const brain = (params.brain || "auto").toLowerCase();
-      const prompt = params.prompt?.trim();
-      const system = params.system?.trim();
-      if (!prompt) return { success: false, data: "No prompt provided." };
+    async execute(params) {
+      const brain = String(params.brain || "auto").toLowerCase();
+      const prompt = String(params.prompt || "").trim();
+      const system = params.system ? String(params.system).trim() : "";
+      if (!prompt) return "Error: no prompt provided.";
 
       const messages = [];
       if (system) messages.push({ role: "system", content: system });
       messages.push({ role: "user", content: prompt });
 
-      try {
-        if (brain === "auto") {
-          const config = sdk.config;
-          let lastError = "No brains available";
-          for (const b of BRAIN_PRIORITY) {
-            try {
-              if (BRAIN_HANDLERS[b]) {
-                const reply = await BRAIN_HANDLERS[b](messages, config);
-                if (reply && reply.length > 10) {
-                  return { success: true, data: `**[${BRAIN_CAPABILITIES[b].name}]** replied:\n\n${reply}` };
-                }
-              }
-            } catch (e) { lastError = e.message; }
-          }
-          return { success: false, data: `All brains failed: ${lastError}` };
+      if (brain === "auto") {
+        let lastError = "no brains available";
+        for (const b of BRAIN_PRIORITY) {
+          try {
+            const reply = await BRAIN_HANDLERS[b](messages);
+            if (reply && reply.length > 5) return `[${BRAIN_CAPABILITIES[b].name}]\n\n${reply}`;
+          } catch (e) { lastError = e.message; }
         }
+        return `All brains failed: ${lastError}`;
+      }
 
-        if (!BRAIN_HANDLERS[brain]) {
-          return { success: false, data: `Unknown brain: ${brain}` };
-        }
-        const reply = await BRAIN_HANDLERS[brain](messages, sdk.config);
-        const name = BRAIN_CAPABILITIES[brain]?.name || brain;
-        return { success: true, data: `**[${name}]** replied:\n\n${reply}` };
+      if (!BRAIN_HANDLERS[brain]) return `Unknown brain: ${brain}`;
+      try {
+        const reply = await BRAIN_HANDLERS[brain](messages);
+        return `[${BRAIN_CAPABILITIES[brain]?.name || brain}]\n\n${reply}`;
       } catch (e) {
-        return { success: false, data: `Error calling ${brain}: ${e.message}` };
+        return `Error calling ${brain}: ${e.message}`;
       }
     },
-  });
-
-  /**
-   * Tool: powerx_fusion — run all brains in parallel, synthesise best answer
-   */
-  sdk.registerTool({
+  },
+  {
     name: "powerx_fusion",
-    description: "Run multiple PowerX AI brains in parallel and synthesise the best answer. Higher quality than any single brain. Use for complex questions, coding, analysis.",
+    description: "Run multiple PowerX AI brains in parallel and return the best answer. Higher quality than any single brain. Use for complex questions, coding, and analysis.",
     parameters: {
       type: "object",
       properties: {
         prompt: { type: "string", description: "The question or task" },
         system: { type: "string", description: "Optional system prompt" },
-        brains: { type: "string", description: "Comma-separated brains (default: all enabled)" },
       },
       required: ["prompt"],
     },
-    handler: async (params) => {
-      const prompt = params.prompt?.trim();
-      const system = params.system?.trim();
-      if (!prompt) return { success: false, data: "No prompt provided." };
+    async execute(params) {
+      const prompt = String(params.prompt || "").trim();
+      const system = params.system ? String(params.system).trim() : "";
+      if (!prompt) return "Error: no prompt provided.";
 
       const messages = [];
       if (system) messages.push({ role: "system", content: system });
       messages.push({ role: "user", content: prompt });
 
       const results = [];
-      const config = sdk.config;
+      await Promise.allSettled(
+        BRAIN_PRIORITY.map(async (name) => {
+          const handler = BRAIN_HANDLERS[name];
+          if (!handler) return;
+          try {
+            const reply = await handler(messages);
+            if (reply && reply.length > 5) results.push({ brain: name, reply });
+          } catch { /* skip failed brain */ }
+        })
+      );
 
-      await Promise.allSettled(Object.entries(BRAIN_HANDLERS).map(async ([name, handler]) => {
-        try {
-          const reply = await handler(messages, config);
-          if (reply && reply.length > 10) results.push({ brain: name, reply });
-        } catch (e) {
-          log.warn(`PowerX ${name} failed: ${e.message}`);
-        }
-      }));
-
-      if (results.length === 0) {
-        return { success: false, data: "All PowerX brains failed." };
-      }
-
-      const brainNames = results.map(r => BRAIN_CAPABILITIES[r.brain]?.name || r.brain).join(", ");
-
-      if (results.length === 1) {
-        return { success: true, data: `**🧠 ${brainNames}** replied:\n\n${results[0].reply}` };
-      }
-
-      return { success: true, data: `**🧠 Fusion from ${brainNames}**\n\n${results[0].reply}\n\n---\n*Also consulted: ${results.slice(1).map(r => r.brain).join(", ")}*` };
+      if (results.length === 0) return "All PowerX brains failed.";
+      results.sort((a, b) => BRAIN_PRIORITY.indexOf(a.brain) - BRAIN_PRIORITY.indexOf(b.brain));
+      const names = results.map((r) => BRAIN_CAPABILITIES[r.brain]?.name || r.brain).join(", ");
+      return `[Fusion from ${names}]\n\n${results[0].reply}`;
     },
-  });
-
-  /**
-   * Tool: powerx_list_brains — list all available brains
-   */
-  sdk.registerTool({
+  },
+  {
     name: "powerx_list_brains",
     description: "List all available PowerX AI brains and their capabilities.",
     parameters: { type: "object", properties: {} },
-    handler: async () => {
+    async execute() {
       const lines = Object.entries(BRAIN_CAPABILITIES).map(([key, info]) => {
         const features = ["text"];
         if (info.vision) features.push("vision/images");
         const price = info.free ? "free" : "paid";
         const keyStatus = info.key ? `needs ${info.key}` : "no key needed";
-        return `• **${info.name}** (\`${key}\`): ${features.join(", ")} — ${price}, ${keyStatus}`;
+        return `- ${info.name} (${key}): ${features.join(", ")}, ${price}, ${keyStatus}`;
       });
-      return { success: true, data: `Available PowerX AI Brains:\n\n${lines.join("\n")}` };
+      return `Available PowerX AI Brains:\n\n${lines.join("\n")}`;
     },
-  });
+  },
+];
 
-  log.info("PowerX plugin loaded with 3 tools (powerx_ask, powerx_fusion, powerx_list_brains)");
-};
+module.exports = { tools };
